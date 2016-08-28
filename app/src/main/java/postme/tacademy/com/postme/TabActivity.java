@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.widget.Toast;
 
 import postme.tacademy.com.postme.Fragment.CubbyholeFrament;
 import postme.tacademy.com.postme.Fragment.HistoryFragment;
@@ -42,6 +41,5 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(TabActivity.this, "바뀜", Toast.LENGTH_SHORT).show();
     }
 }

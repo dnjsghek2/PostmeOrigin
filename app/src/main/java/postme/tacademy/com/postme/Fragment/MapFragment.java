@@ -1,7 +1,10 @@
 package postme.tacademy.com.postme.Fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +34,6 @@ public class MapFragment extends Fragment implements
         GoogleMap.OnMarkerClickListener,      //마커 클릭시 이벤트 처리
         GoogleMap.OnInfoWindowClickListener,  //Infowindow 클릭시 이벤트 처리
         GoogleMap.OnMarkerDragListener {
-    String TAG = "TAG_D";
     Menu menu;
     MenuInflater menuInflater;
     static View view;
@@ -43,7 +45,6 @@ public class MapFragment extends Fragment implements
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
         if (view == null) {
             view = inflater.inflate(R.layout.f_map, container, false); //비어있는 layout 생성
             SupportMapFragment fragment =
@@ -60,7 +61,6 @@ public class MapFragment extends Fragment implements
                     fab.hide();
                 }
             });
-
         }
         return view; //완성된 VIEW return
     }
@@ -83,6 +83,7 @@ public class MapFragment extends Fragment implements
                 break;
             case R.id.ok:
                 final PostMeDialog postMeDialog = new PostMeDialog(getContext());
+                postMeDialog.setContents("서울대 샤로수 콕이 생성되었습니다. 포스트 작성 화면으로 이동하겠습니다");
                 postMeDialog.show();
                 break;
             case R.id.cancel:
@@ -112,7 +113,20 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+        GoogleMap map;                            //구글맵 변수
+        map = googleMap;
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        map.setMyLocationEnabled(true);
+        map.getUiSettings().setCompassEnabled(true);
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.setOnCameraMoveListener(this);
+        map.setOnMapClickListener(this);
+        map.setOnMarkerClickListener(this);
+        map.setOnInfoWindowClickListener(this);
+        map.setOnMarkerDragListener(this);
     }
 
     @Override

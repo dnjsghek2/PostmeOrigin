@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import postme.tacademy.com.postme.indicator.SampleActivity;
+
 
 /**
  * Created by Monkey on 2016. 8. 23..
@@ -23,9 +25,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(SplashActivity.this, postme.tacademy.com.postme.indicator.MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
-
                 finish();
             }
         }, SPLASH_TIME_OUT);

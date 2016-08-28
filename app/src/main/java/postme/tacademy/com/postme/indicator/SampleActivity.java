@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import postme.tacademy.com.postme.R;
 
 
-public class MainActivity extends AppCompatActivity {
+public class SampleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,6 +21,5 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, demoFragment);
         fragmentTransaction.commit();
-
     }
 }
