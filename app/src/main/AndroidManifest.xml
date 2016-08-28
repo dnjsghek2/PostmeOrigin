@@ -2,19 +2,60 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="postme.tacademy.com.postme">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <!-- kakao mata -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/koko_api_key" />
+
+        <!-- facebook mata -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBe7Rh3klzH79YHlQn2GPFsN3W5vAJCZgA" />
+
+        <activity android:name=".TabActivity"
+            android:exported="true"/>
+        //스플레쉬 액티비티 추가
+        <activity
+            android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".indicator.MainActivity"
+            android:theme="@style/AppTheme"></activity>
+
+        //인텐트 필터 옮김
+        <activity android:name=".MainActivity"></activity>
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".KakaoSignupActivity" />
+
     </application>
 
 </manifest>
