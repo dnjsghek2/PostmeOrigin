@@ -18,8 +18,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-import gpslocation.wonho.example.com.postmetest.PostMeDialog;
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.PostMeDialog;
+import postme.tacademy.com.postme.R;
+
 
 /**
  * Created by wonhochoi on 2016. 8. 4..

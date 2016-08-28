@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <gpslocation.wonho.example.com.postmetest.indicator.CircleIndicator
+    <postme.tacademy.com.postme.indicator.CircleIndicator
         android:id="@id/indicator"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"

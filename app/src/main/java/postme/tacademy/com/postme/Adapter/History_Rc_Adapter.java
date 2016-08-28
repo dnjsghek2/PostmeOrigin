@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import gpslocation.wonho.example.com.postmetest.Interface.OnItemTouchListener;
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.Interface.OnItemTouchListener;
+import postme.tacademy.com.postme.R;
+
 
 /**
  * Created by wonhochoi on 2016. 8. 23..

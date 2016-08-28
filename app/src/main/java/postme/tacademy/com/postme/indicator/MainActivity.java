@@ -6,7 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.R;
+
 
 public class MainActivity extends AppCompatActivity {
 

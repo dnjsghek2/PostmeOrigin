@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.R;
 
 
 public class CustomAnimationFragment extends Fragment {

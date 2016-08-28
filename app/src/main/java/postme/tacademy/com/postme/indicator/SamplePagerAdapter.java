@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 
 import java.util.Random;
 
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.R;
+
 
 public class SamplePagerAdapter extends PagerAdapter {
 

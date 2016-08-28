@@ -14,7 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.R;
+
 
 /**
  * Created by Monkey on 2016. 8. 24..

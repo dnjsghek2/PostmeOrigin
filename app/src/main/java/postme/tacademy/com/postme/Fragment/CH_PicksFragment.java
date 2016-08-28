@@ -12,9 +12,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import gpslocation.wonho.example.com.postmetest.Adapter.CH_Pick_Rc_Adapter;
-import gpslocation.wonho.example.com.postmetest.Interface.OnItemTouchListener;
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.Adapter.CH_Pick_Rc_Adapter;
+import postme.tacademy.com.postme.Interface.OnItemTouchListener;
+import postme.tacademy.com.postme.R;
+
 
 /**
  * Created by wonhochoi on 2016. 8. 24..

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import gpslocation.wonho.example.com.postmetest.indicator.*;
 
 /**
  * Created by Monkey on 2016. 8. 23..
@@ -24,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(SplashActivity.this, gpslocation.wonho.example.com.postmetest.indicator.MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, postme.tacademy.com.postme.indicator.MainActivity.class);
                 startActivity(i);
 
                 finish();

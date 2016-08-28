@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import gpslocation.wonho.example.com.postmetest.R;
+import postme.tacademy.com.postme.R;
+
 
 /**
  * Created by wonhochoi on 2016. 8. 24..

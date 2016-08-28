@@ -14,7 +14,8 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-import gpslocation.wonho.example.com.postmetest.R;
+
+import postme.tacademy.com.postme.R;
 
 import static android.support.v4.view.ViewPager.OnPageChangeListener;
 
