@@ -14,12 +14,92 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start PostMe"
-        android:id="@+id/textView15"
+        android:text="POST ME"
+        android:textSize="50dp"
+        android:id="@+id/text_uinfo_POSTME"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POSTME에 오신 것을 환영합니다"
+        android:textSize="25dp"
+        android:id="@+id/text_uinfo_welcome"
+        android:layout_below="@+id/text_uinfo_POSTME"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <postme.tacademy.com.postme.UserInfoEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="닉네임을 입력해주세요"
+        android:layout_below="@+id/text_uinfo_welcome"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="69dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_uinfo"
+        android:spinnerMode="dropdown"
+        android:background="#96dfb4"
+        android:entries="@array/nacimiento_array"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <RadioGroup
+        android:id="@+id/radiogroup_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:padding="50dp"
+        android:layout_below="@+id/spinner_uinfo"
+        android:layout_centerHorizontal="true">
+
+
+        <RadioButton
+            android:id="@+id/radio_man_uinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:layout_below="@+id/spinner_uinfo"
+            android:layout_toLeftOf="@+id/btn_userinfo"
+            android:layout_toStartOf="@+id/btn_userinfo"
+            android:padding="30dp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="0dp"
+            android:button="@drawable/selectonoff"/>
+
+        <RadioButton
+            android:id="@+id/radio_woman_uinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:layout_alignTop="@+id/radio_man_uinfo"
+            android:layout_alignRight="@+id/btn_userinfo"
+            android:layout_alignEnd="@+id/btn_userinfo"
+            android:layout_weight="0"
+            android:padding="30dp"
+            android:layout_gravity="center_vertical"
+            android:button="@drawable/selectonoff"/>
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_uinfo_select"
+        android:layout_above="@+id/btn_userinfo"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

@@ -13,10 +13,84 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agree and Join"
+        android:text="Please Check all"
         android:id="@+id/btn_join"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yak_checkBox01"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="95dp"
+        android:checked="false"
+        android:text="yak01" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yak_checkBox02"
+        android:layout_below="@+id/yak_checkBox01"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="73dp"
+        android:checked="false"
+        android:text="yak02" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yak_checkBox03"
+        android:layout_above="@+id/yak_checkBox04"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="102dp"
+        android:checked="false"
+        android:text="yak03" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yak_checkBox04"
+        android:layout_marginBottom="45dp"
+        android:layout_above="@+id/btn_join"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:checked="false"
+        android:text="yak04" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/style_underline"
+        android:textSize="20sp"
+        android:id="@+id/yak_view01"
+        android:layout_alignTop="@+id/yak_checkBox01"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/style_underline"
+        android:textSize="20sp"
+        android:id="@+id/yak_view02"
+        android:layout_alignTop="@+id/yak_checkBox02"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/style_underline"
+        android:textSize="20sp"
+        android:id="@+id/yak_view03"
+        android:layout_alignTop="@+id/yak_checkBox03"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
