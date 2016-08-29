@@ -50,6 +50,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "실행", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UserInfoActivity.this, TabActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         

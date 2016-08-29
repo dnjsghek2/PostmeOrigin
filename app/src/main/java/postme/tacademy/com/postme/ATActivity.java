@@ -52,6 +52,7 @@ public class ATActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "실행", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ATActivity.this, UserInfoActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
