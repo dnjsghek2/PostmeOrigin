@@ -117,6 +117,7 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
     }
 
     @Override
