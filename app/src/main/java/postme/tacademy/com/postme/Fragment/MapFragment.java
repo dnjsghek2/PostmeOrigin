@@ -1,6 +1,7 @@
 package postme.tacademy.com.postme.Fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,8 +22,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
+import java.util.Observer;
+
 import postme.tacademy.com.postme.PostMeDialog;
 import postme.tacademy.com.postme.R;
+import postme.tacademy.com.postme.WritingActivity;
 
 
 /**
@@ -34,12 +38,11 @@ public class MapFragment extends Fragment implements
         GoogleMap.OnMarkerClickListener,      //마커 클릭시 이벤트 처리
         GoogleMap.OnInfoWindowClickListener,  //Infowindow 클릭시 이벤트 처리
         GoogleMap.OnMarkerDragListener {
-    Menu menu;
-    MenuInflater menuInflater;
+    static public Menu menu;
+    static public MenuInflater menuInflater;
     static View view;
-    FloatingActionButton fab;
+    static public FloatingActionButton fab;
     public MapFragment() {
-
     }
 
     @Override
@@ -56,7 +59,7 @@ public class MapFragment extends Fragment implements
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    menu.removeItem(R.id.Search);
+                    menu.removeItem(R.id.map_search);
                     menuInflater.inflate(R.menu.menu_fba, menu);
                     fab.hide();
                 }
@@ -78,19 +81,20 @@ public class MapFragment extends Fragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.Search:
+            case R.id.map_search:
                 Toast.makeText(getContext(), "실행됨", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.ok:
-                final PostMeDialog postMeDialog = new PostMeDialog(getContext());
-                postMeDialog.setContents("서울대 샤로수 콕이 생성되었습니다. 포스트 작성 화면으로 이동하겠습니다");
-                postMeDialog.show();
+            case R.id.fba_ok:
+                MapFragment.fab.show();
+                MapFragment.menu.removeItem(R.id.fba_ok);
+                MapFragment.menu.removeItem(R.id.fba_cancel);
+                MapFragment.menuInflater.inflate(R.menu.menu_map, MapFragment.menu);
+                Intent intent = new Intent(getContext(), WritingActivity.class);
+                getContext().startActivity(intent);
                 break;
-            case R.id.cancel:
-                menu.removeItem(R.id.ok);
-                menu.removeItem(R.id.cancel);
-                menuInflater.inflate(R.menu.menu_map, menu);
-                fab.show();
+            case R.id.fba_cancel:
+                final PostMeDialog postMeDialog = new PostMeDialog(getContext());
+                postMeDialog.show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -113,20 +117,6 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        GoogleMap map;                            //구글맵 변수
-        map = googleMap;
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        map.setMyLocationEnabled(true);
-        map.getUiSettings().setCompassEnabled(true);
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.setOnCameraMoveListener(this);
-        map.setOnMapClickListener(this);
-        map.setOnMarkerClickListener(this);
-        map.setOnInfoWindowClickListener(this);
-        map.setOnMarkerDragListener(this);
     }
 
     @Override
@@ -147,4 +137,5 @@ public class MapFragment extends Fragment implements
     @Override
     public void onMarkerDragEnd(Marker marker) {
     }
+
 }

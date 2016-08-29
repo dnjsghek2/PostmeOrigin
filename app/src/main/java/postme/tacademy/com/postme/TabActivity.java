@@ -18,7 +18,7 @@ public class TabActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_tab);
-        setSupportActionBar((Toolbar) findViewById(R.id.my_awesome_toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.tab_toolbar));
 
         tabHost = (FragmentTabHost) findViewById(R.id.tabhost);                     //프레그먼트 탭호스트 정의
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);  //.setup(context, Manager, layout)
