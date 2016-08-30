@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
-import postme.tacademy.com.postme.Fragment.CubbyholeFrament;
-import postme.tacademy.com.postme.Fragment.HistoryFragment;
-import postme.tacademy.com.postme.Fragment.MapFragment;
-import postme.tacademy.com.postme.Fragment.SettingFragment;
+import postme.tacademy.com.postme.fragment.CubbyholeFrament;
+import postme.tacademy.com.postme.fragment.HistoryFragment;
+import postme.tacademy.com.postme.fragment.MapFragment;
+import postme.tacademy.com.postme.fragment.SettingFragment;
 
 
 public class TabActivity extends AppCompatActivity {

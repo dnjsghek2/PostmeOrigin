@@ -6,11 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import postme.tacademy.com.postme.Adapter.Post_Rc_Adapter;
+import postme.tacademy.com.postme.adapter.Post_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 
 /**

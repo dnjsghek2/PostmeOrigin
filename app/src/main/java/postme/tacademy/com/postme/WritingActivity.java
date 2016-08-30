@@ -17,16 +17,14 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import postme.tacademy.com.postme.Dialolg.WritingDialog;
+import postme.tacademy.com.postme.dialolg.WritingDialog;
 
 /**
  * Created by wonhochoi on 2016. 8. 29..
