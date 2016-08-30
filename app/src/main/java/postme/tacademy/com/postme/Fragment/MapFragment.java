@@ -64,8 +64,9 @@ public class MapFragment extends Fragment implements
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    menu.removeItem(R.id.map_search);
-                    menuInflater.inflate(R.menu.menu_fba, menu);
+                    menu.getItem(0).setVisible(false);
+                    menu.getItem(1).setVisible(true);
+                    menu.getItem(2).setVisible(true);
                     fab.hide();
                 }
             });
@@ -89,15 +90,15 @@ public class MapFragment extends Fragment implements
             case R.id.map_search:
                 Toast.makeText(getContext(), "실행됨", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.fba_ok:
-                MapFragment.fab.show();
-                MapFragment.menu.removeItem(R.id.fba_ok);
-                MapFragment.menu.removeItem(R.id.fba_cancel);
-                MapFragment.menuInflater.inflate(R.menu.menu_map, MapFragment.menu);
+            case R.id.map_ok:
+                fab.show();
+                MapFragment.menu.getItem(0).setVisible(true);
+                MapFragment.menu.getItem(1).setVisible(false);
+                MapFragment.menu.getItem(2).setVisible(false);
                 Intent intent = new Intent(getContext(), WritingActivity.class);
                 getContext().startActivity(intent);
                 break;
-            case R.id.fba_cancel:
+            case R.id.map_cancel:
                 final MapDialog mapDialog = new MapDialog(getContext());
                 mapDialog.show();
                 break;

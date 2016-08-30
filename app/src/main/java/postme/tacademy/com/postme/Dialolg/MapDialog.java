@@ -18,7 +18,6 @@ public class MapDialog extends Dialog {
         super(context);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +28,9 @@ public class MapDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 MapFragment.fab.show();
-                MapFragment.menu.removeItem(R.id.fba_ok);
-                MapFragment.menu.removeItem(R.id.fba_cancel);
-                MapFragment.menuInflater.inflate(R.menu.menu_map, MapFragment.menu);
+                MapFragment.menu.getItem(0).setVisible(true);
+                MapFragment.menu.getItem(1).setVisible(false);
+                MapFragment.menu.getItem(2).setVisible(false);
                 MapDialog.this.dismiss();
             }
         });

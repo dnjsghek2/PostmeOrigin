@@ -29,7 +29,10 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:9.4.0'
     compile 'com.google.android.gms:play-services-maps:9.4.0'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
-
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.begentgroup.xmlparser:simple-xml-parser:0.1.2'
+    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
 }
 
 //카카오
