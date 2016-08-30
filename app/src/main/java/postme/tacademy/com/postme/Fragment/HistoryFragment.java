@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import postme.tacademy.com.postme.Adapter.History_Rc_Adapter;
+import postme.tacademy.com.postme.Adapter.Post_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
 
@@ -22,7 +22,7 @@ import postme.tacademy.com.postme.R;
  * Created by wonhochoi on 2016. 8. 23..
  */
 public class HistoryFragment extends Fragment {
-    private History_Rc_Adapter mAdapter;
+    private Post_Rc_Adapter mAdapter;
     private ArrayList<String> mItems;
 
     public HistoryFragment() {
@@ -38,8 +38,8 @@ public class HistoryFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        mItems = new ArrayList<>(30);
-        for (int i = 0; i < 30; i++) {
+        mItems = new ArrayList<>(10);
+        for (int i = 0; i < 10; i++) {
             mItems.add(String.format("Card number %02d", i));
         }
         OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
@@ -58,7 +58,7 @@ public class HistoryFragment extends Fragment {
                 Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
             }
         };
-        mAdapter = new History_Rc_Adapter(mItems, itemTouchListener);
+        mAdapter = new Post_Rc_Adapter(mItems, itemTouchListener);
 
         recyclerView.setAdapter(mAdapter);
 

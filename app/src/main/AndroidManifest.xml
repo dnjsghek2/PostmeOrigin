@@ -56,7 +56,8 @@
         <activity android:name=".UserInfoActivity"/>
         <activity android:name=".WritingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity android:name=".PostlistActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!--
 
         <activity

@@ -49,7 +49,10 @@ public class CH_PushFragment extends Fragment {
 
             @Override
             public void onButton2Click(View view, int position) {
-                Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
+                mItems.remove(position);
+                mAdapter.notifyItemRemoved(position);
+                Toast.makeText(getContext(), "삭제" + mItems.get(position), Toast.LENGTH_SHORT).show();
+                mAdapter.notifyDataSetChanged();
             }
         };
         mAdapter = new CH_Push_Rc_Adapter(mItems, itemTouchListener);

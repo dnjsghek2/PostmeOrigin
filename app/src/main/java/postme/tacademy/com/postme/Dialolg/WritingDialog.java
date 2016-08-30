@@ -1,22 +1,25 @@
-package postme.tacademy.com.postme;
+package postme.tacademy.com.postme.Dialolg;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
 
-import postme.tacademy.com.postme.Fragment.MapFragment;
+import postme.tacademy.com.postme.R;
+import postme.tacademy.com.postme.WritingActivity;
 
-public class PostMeDialog extends Dialog {
+/**
+ * Created by wonhochoi on 2016. 8. 29..
+ */
+public class WritingDialog extends Dialog {
 
     String contents;
-
-    public PostMeDialog(Context context) {
+    Context context;
+    public WritingDialog(Context context) {
         super(context);
+        this.context = context;
     }
 
 
@@ -24,23 +27,19 @@ public class PostMeDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog);
-        Button ok_btn = (Button) findViewById(R.id.postOk);
+        setContentView(R.layout.d_writing);
+        Button ok_btn = (Button) findViewById(R.id.writingOk);
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MapFragment.fab.show();
-                MapFragment.menu.removeItem(R.id.fba_ok);
-                MapFragment.menu.removeItem(R.id.fba_cancel);
-                MapFragment.menuInflater.inflate(R.menu.menu_map, MapFragment.menu);
-                PostMeDialog.this.dismiss();
+                ((WritingActivity)context).finish();
             }
         });
-        Button Cancel_btn = (Button) findViewById(R.id.postCancel);
+        Button Cancel_btn = (Button) findViewById(R.id.writingCancel);
         Cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PostMeDialog.this.dismiss();
+            dismiss();
             }
         });
     }

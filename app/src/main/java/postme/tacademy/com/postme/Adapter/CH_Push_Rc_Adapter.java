@@ -44,7 +44,7 @@ public class CH_Push_Rc_Adapter extends RecyclerView.Adapter<CH_Push_Rc_Adapter.
 
         public ViewHolder(View itemView) {
             super(itemView);
-            Pushdelete = (Button) itemView.findViewById(R.id.pushdelete);
+            Pushdelete = (Button) itemView.findViewById(R.id.Push_delete);
 
             Pushdelete.setOnClickListener(new View.OnClickListener() {
                 @Override

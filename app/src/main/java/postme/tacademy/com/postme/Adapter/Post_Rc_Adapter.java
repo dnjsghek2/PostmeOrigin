@@ -16,11 +16,11 @@ import postme.tacademy.com.postme.R;
 /**
  * Created by wonhochoi on 2016. 8. 23..
  */
-public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.ViewHolder>{
+public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHolder>{
     private List<String> cards;
     private OnItemTouchListener onItemTouchListener;
 
-    public History_Rc_Adapter(List<String> cards, OnItemTouchListener onItemTouchListener) {
+    public Post_Rc_Adapter(List<String> cards, OnItemTouchListener onItemTouchListener) {
         this.cards = cards;
         this.onItemTouchListener = onItemTouchListener;
     }

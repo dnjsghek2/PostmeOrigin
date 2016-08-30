@@ -25,7 +25,7 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
     private List<String> cards;
     private OnItemTouchListener onItemTouchListener;
 
-    public CH_Pick_Rc_Adapter(List<String> cards, OnItemTouchListener onItemTouchListener, Fragment getFragment) {
+    public CH_Pick_Rc_Adapter(List<String> cards, OnItemTouchListener onItemTouchListener) {
         this.cards = cards;
         this.onItemTouchListener = onItemTouchListener;
     }

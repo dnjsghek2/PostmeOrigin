@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -18,11 +19,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import postme.tacademy.com.postme.Dialolg.WritingDialog;
 
 /**
  * Created by wonhochoi on 2016. 8. 29..
@@ -103,6 +107,20 @@ public class WritingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_writing, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.writing_ok:
+                finish();
+                break;
+            case R.id.writing_cancel:
+                final WritingDialog writingDialog = new WritingDialog(this);
+                writingDialog.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     void ToggleCheck() {

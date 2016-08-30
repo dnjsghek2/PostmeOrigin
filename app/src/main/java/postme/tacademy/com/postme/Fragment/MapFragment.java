@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,9 +24,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Observer;
-
-import postme.tacademy.com.postme.PostMeDialog;
+import postme.tacademy.com.postme.Dialolg.MapDialog;
+import postme.tacademy.com.postme.PostlistActivity;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.WritingActivity;
 
@@ -47,6 +46,7 @@ public class MapFragment extends Fragment implements
     static public SupportMapFragment fragment;
     static final LatLng SEOUL = new LatLng(37.56, 126.97);
     private GoogleMap googleMap;
+
     public MapFragment() {
     }
 
@@ -98,8 +98,8 @@ public class MapFragment extends Fragment implements
                 getContext().startActivity(intent);
                 break;
             case R.id.fba_cancel:
-                final PostMeDialog postMeDialog = new PostMeDialog(getContext());
-                postMeDialog.show();
+                final MapDialog mapDialog = new MapDialog(getContext());
+                mapDialog.show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -111,43 +111,51 @@ public class MapFragment extends Fragment implements
     }
 
     @Override
-    public void onInfoWindowClick(Marker marker) {
-
-    }
-
-    @Override
     public void onMapClick(LatLng latLng) {
 
+    }
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(getContext(), "호출", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), PostlistActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void onMapReady(GoogleMap Map) {
         googleMap = Map;
 
-
-        if (ActivityCompat.checkSelfPermission(getContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestLocationPermission();
         }
         googleMap.setMyLocationEnabled(true);
 
         Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL)
-                .title("Seoul"));
+                .title("글들보기"));
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Toast.makeText(getContext(), "호출", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), PostlistActivity.class);
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( SEOUL, 15));
+                startActivity(intent);
+            }
+        });
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 15));
 
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
 
+    private void requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+        }
+
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, RC_LOCATION_PERMISSION);
+    }
+
+    private static final int RC_LOCATION_PERMISSION = 100;
 
     @Override
     public boolean onMarkerClick(Marker marker) {
