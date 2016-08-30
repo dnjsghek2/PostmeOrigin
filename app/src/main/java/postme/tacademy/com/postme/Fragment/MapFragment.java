@@ -1,4 +1,4 @@
-package postme.tacademy.com.postme.Fragment;
+package postme.tacademy.com.postme.fragment;
 
 import android.Manifest;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import postme.tacademy.com.postme.Dialolg.MapDialog;
+import postme.tacademy.com.postme.dialolg.MapDialog;
 import postme.tacademy.com.postme.PostlistActivity;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.WritingActivity;

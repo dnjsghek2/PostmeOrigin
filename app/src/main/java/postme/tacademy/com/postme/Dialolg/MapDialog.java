@@ -1,4 +1,4 @@
-package postme.tacademy.com.postme.Dialolg;
+package postme.tacademy.com.postme.dialolg;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-import postme.tacademy.com.postme.Fragment.MapFragment;
+import postme.tacademy.com.postme.fragment.MapFragment;
 import postme.tacademy.com.postme.R;
 
 public class MapDialog extends Dialog {

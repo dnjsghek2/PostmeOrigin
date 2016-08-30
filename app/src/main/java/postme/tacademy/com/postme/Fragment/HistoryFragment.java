@@ -1,4 +1,4 @@
-package postme.tacademy.com.postme.Fragment;
+package postme.tacademy.com.postme.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import postme.tacademy.com.postme.Adapter.Post_Rc_Adapter;
+import postme.tacademy.com.postme.adapter.Post_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
 

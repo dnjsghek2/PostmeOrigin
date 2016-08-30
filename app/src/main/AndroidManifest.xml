@@ -58,6 +58,10 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".PostlistActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".fragment.SettingFragmentUserInfo"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".fragment.SettingNickName"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!--
 
         <activity

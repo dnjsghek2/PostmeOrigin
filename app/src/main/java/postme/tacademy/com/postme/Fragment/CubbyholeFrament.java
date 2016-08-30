@@ -1,4 +1,4 @@
-package postme.tacademy.com.postme.Fragment;
+package postme.tacademy.com.postme.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

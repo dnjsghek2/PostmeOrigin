@@ -1,4 +1,4 @@
-package postme.tacademy.com.postme.Dialolg;
+package postme.tacademy.com.postme.dialolg;
 
 import android.app.Dialog;
 import android.content.Context;
