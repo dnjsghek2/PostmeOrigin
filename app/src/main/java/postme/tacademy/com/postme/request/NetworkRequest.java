@@ -31,7 +31,7 @@ public abstract class NetworkRequest<T> implements Callback {
         call.enqueue(this);                          //비동기식 통신으로 실행
     }
 
-    public T processSync(OkHttpClient client) throws IOException {          //동기식 통신메서드
+   /* public T processSync(OkHttpClient client) throws IOException {          //동기식 통신메서드
         Request request = getRequest();
         call = client.newCall(request);
         Response response = call.execute();
@@ -41,7 +41,7 @@ public abstract class NetworkRequest<T> implements Callback {
         } else {
             throw new IOException("code : " + response.code() + ",message : " + response.message());
         }
-    }
+    }*/
 
     @Override
     public void onFailure(Call call, IOException e) { //통신실패시 실행 메소드

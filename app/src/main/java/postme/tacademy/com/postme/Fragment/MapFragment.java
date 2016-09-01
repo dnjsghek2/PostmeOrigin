@@ -24,10 +24,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import postme.tacademy.com.postme.data.Cok;
+import postme.tacademy.com.postme.data.CokList;
+import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.dialolg.MapDialog;
 import postme.tacademy.com.postme.PostlistActivity;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.WritingActivity;
+import postme.tacademy.com.postme.manager.NetworkManager;
+import postme.tacademy.com.postme.request.Map_Request;
+import postme.tacademy.com.postme.request.NetworkRequest;
 
 
 /**
@@ -88,8 +94,23 @@ public class MapFragment extends Fragment implements
         int id = item.getItemId();
         switch (id) {
             case R.id.map_search:
-                Toast.makeText(getContext(), "실행됨", Toast.LENGTH_SHORT).show();
+                Map_Request request = new Map_Request(getContext(), "37.56", "126.97", 0, 10);
+                NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<CokList>>() {
+                    @Override
+                    public void onSuccess(NetworkRequest<NetworkResult<CokList>> request, NetworkResult<CokList> result) {
+                        Cok coks[] = result.getResult().getCok();
+                        for (Cok cok : coks) {
+                            addMarker(cok);
+                        }
+                    }
+
+                    @Override
+                    public void onFail(NetworkRequest<NetworkResult<CokList>> request, int errorCode, String errorMessage, Throwable e) {
+
+                    }
+                });
                 break;
+
             case R.id.map_ok:
                 fab.show();
                 MapFragment.menu.getItem(0).setVisible(true);
@@ -98,6 +119,7 @@ public class MapFragment extends Fragment implements
                 Intent intent = new Intent(getContext(), WritingActivity.class);
                 getContext().startActivity(intent);
                 break;
+
             case R.id.map_cancel:
                 final MapDialog mapDialog = new MapDialog(getContext());
                 mapDialog.show();
@@ -115,6 +137,7 @@ public class MapFragment extends Fragment implements
     public void onMapClick(LatLng latLng) {
 
     }
+
     @Override
     public void onInfoWindowClick(Marker marker) {
         Toast.makeText(getContext(), "호출", Toast.LENGTH_SHORT).show();
@@ -133,12 +156,12 @@ public class MapFragment extends Fragment implements
 
         Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL)
                 .title("글들보기"));
+
+
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Toast.makeText(getContext(), "호출", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), PostlistActivity.class);
-
                 startActivity(intent);
             }
         });
@@ -165,16 +188,21 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onMarkerDragStart(Marker marker) {
-
     }
 
     @Override
     public void onMarkerDrag(Marker marker) {
-
     }
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
     }
 
+    private void addMarker(Cok cok) {
+        MarkerOptions options = new MarkerOptions();
+        options.position(new LatLng(cok.getLatitude(), cok.getLongitude()));
+        options.anchor(0.5f, 1);
+        options.title(cok.getCok_name());
+        Marker marker = googleMap.addMarker(options);
+    }
 }

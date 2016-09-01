@@ -12,12 +12,12 @@ import okhttp3.HttpUrl;
 import okhttp3.ResponseBody;
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.NetworkResultTemp;
+import postme.tacademy.com.postme.fragment.MapFragment;
 
 /**
  * Created by Administrator on 2016-08-09.
  */
 public abstract class AbstractRequest<T> extends NetworkRequest<T> {
-
     protected HttpUrl.Builder getBaseUrlBuilder() {
         HttpUrl.Builder builder = new HttpUrl.Builder();
         builder.scheme("https");
@@ -30,7 +30,10 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
         String text = body.string();
         Gson gson = new Gson();
         NetworkResultTemp temp = gson.fromJson(text, NetworkResultTemp.class);
-        if (temp.getCode() == 1) {
+        if (temp.getMessage() != null) {
+            T result = gson.fromJson(text, getType());
+            return result;
+        } else if (temp.getError() == null) {
             T result = gson.fromJson(text, getType());
             return result;
         } else {
@@ -38,6 +41,7 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
             }.getType();
             NetworkResult<String> result = gson.fromJson(text, type);
             throw new IOException(result.getResult());
+
         }
     }
 

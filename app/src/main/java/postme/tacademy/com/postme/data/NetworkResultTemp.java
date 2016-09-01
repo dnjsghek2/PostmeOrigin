@@ -5,8 +5,12 @@ package postme.tacademy.com.postme.data;
  */
 public class NetworkResultTemp {
     private int code;
+    private String error;
+    String message;
 
-    public int getCode() {
-        return code;
+    public String getMessage() {
+        return message;
     }
+    public String getError() {return error;}
+    public int getCode() {return code;}
 }

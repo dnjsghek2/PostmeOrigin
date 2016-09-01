@@ -40,8 +40,14 @@ public class MainActivity extends AppCompatActivity {
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<User>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<User>> request, NetworkResult<User> result) {
-                User user = result.getResult();
-                Toast.makeText(MainActivity.this, "user id : " + user.getName(), Toast.LENGTH_SHORT).show();
+                User user = result.getUser();
+                Toast.makeText(MainActivity.this,
+                        "email : "+result.getUser().getEmail()
+                        +", name : "+result.getUser().getName()
+                , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ATActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
