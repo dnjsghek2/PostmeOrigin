@@ -8,4 +8,7 @@
     <string name="add">Add</string>
     <string name="remove">Remove</string>
     <string name="reset">Random Reset</string>
+
+
+    <string name="location_placeholder">location_placeholder</string>
 </resources>

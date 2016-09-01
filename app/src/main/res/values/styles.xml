@@ -30,4 +30,13 @@
 
     <string name="style_underline"><u>보기</u></string>
 
+    <!--//History Toolbar Style Declare style-->
+    <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Toolbartitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="ToolbarSubtitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textColor">#56FFFFFF</item>
+    </style>
+
 </resources>

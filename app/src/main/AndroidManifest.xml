@@ -62,6 +62,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".fragment.SettingNickName"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+
+
         <!--
 
         <activity
