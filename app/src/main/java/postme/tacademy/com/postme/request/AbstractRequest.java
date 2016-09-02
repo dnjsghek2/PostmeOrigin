@@ -1,6 +1,8 @@
 package postme.tacademy.com.postme.request;
 
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,6 +20,7 @@ import postme.tacademy.com.postme.fragment.MapFragment;
  * Created by Administrator on 2016-08-09.
  */
 public abstract class AbstractRequest<T> extends NetworkRequest<T> {
+    String TAG_D = "AbstractRequest";
     protected HttpUrl.Builder getBaseUrlBuilder() {
         HttpUrl.Builder builder = new HttpUrl.Builder();
         builder.scheme("https");
@@ -28,6 +31,7 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
     @Override
     protected T parse(ResponseBody body) throws IOException {
         String text = body.string();
+        Log.d(TAG_D, text);
         Gson gson = new Gson();
         NetworkResultTemp temp = gson.fromJson(text, NetworkResultTemp.class);
         if (temp.getMessage() != null) {
@@ -44,6 +48,5 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
 
         }
     }
-
     protected abstract Type getType();
 }

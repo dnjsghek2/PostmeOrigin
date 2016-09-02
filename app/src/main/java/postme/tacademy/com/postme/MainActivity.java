@@ -1,59 +1,155 @@
 package postme.tacademy.com.postme;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.DefaultAudience;
+import com.facebook.login.LoginBehavior;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import java.util.Arrays;
+
+import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
-import postme.tacademy.com.postme.data.User;
+import postme.tacademy.com.postme.data.NetworkResultTemp;
 import postme.tacademy.com.postme.manager.NetworkManager;
-import postme.tacademy.com.postme.request.LoginRequest;
+import postme.tacademy.com.postme.request.FacebookLoginRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    CallbackManager callbackManager;
+    LoginManager mLoginManager;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button login_btn = (Button)findViewById(R.id.login);
-        login_btn.setOnClickListener(new View.OnClickListener() {
+        callbackManager = CallbackManager.Factory.create();
+        mLoginManager = LoginManager.getInstance();
+
+        facebookButton = (Button) findViewById(R.id.btn_login);
+        facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Toast.makeText(getApplicationContext(), "실행", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, ATActivity.class);
-                startActivity(intent);
-                finish();*/
-                onLogin();
+                if (isLogin()) {
+                    logoutFacebook();
+                } else {
+                    loginFacebook();
+                }
+            }
+        });
+        setButtonLabel();
+
+        Button btn = (Button) findViewById(R.id.btn_info);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
 
-    public void onLogin() {
+    private void setButtonLabel() {
+        if (isLogin()) {
+            facebookButton.setText("logout");
+        } else {
+            facebookButton.setText("login");
+        }
+    }
 
-        LoginRequest request = new LoginRequest(this, "didimdol@didimdol.com", "디딤돌", "디딤돌");
-        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<User>>() {
+    AccessTokenTracker mTracker;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mTracker == null) {
+            mTracker = new AccessTokenTracker() {
+                @Override
+                protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                    setButtonLabel();
+                }
+            };
+        } else {
+            mTracker.startTracking();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTracker.stopTracking();
+    }
+
+    private void logoutFacebook() {
+        mLoginManager.logOut();
+    }
+
+    Button facebookButton;
+
+    private void loginFacebook() {
+        mLoginManager.setDefaultAudience(DefaultAudience.FRIENDS);
+        mLoginManager.setLoginBehavior(LoginBehavior.NATIVE_WITH_FALLBACK);
+        mLoginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(NetworkRequest<NetworkResult<User>> request, NetworkResult<User> result) {
-                User user = result.getUser();
-                Toast.makeText(MainActivity.this,
-                        "email : "+result.getUser().getEmail()
-                        +", name : "+result.getUser().getName()
-                , Toast.LENGTH_SHORT).show();
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(MainActivity.this, "login manager...", Toast.LENGTH_SHORT).show();
+                /*puttoken(AccessToken.getCurrentAccessToken());*/
+                Intent intent = new Intent(MainActivity.this, ATActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+        mLoginManager.logInWithReadPermissions(this, Arrays.asList("email"));
+    }
+
+    private boolean isLogin() {
+        AccessToken token = AccessToken.getCurrentAccessToken();
+        return token != null;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void puttoken(AccessToken token) {
+
+        FacebookLoginRequest request = new FacebookLoginRequest(this, token);
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
+            @Override
+            public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
+                Toast.makeText(MainActivity.this,"Message : "+result.getResult().getMessage(), Toast.LENGTH_SHORT);
                 Intent intent = new Intent(MainActivity.this, ATActivity.class);
                 startActivity(intent);
                 finish();
             }
 
             @Override
-            public void onFail(NetworkRequest<NetworkResult<User>> request, int errorCode, String errorMessage, Throwable e) {
-                Toast.makeText(MainActivity.this, "error : " + errorMessage, Toast.LENGTH_SHORT).show();
-                Log.e("TAG_E", errorMessage);
+            public void onFail(NetworkRequest<NetworkResult<Message>> request, int errorCode, String errorMessage, Throwable e) {
             }
         });
     }

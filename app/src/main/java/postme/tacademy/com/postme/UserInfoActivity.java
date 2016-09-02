@@ -14,6 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import postme.tacademy.com.postme.data.Message;
+import postme.tacademy.com.postme.data.NetworkResult;
+import postme.tacademy.com.postme.manager.NetworkManager;
+import postme.tacademy.com.postme.request.NetworkRequest;
+import postme.tacademy.com.postme.request.UserInfoRequest;
+
 /**
  * Created by Monkey on 2016. 8. 29..
  */
@@ -47,10 +53,10 @@ public class UserInfoActivity extends AppCompatActivity {
         btn_userinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "실행", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UserInfoActivity.this, TabActivity.class);
+                onLogin();
+                /*Intent intent = new Intent(UserInfoActivity.this, TabActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
             }
         });
         
@@ -72,4 +78,24 @@ public class UserInfoActivity extends AppCompatActivity {
         tv.setText(resultText);
     }
 
+    public void onLogin() {
+
+        UserInfoRequest request = new UserInfoRequest(this, "wonho-choi", "man", "1991-10-10", "didimdol@didimdol.com");
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
+            @Override
+            public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
+                Toast.makeText(UserInfoActivity.this, "Message : "+result.getResult().getMessage(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(UserInfoActivity.this, TabActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFail(NetworkRequest<NetworkResult<Message>> request, int errorCode, String errorMessage, Throwable e) {
+                Toast.makeText(UserInfoActivity.this, "error : " + errorMessage, Toast.LENGTH_SHORT).show();
+                Log.e("TAG_E", errorMessage);
+            }
+        });
+    }
 }

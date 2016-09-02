@@ -23,17 +23,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBe7Rh3klzH79YHlQn2GPFsN3W5vAJCZgA" />
 
-        <!--
+<!--
                 &lt;!&ndash; kakao mata &ndash;&gt;
                 <meta-data
                     android:name="com.kakao.sdk.AppKey"
                     android:value="@string/koko_api_key" />
+-->
 
-                &lt;!&ndash; facebook mata &ndash;&gt;
+                <!-- facebook mata -->
                 <meta-data
                     android:name="com.facebook.sdk.ApplicationId"
                     android:value="@string/facebook_app_id" />
-        -->
 
         <activity android:name=".TabActivity"
             android:exported="true"
@@ -66,7 +66,7 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".fragment.SettingFragmentInformation"
             android:theme="@style/AppTheme"/>
-
+        <activity android:name=".LocalLoginActivity"/>
 
 
         <!--
@@ -76,14 +76,12 @@
             android:theme="@style/AppTheme"></activity>
 -->
 
-<!--
 
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
--->
 
     </application>
 
