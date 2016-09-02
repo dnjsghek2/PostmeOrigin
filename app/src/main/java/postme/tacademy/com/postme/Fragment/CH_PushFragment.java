@@ -12,9 +12,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import postme.tacademy.com.postme.PostMeApplication;
 import postme.tacademy.com.postme.adapter.CH_Push_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
+import postme.tacademy.com.postme.database.DBHelper;
+import postme.tacademy.com.postme.database.DBinfo;
 
 
 /**
@@ -22,20 +25,22 @@ import postme.tacademy.com.postme.R;
  */
 public class CH_PushFragment extends Fragment {
     private CH_Push_Rc_Adapter mAdapter;
-    private ArrayList<String> mItems;
-
+    /*private ArrayList<String> mItems;*/
+    private ArrayList<DBinfo> mItems;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.f_rc, container, false);
+        View view = inflater.inflate(R.layout.f_rc_cu, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final DBHelper dbHelper = new DBHelper(PostMeApplication.getContext(),"POSTMEPUSH.db", null, 1);
 
-        mItems = new ArrayList<>(30);
-        for (int i = 0; i < 30; i++) {
-            mItems.add(String.format("Card number %02d", i));
-        }
+        //********************실행시마다 5개씩 생성***********************
+//        dbHelper.forinsert();
+        /*mItems = new ArrayList<>();*/
+        mItems = dbHelper.getResult();
+
         OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
             @Override
             public void onCardViewTap(View view, int position) {

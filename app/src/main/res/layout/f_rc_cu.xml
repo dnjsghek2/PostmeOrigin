@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/history_toolbar"-->
+    <!--android:layout_height="161dp"-->
+    <!--app:popupTheme="@style/ActionBarPopupThemeOverlay"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:background="?attr/colorPrimary"-->
+
+    <!--android:layout_gravity="bottom"-->
+    <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+    <!--android:title="@string/location_placeholder">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:dividerPadding="0dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:showDividers="end">-->
+    <!--&lt;!&ndash;android:divider="@drawable/divider"&ndash;&gt;-->
+
+
+
+
+    <!--</LinearLayout>-->
+
+    <!--&lt;!&ndash;android:visibility="gone"/>&ndash;&gt;-->
+    <!--</android.support.v7.widget.Toolbar>-->
+
+
+
+
+
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+
+</LinearLayout>

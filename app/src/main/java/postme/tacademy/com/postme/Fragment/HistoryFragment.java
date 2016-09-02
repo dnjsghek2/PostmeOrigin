@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,7 +31,13 @@ import postme.tacademy.com.postme.R;
 public class HistoryFragment extends Fragment {
     private Post_Rc_Adapter mAdapter;
     private ArrayList<String> mItems;
-    Toolbar toolbar;
+//    Toolbar toolbar;
+    ImageView imageView;
+    EditText edittext01;
+    EditText edittext02;
+
+    RelativeLayout relativeLayout_toolbar;
+    RelativeLayout relativeLayout_radio;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -50,7 +59,12 @@ public class HistoryFragment extends Fragment {
 //        Button btn_history = (Button) view.findViewById(R.id.miCompose);
 //        btn_history.setOnClickListener(this);
 
-        toolbar = (Toolbar) view.findViewById(R.id.history_toolbar);
+        imageView = (ImageView) view.findViewById(R.id.history_toolbar);
+        edittext01 = (EditText) view.findViewById(R.id.his_toolbar_edit01);
+        edittext02 = (EditText) view.findViewById(R.id.his_toolbar_edit02);
+
+        relativeLayout_toolbar = (RelativeLayout)view.findViewById(R.id.his_toolbar);
+        relativeLayout_radio = (RelativeLayout)view.findViewById(R.id.his_radio);
 
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
@@ -95,10 +109,14 @@ public class HistoryFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.miCompose:
-                if (toolbar.getVisibility() == View.GONE){
-                toolbar.setVisibility(View.VISIBLE);
+                if (relativeLayout_toolbar.getVisibility() == View.GONE){
+                    item.setIcon(R.drawable.arrowhaciabajo);
+                    relativeLayout_toolbar.setVisibility(View.VISIBLE);
+                    relativeLayout_radio.setVisibility(View.GONE);
                 }else{
-                    toolbar.setVisibility(View.GONE);
+                    item.setIcon(R.drawable.test);
+                    relativeLayout_toolbar.setVisibility(View.GONE);
+                    relativeLayout_radio.setVisibility(View.VISIBLE);
                 }
                 return true;
             default:

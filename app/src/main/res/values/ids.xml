@@ -7,5 +7,7 @@
     <item type="id" name="viewpager"/>
     <item type="id" name="indicator"/>
     <item type="id" name="recycler_view"/>
+    <item name="arrowhaciabajo" type="id" />
+    <item name="button01" type="id" />
 
 </resources>

@@ -18,17 +18,10 @@ import postme.tacademy.com.postme.R;
  */
 public class SettingFragment extends Fragment implements OnClickListener{
 
-    Button button;
+    Button button, button2, button3;
 
     public SettingFragment() {
     }
-
-    @Override
-    public void onClick(View view) {
-            if (view.getId() == R.id.button) {
-                startActivity(new Intent(getActivity().getApplicationContext(), SettingFragmentUserInfo.class));
-            }
-        }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,9 +32,25 @@ public class SettingFragment extends Fragment implements OnClickListener{
 
         Button button = (Button)view.findViewById(R.id.button);
         button.setOnClickListener(this);
+        Button button2 = (Button)view.findViewById(R.id.button2);
+        button2.setOnClickListener(this);
+        Button button3 = (Button)view.findViewById(R.id.button3);
+        button3.setOnClickListener(this);
 
         return view;
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.button) {
+            startActivity(new Intent(getActivity().getApplicationContext(), SettingFragmentUserInfo.class));
+        }
+        if (view.getId() == R.id.button2) {
+            startActivity(new Intent(getActivity().getApplicationContext(), SettingFragmentHelp.class));
+        }
+        if (view.getId() == R.id.button3) {
+            startActivity(new Intent(getActivity().getApplicationContext(), SettingFragmentInformation.class));
+        }
+    }
 
 }

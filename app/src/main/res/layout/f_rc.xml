@@ -3,23 +3,98 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/his_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/colorRed"
+            android:id="@+id/history_toolbar"
+            android:layout_gravity="center_horizontal" />
+        <EditText
+            android:id="@+id/his_toolbar_edit01"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="  (내)위치   "
+            android:elevation="20dp"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/his_toolbar_edit02"
+            android:layout_alignStart="@+id/his_toolbar_edit02"
+            android:layout_marginTop="20dp" />
+        <EditText
+            android:id="@+id/his_toolbar_edit02"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="  키워드 "
+            android:elevation="20dp"
+            android:layout_below="@+id/his_toolbar_edit01"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="50dp" />
+    </RelativeLayout>
 
 
-    <android.support.v7.widget.Toolbar
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/history_toolbar"
-    android:layout_height="128dp"
-    app:popupTheme="@style/ActionBarPopupThemeOverlay"
-    android:layout_width="match_parent"
-    android:background="?attr/colorPrimary"
-    android:paddingLeft="72dp"
-    android:paddingBottom="16dp"
-    android:gravity="bottom"
-    app:titleTextAppearance="@style/Toolbartitle"
-    app:subtitleTextAppearance="@style/ToolbarSubtitle"
-    app:theme="@style/ThemeOverlay.AppCompat.Light"
-    android:title="@string/location_placeholder"
-        android:visibility="gone"/>
+    <RelativeLayout
+        android:id="@+id/his_radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+        <RadioButton
+            android:id="@+id/history_radio01"
+            android:text="전체 포스트 보기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingRight="15dp"
+            android:paddingLeft="10dp" />
+        <RadioButton
+            android:id="@+id/history_radio02"
+            android:text="사진 포스트만 보기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="41dp"
+            android:layout_marginEnd="41dp"
+            android:paddingLeft="10dp" />
+    </RelativeLayout>
+
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/history_toolbar"-->
+    <!--android:layout_height="161dp"-->
+    <!--app:popupTheme="@style/ActionBarPopupThemeOverlay"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:background="?attr/colorPrimary"-->
+
+        <!--android:layout_gravity="bottom"-->
+    <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+    <!--android:title="@string/location_placeholder">-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:dividerPadding="0dp"-->
+            <!--android:orientation="vertical"-->
+            <!--android:showDividers="end">-->
+            <!--&lt;!&ndash;android:divider="@drawable/divider"&ndash;&gt;-->
+
+
+
+
+        <!--</LinearLayout>-->
+
+    <!--&lt;!&ndash;android:visibility="gone"/>&ndash;&gt;-->
+    <!--</android.support.v7.widget.Toolbar>-->
+
+
 
 
 
@@ -29,4 +104,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
+
+
 </LinearLayout>
