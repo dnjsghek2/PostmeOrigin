@@ -9,6 +9,9 @@ public class Cok {
     private String address;
     private double longitude;
     private double latitude;
+    private int post_count;
+
+    public int getPost_count() {return post_count;}
 
     public int getCok_id() {
         return cok_id;

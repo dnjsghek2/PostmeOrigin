@@ -22,7 +22,6 @@ public class CokList {
         return totalPage;
     }
 
-
     @Override
     public String toString() {
         return "ClassPojo [cok = " + cok + ", itemPerPage = " + itemPerPage + ", currentPage = " + currentPage + ", totalPage = " + totalPage + "]";

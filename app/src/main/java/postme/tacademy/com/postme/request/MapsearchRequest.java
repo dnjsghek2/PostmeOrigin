@@ -13,26 +13,25 @@ import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.PostList;
 
 /**
- * Created by wonhochoi on 16. 9. 4..
+ * Created by wonhochoi on 16. 9. 2..
  */
-public class PostlistRequest extends AbstractRequest<NetworkResult<PostList>>{
-
+public class MapsearchRequest extends AbstractRequest<NetworkResult<CokList>>{
     Request request;
-    public PostlistRequest(Context context, int cokid, int currentPage, int itemPerPage){
+    public MapsearchRequest(Context context, String area, String  keyword, int currentPage, int itemPerPage){
         HttpUrl url = getBaseUrlBuilder()
                 .build();
-        String getUrl = "coks/:cokid/posts?"
-                +"cokid="+cokid
-                +"&currentPage="+currentPage
-                +"&itemPerPage="+itemPerPage;
+        String getUrl = "coks?"
+                +"area="+area+"&keyword="+keyword
+                +"&currentPage="+currentPage +"&itemPerPage="+itemPerPage;
         request = new Request.Builder()
                 .url(url+getUrl)
                 .build();
     }
 
+
     @Override
     protected Type getType() {
-        return new TypeToken<NetworkResult<PostList>>(){}.getType();
+        return new TypeToken<NetworkResult<CokList>>(){}.getType();
     }
 
     @Override

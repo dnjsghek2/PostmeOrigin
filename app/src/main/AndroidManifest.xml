@@ -22,18 +22,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBe7Rh3klzH79YHlQn2GPFsN3W5vAJCZgA" />
+        <!--
+                        &lt;!&ndash; kakao mata &ndash;&gt;
+                        <meta-data
+                            android:name="com.kakao.sdk.AppKey"
+                            android:value="@string/koko_api_key" />
+        -->
 
-<!--
-                &lt;!&ndash; kakao mata &ndash;&gt;
-                <meta-data
-                    android:name="com.kakao.sdk.AppKey"
-                    android:value="@string/koko_api_key" />
--->
-
-                <!-- facebook mata -->
-                <meta-data
-                    android:name="com.facebook.sdk.ApplicationId"
-                    android:value="@string/facebook_app_id" />
+        <!-- facebook mata -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity android:name=".TabActivity"
             android:exported="true"
@@ -41,34 +40,42 @@
         //스플레쉬 액티비티 추가
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         //인텐트 필터 옮김
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ATActivity"
             android:label="ATActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity"/>
+
         <activity android:name=".UserInfoActivity"/>
+
         <activity android:name=".WritingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".PostlistActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".fragment.SettingFragmentUserInfo"
             android:theme="@style/AppTheme"/>
+
         <activity android:name=".fragment.SettingNickName"
             android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".fragment.SettingFragmentHelp"
             android:theme="@style/AppTheme"/>
+
         <activity android:name=".fragment.SettingFragmentInformation"
             android:theme="@style/AppTheme"/>
+
         <activity android:name=".LocalLoginActivity"/>
-
-
+        
         <!--
 
         <activity

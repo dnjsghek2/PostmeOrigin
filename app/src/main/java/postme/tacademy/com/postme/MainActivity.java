@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         mLoginManager = LoginManager.getInstance();
 
-        facebookButton = (Button) findViewById(R.id.btn_login);
+        facebookButton = (ImageButton)findViewById(R.id.btn_login);
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,20 +53,13 @@ public class MainActivity extends AppCompatActivity {
         });
         setButtonLabel();
 
-        Button btn = (Button) findViewById(R.id.btn_info);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     private void setButtonLabel() {
         if (isLogin()) {
-            facebookButton.setText("logout");
+            facebookButton.setImageResource(R.drawable.facebookbtn_in_img);
         } else {
-            facebookButton.setText("login");
+            facebookButton.setImageResource(R.drawable.facebookbtn_out_img);
         }
     }
 
@@ -96,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         mLoginManager.logOut();
     }
 
-    Button facebookButton;
+    ImageButton facebookButton;
 
     private void loginFacebook() {
         mLoginManager.setDefaultAudience(DefaultAudience.FRIENDS);

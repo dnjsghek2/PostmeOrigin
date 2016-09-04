@@ -24,7 +24,7 @@ import android.widget.ViewFlipper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import postme.tacademy.com.postme.dialolg.WritingDialog;
+import postme.tacademy.com.postme.dialog.WritingDialog;
 
 /**
  * Created by wonhochoi on 2016. 8. 29..

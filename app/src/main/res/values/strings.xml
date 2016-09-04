@@ -3,12 +3,13 @@
     <string name="facebook_app_id">705834806222445</string>
     <string name="koko_api_key">fc6e74cb12891b59935ac82501accb7a</string>
 
-
-
     <string name="add">Add</string>
     <string name="remove">Remove</string>
     <string name="reset">Random Reset</string>
 
-
     <string name="location_placeholder">location_placeholder</string>
+
+    <string name="splash_string_title">나를 붙이다</string>
+    <string name="splash_string_contents">P O S T M E</string>
+    <string name="splash_string_bottom">「 여행하는 청춘을 위한 감성 기록 앱 」</string>
 </resources>

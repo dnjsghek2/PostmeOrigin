@@ -21,6 +21,7 @@ import postme.tacademy.com.postme.fragment.MapFragment;
  */
 public abstract class AbstractRequest<T> extends NetworkRequest<T> {
     String TAG_D = "AbstractRequest";
+
     protected HttpUrl.Builder getBaseUrlBuilder() {
         HttpUrl.Builder builder = new HttpUrl.Builder();
         builder.scheme("https");
@@ -48,5 +49,6 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
 
         }
     }
+
     protected abstract Type getType();
 }

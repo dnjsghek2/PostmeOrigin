@@ -19,4 +19,11 @@
         android:title="취소">
     </item>
 
+    <item
+        android:id="@+id/map_search_cancel"
+        app:showAsAction="ifRoom|withText"
+        android:visible="false"
+        android:title="취소">
+    </item>
+
 </menu>
