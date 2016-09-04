@@ -37,8 +37,9 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 //        viewHolder.title.setText(cards.get(i).getFeeling());
 //        viewHolder.title.setText(cards.get(i).getState());
-        viewHolder.hisbodytv.setText(cards.get(i).getBody());
 //        viewHolder.title.setText(cards.get(i).getCtime());
+        viewHolder.title.setText(cards.get(i).getBody());
+        viewHolder.ctime.setText(cards.get(i).getCtime());
 
     }
 
@@ -49,13 +50,14 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView title;
         private Button button2;
-
-        TextView hisbodytv;
-
+        private TextView nickname;
+        private TextView  ctime;
         public ViewHolder(View itemView) {
             super(itemView);
-//            title = (TextView) itemView.findViewById(R.id.card_view_title);
+            title = (TextView) itemView.findViewById(R.id.his_body);
+            ctime = (TextView)itemView.findViewById(R.id.his_ctime);
             button2 = (Button) itemView.findViewById(R.id.card_view_button2);
             button2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,8 +65,6 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
                     onItemTouchListener.onButton2Click(v, getLayoutPosition());
                 }
             });
-
-            hisbodytv = (TextView) itemView.findViewById(R.id.his_body);
         }
     }
 }

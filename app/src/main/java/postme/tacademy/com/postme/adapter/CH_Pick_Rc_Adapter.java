@@ -7,22 +7,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.List;
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
+import postme.tacademy.com.postme.data.Jjim;
+import postme.tacademy.com.postme.request.ImageRequest;
 
 
 /**
  * Created by wonhochoi on 2016. 8. 24..
  */
 public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.ViewHolder> {
-    private List<String> cards;
+    private List<Jjim> cards;
     private OnItemTouchListener onItemTouchListener;
 
-    public CH_Pick_Rc_Adapter(List<String> cards, OnItemTouchListener onItemTouchListener) {
+    public CH_Pick_Rc_Adapter(List<Jjim> cards, OnItemTouchListener onItemTouchListener) {
         this.cards = cards;
         this.onItemTouchListener = onItemTouchListener;
     }
@@ -36,8 +39,14 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
 
     @Override
     public void onBindViewHolder(CH_Pick_Rc_Adapter.ViewHolder viewHolder, int i) {
-//        viewHolder..setText(cards.get(i));
+        viewHolder.title.setText(cards.get(i).getBody());
+        viewHolder.nickname.setText(cards.get(i).getNickname());
+        viewHolder.ctime.setText(cards.get(i).getCtime());
 
+        if (cards.get(i).getImage() != null && !cards.get(i).getImage().equals("null")){
+            ImageRequest imageRequest = new ImageRequest();
+            viewHolder.serverimage.setImageBitmap(imageRequest.getBitmapImg(cards.get(i).getImage()));
+        }
     }
 
     @Override
@@ -50,12 +59,19 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
         private Button button2;
         private ToggleButton pick_local_btn;
         private ImageView pick_local_view;
-
+        private TextView title;
+        private TextView nickname;
+        private TextView  ctime;
+        private ImageView serverimage;
         public ViewHolder(View itemView) {
             super(itemView);
+            title = (TextView) itemView.findViewById(R.id.his_body);
+            nickname = (TextView)itemView.findViewById(R.id.nickname);
+            ctime = (TextView)itemView.findViewById(R.id.his_ctime);
             button2 = (Button) itemView.findViewById(R.id.card_view_button2);
-            pick_local_btn = (ToggleButton) itemView.findViewById(R.id.Pick_local_btn);
             pick_local_view = (ImageView) itemView.findViewById(R.id.Pick_local_view);
+            serverimage = (ImageView)itemView.findViewById(R.id.server_image);
+            pick_local_btn = (ToggleButton) itemView.findViewById(R.id.Pick_local_btn);
             pick_local_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

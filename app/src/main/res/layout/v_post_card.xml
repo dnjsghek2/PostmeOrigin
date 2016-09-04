@@ -13,21 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/card_view_title"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:textSize="24sp" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@+id/card_view_title"
             android:layout_centerHorizontal="true">
 
             <Button
@@ -67,18 +56,16 @@
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="70dp"
                 android:layout_marginTop="30dp"
-                android:background="@android:color/holo_red_dark"
-                android:text="넘나넘나 좋은 테스트 지금시간은 21시 02분 집에 언자 갈수 있을까" />
+                android:background="@android:color/holo_red_dark"/>
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/his_body"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="40dp"
-                android:text="by.닉네임"
                 android:textSize="16dp" />
 
             <TextView
@@ -88,25 +75,23 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/textView3"
+                android:layout_alignTop="@+id/nickname"
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="20dp"
-                android:text="2016.07.18"
                 android:textSize="16dp" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/server_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/textView3"
-                android:layout_below="@+id/textView3"
+                android:layout_alignTop="@+id/nickname"
+                android:layout_below="@+id/nickname"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
                 android:adjustViewBounds="true"
-                android:background="@android:color/holo_blue_light"
-                android:src="@drawable/test2" />
+                android:background="@android:color/holo_blue_light"/>
 
 
             <ToggleButton
@@ -114,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:text="New ToggleButton"
                 android:id="@+id/Pick_local_btn"
-                android:layout_below="@+id/imageView4"
+                android:layout_below="@+id/server_image"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -125,7 +110,8 @@
                 android:id="@+id/Pick_local_view"
                 android:layout_below="@+id/Pick_local_btn"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

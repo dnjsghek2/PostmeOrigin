@@ -35,7 +35,9 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.title.setText(cards.get(i).getPost_id());
+        viewHolder.title.setText(cards.get(i).getBody());
+        viewHolder.nickname.setText(cards.get(i).getNickname());
+        viewHolder.ctime.setText(cards.get(i).getCtime());
     }
 
     @Override
@@ -47,12 +49,14 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private Button button2;
-
+        private TextView nickname;
+        private TextView  ctime;
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.card_view_title);
+            title = (TextView) itemView.findViewById(R.id.his_body);
+            nickname = (TextView)itemView.findViewById(R.id.nickname);
+            ctime = (TextView)itemView.findViewById(R.id.his_ctime);
             button2 = (Button) itemView.findViewById(R.id.card_view_button2);
-
             button2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

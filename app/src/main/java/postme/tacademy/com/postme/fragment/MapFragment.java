@@ -179,16 +179,13 @@ public class MapFragment extends Fragment implements
         }
         googleMap.setMyLocationEnabled(true);
 
-        Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL)
-                .title("글들보기"));
-
-
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Toast.makeText(getContext(), ""+marker.getTag(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), PostlistActivity.class);
                 intent.putExtra("COK_INFO", (int)marker.getTag());
+                intent.putExtra("COK_NAME", marker.getTitle());
                 startActivity(intent);
             }
         });
