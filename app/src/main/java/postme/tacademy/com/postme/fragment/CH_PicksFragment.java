@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import postme.tacademy.com.postme.adapter.CH_Pick_Rc_Adapter;
+import postme.tacademy.com.postme.Adapter.CH_Pick_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
 

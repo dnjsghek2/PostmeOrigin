@@ -1,4 +1,4 @@
-package postme.tacademy.com.postme.adapter;
+package postme.tacademy.com.postme.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,9 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
-import postme.tacademy.com.postme.PostMeApplication;
 import postme.tacademy.com.postme.R;
-import postme.tacademy.com.postme.database.DBHelper;
 import postme.tacademy.com.postme.database.DBinfo;
 
 /**

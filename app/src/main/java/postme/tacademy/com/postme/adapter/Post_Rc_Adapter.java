@@ -1,4 +1,4 @@
-package postme.tacademy.com.postme.adapter;
+package postme.tacademy.com.postme.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import postme.tacademy.com.postme.adapter.History_Rc_Adapter;
+import postme.tacademy.com.postme.Adapter.History_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.data.History;
