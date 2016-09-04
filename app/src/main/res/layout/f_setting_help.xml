@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
 
     <RelativeLayout
         android:id="@+id/f_setting_help_relativelayout01"
@@ -14,8 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="false"
-            android:text="닉네임수정"
-            android:textSize="30dp"
+            android:text="POST ME ??!!"
+            android:textSize="15dp"
             android:paddingRight="180dp" />
 
         <RelativeLayout
@@ -63,16 +70,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="false"
-            android:text="닉네임수정"
-            android:textSize="30dp"
+            android:text="포스트가 뭐얌?"
+            android:textSize="15dp"
             android:paddingRight="180dp" />
 
         <RelativeLayout
+            android:id="@+id/f_setting_help_relativelayout0202"
             android:layout_width="385dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/f_setting_help_tv02">
+            android:layout_below="@+id/f_setting_help_tv02"
+            android:visibility="gone"
+            android:onClick="f_onclick_relativelayout0202">
 
             <ImageView
                 android:id="@+id/f_setting_help_iv02"
@@ -109,16 +119,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="false"
-            android:text="닉네임수정"
-            android:textSize="30dp"
+            android:text="콕이 뭐얌?"
+            android:textSize="15dp"
             android:paddingRight="180dp" />
 
         <RelativeLayout
+            android:id="@+id/f_setting_help_relativelayout0302"
             android:layout_width="385dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/f_setting_help_tv03">
+            android:layout_below="@+id/f_setting_help_tv03"
+            android:visibility="gone"
+            android:onClick="f_onclick_relativelayout0302">
 
             <ImageView
                 android:id="@+id/f_setting_help_iv03"
@@ -155,19 +168,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="false"
-            android:text="닉네임수정"
-            android:textSize="30dp"
+            android:text="찜은 또 뭐얌?"
+            android:textSize="15dp"
             android:paddingRight="180dp" />
 
         <RelativeLayout
+            android:id="@+id/f_setting_help_relativelayout0402"
             android:layout_width="385dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:onClick="f_onclick_relativelayout0402"
+            android:layout_below="@+id/f_setting_help_tv04"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/f_setting_help_tv04">
+            android:layout_alignParentStart="true">
 
             <ImageView
                 android:id="@+id/f_setting_help_iv04"
+                android:layout_below="@+id/f_setting_help_relativelayout0402"
                 android:src="@drawable/eunhafirst"
                 android:layout_width="80dp"
                 android:layout_height="106dp"
@@ -190,4 +207,9 @@
             android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
+
+
 </LinearLayout>
+
+
+</ScrollView>

@@ -13,21 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/card_view_title"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:textSize="24sp" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@+id/card_view_title"
             android:layout_centerHorizontal="true">
 
             <Button
@@ -41,29 +30,29 @@
                 android:text="찜" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/his_feeling"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="8dp"
                 android:background="@android:color/holo_blue_bright" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/his_state"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignBottom="@+id/imageView"
+                android:layout_alignBottom="@+id/his_feeling"
                 android:layout_marginLeft="8dp"
-                android:layout_toEndOf="@+id/imageView"
-                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/his_feeling"
+                android:layout_toRightOf="@+id/his_feeling"
                 android:background="@android:color/holo_green_light" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/his_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/imageView"
+                android:layout_below="@+id/his_feeling"
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="70dp"
                 android:layout_marginTop="30dp"
@@ -74,7 +63,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/his_body"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="40dp"
@@ -83,7 +72,7 @@
 
             <TextView
 
-                android:id="@+id/textView2"
+                android:id="@+id/his_ctime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

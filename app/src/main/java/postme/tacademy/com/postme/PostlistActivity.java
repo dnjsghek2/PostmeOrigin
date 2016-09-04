@@ -9,15 +9,16 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import postme.tacademy.com.postme.adapter.Post_Rc_Adapter;
+import postme.tacademy.com.postme.adapter.History_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
+import postme.tacademy.com.postme.data.History;
 
 /**
  * Created by wonhochoi on 2016. 8. 30..
  */
 public class PostlistActivity extends AppCompatActivity {
-    private Post_Rc_Adapter mAdapter;
-    private ArrayList<String> mItems;
+    private History_Rc_Adapter mAdapter;
+    private ArrayList<History> mItems;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,10 +27,6 @@ public class PostlistActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mItems = new ArrayList<>(10);
-        for (int i = 0; i < 10; i++) {
-            mItems.add(String.format("Card number %02d", i));
-        }
         OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
             @Override
             public void onCardViewTap(View view, int position) {
@@ -43,7 +40,7 @@ public class PostlistActivity extends AppCompatActivity {
             public void onButton2Click(View view, int position) {
             }
         };
-        mAdapter = new Post_Rc_Adapter(mItems, itemTouchListener);
+        mAdapter = new History_Rc_Adapter(mItems, itemTouchListener);
 
         recyclerView.setAdapter(mAdapter);
     }

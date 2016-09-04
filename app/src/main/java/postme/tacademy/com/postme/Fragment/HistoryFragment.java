@@ -1,18 +1,15 @@
 package postme.tacademy.com.postme.fragment;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,17 +17,23 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import postme.tacademy.com.postme.adapter.Post_Rc_Adapter;
+import postme.tacademy.com.postme.adapter.History_Rc_Adapter;
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
+import postme.tacademy.com.postme.data.History;
+import postme.tacademy.com.postme.data.HistoryList;
+import postme.tacademy.com.postme.data.NetworkResult;
+import postme.tacademy.com.postme.manager.NetworkManager;
+import postme.tacademy.com.postme.request.HistoryRequest;
+import postme.tacademy.com.postme.request.NetworkRequest;
 
 
 /**
  * Created by wonhochoi on 2016. 8. 23..
  */
 public class HistoryFragment extends Fragment {
-    private Post_Rc_Adapter mAdapter;
-    private ArrayList<String> mItems;
+    private History_Rc_Adapter mAdapter;
+    private ArrayList<History> mItems;
 //    Toolbar toolbar;
     ImageView imageView;
     EditText edittext01;
@@ -38,7 +41,7 @@ public class HistoryFragment extends Fragment {
 
     RelativeLayout relativeLayout_toolbar;
     RelativeLayout relativeLayout_radio;
-
+    RecyclerView recyclerView;
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -59,6 +62,9 @@ public class HistoryFragment extends Fragment {
 //        Button btn_history = (Button) view.findViewById(R.id.miCompose);
 //        btn_history.setOnClickListener(this);
 
+
+
+
         imageView = (ImageView) view.findViewById(R.id.history_toolbar);
         edittext01 = (EditText) view.findViewById(R.id.his_toolbar_edit01);
         edittext02 = (EditText) view.findViewById(R.id.his_toolbar_edit02);
@@ -67,34 +73,50 @@ public class HistoryFragment extends Fragment {
         relativeLayout_radio = (RelativeLayout)view.findViewById(R.id.his_radio);
 
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setHasOptionsMenu(true);
 
-        mItems = new ArrayList<>(10);
-        for (int i = 0; i < 10; i++) {
-            mItems.add(String.format("Card number %02d", i));
-        }
-        OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
+
+        HistoryRequest request = new HistoryRequest(getContext(), 0, 10);
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<HistoryList>>() {
             @Override
-            public void onCardViewTap(View view, int position) {
-                Toast.makeText(getContext(), "Tapped " + mItems.get(position), Toast.LENGTH_SHORT).show();
+            public void onSuccess(NetworkRequest<NetworkResult<HistoryList>> request, NetworkResult<HistoryList> result) {
+                History[] history = result.getResult().getHistory();
+                mItems = new ArrayList<History>(history.length);
+                for (int i=0; i < history.length; i++)
+                mItems.add(history[i]);
+
+                OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
+                    @Override
+                    public void onCardViewTap(View view, int position) {
+                        Toast.makeText(getContext(), "Tapped " + mItems.get(position), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onButton1Click(View view, int position) {
+                        Toast.makeText(getContext(), "Clicked Button1 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onButton2Click(View view, int position) {
+                        Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
+                    }
+                };
+                mAdapter = new History_Rc_Adapter(mItems, itemTouchListener);
+
+                recyclerView.setAdapter(mAdapter);
+
+
             }
 
-            @Override
-            public void onButton1Click(View view, int position) {
-                Toast.makeText(getContext(), "Clicked Button1 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
-            }
 
             @Override
-            public void onButton2Click(View view, int position) {
-                Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
-            }
-        };
-        mAdapter = new Post_Rc_Adapter(mItems, itemTouchListener);
+            public void onFail(NetworkRequest<NetworkResult<HistoryList>> request, int errorCode, String errorMessage, Throwable e) {
 
-        recyclerView.setAdapter(mAdapter);
+            }
+        });
 
         return view; //완성된 VIEW return
     }

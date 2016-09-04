@@ -37,7 +37,7 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
 
     @Override
     public void onBindViewHolder(CH_Pick_Rc_Adapter.ViewHolder viewHolder, int i) {
-        viewHolder.title.setText(cards.get(i));
+//        viewHolder..setText(cards.get(i));
 
     }
 
@@ -48,14 +48,12 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title;
         private Button button2;
         private ToggleButton pick_local_btn;
         private ImageView pick_local_view;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.card_view_title);
             button2 = (Button) itemView.findViewById(R.id.card_view_button2);
             pick_local_btn = (ToggleButton) itemView.findViewById(R.id.Pick_local_btn);
             pick_local_view = (ImageView) itemView.findViewById(R.id.Pick_local_view);

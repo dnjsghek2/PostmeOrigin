@@ -11,16 +11,17 @@ import java.util.List;
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
+import postme.tacademy.com.postme.data.History;
 
 
 /**
  * Created by wonhochoi on 2016. 8. 23..
  */
-public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHolder>{
-    private List<String> cards;
+public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.ViewHolder>{
+    private List<History> cards;
     private OnItemTouchListener onItemTouchListener;
 
-    public Post_Rc_Adapter(List<String> cards, OnItemTouchListener onItemTouchListener) {
+    public History_Rc_Adapter(List<History> cards, OnItemTouchListener onItemTouchListener) {
         this.cards = cards;
         this.onItemTouchListener = onItemTouchListener;
     }
@@ -34,7 +35,11 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.title.setText(cards.get(i));
+//        viewHolder.title.setText(cards.get(i).getFeeling());
+//        viewHolder.title.setText(cards.get(i).getState());
+        viewHolder.hisbodytv.setText(cards.get(i).getBody());
+//        viewHolder.title.setText(cards.get(i).getCtime());
+
     }
 
     @Override
@@ -44,20 +49,22 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title;
         private Button button2;
+
+        TextView hisbodytv;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.card_view_title);
+//            title = (TextView) itemView.findViewById(R.id.card_view_title);
             button2 = (Button) itemView.findViewById(R.id.card_view_button2);
-
             button2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onItemTouchListener.onButton2Click(v, getLayoutPosition());
                 }
             });
+
+            hisbodytv = (TextView) itemView.findViewById(R.id.his_body);
         }
     }
 }
