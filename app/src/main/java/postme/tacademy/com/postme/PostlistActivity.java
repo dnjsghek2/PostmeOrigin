@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
+import postme.tacademy.com.postme.adapter.Post_Rc_Adapter;
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.Post;
 import postme.tacademy.com.postme.data.PostList;
 import postme.tacademy.com.postme.manager.NetworkManager;
-import postme.tacademy.com.postme.Adapter.Post_Rc_Adapter;
 import postme.tacademy.com.postme.request.NetworkRequest;
 import postme.tacademy.com.postme.request.PostlistRequest;
 
