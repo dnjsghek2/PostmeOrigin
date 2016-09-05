@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/feeling_radio1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        android:background="#ffffff"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="9dp"
+        android:paddingTop="9dp"
+        android:visibility="visible">
+
+        <RadioButton
+            android:id="@+id/joy"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_marginRight="48dp"
+            android:background="@drawable/radio"
+            android:button="@android:color/transparent" />
+
+        <RadioButton
+            android:id="@+id/anger"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_marginRight="48dp"
+            android:background="@drawable/radio1"
+            android:button="@android:color/transparent" />
+
+        <RadioButton
+            android:id="@+id/sorrow"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_marginRight="48dp"
+            android:background="@drawable/radio2"
+            android:button="@android:color/transparent" />
+
+        <RadioButton
+            android:id="@+id/pleasure"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:background="@drawable/radio3"
+            android:button="@android:color/transparent" />
+    </RadioGroup>
+</LinearLayout>
