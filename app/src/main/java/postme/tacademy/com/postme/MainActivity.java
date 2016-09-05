@@ -99,11 +99,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(MainActivity.this, "login manager...", Toast.LENGTH_SHORT).show();
-                /*puttoken(AccessToken.getCurrentAccessToken());*/
-                Intent intent = new Intent(MainActivity.this, ATActivity.class);
+                puttoken(AccessToken.getCurrentAccessToken());
+                /*Intent intent = new Intent(MainActivity.this, ATActivity.class);
                 startActivity(intent);
-                finish();
-
+                finish();*/
             }
 
             @Override

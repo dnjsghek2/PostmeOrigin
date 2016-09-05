@@ -21,8 +21,7 @@ public class PostlistRequest extends AbstractRequest<NetworkResult<PostList>>{
     public PostlistRequest(Context context, int cokid, int currentPage, int itemPerPage){
         HttpUrl url = getBaseUrlBuilder()
                 .build();
-        String getUrl = "coks/:cokid/posts?"
-                +"cokid="+cokid
+        String getUrl = "coks/"+cokid+"/posts?"
                 +"&currentPage="+currentPage
                 +"&itemPerPage="+itemPerPage;
         request = new Request.Builder()

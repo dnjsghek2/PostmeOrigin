@@ -223,7 +223,7 @@ public class MapFragment extends Fragment implements
     }
 
     private void beginningCok() {
-        Map_Request request = new Map_Request(getContext(), "37.56", "126.97", 0, 10);
+        Map_Request request = new Map_Request(getContext(), "37.4771480", "126.9619530", 0, 10);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<CokList>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<CokList>> request, NetworkResult<CokList> result) {

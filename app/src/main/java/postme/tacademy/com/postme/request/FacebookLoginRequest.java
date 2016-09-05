@@ -1,6 +1,7 @@
 package postme.tacademy.com.postme.request;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.google.gson.reflect.TypeToken;
@@ -31,8 +32,8 @@ public class FacebookLoginRequest extends AbstractRequest<NetworkResult<Message>
                 .url(url)
                 .post(body)
                 .build();
-    }
 
+    }
     @Override
     public Request getRequest() {
         return request;

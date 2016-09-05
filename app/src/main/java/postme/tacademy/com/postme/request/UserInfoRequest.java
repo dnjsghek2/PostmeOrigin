@@ -18,7 +18,6 @@ import postme.tacademy.com.postme.data.NetworkResultTemp;
  * Created by wonhochoi on 16. 9. 2..
  */
 public class UserInfoRequest extends AbstractRequest<NetworkResult<Message>>{
-
     Request request;
     public UserInfoRequest(Context context, String nickname, String  gender, String birth, String email){
         HttpUrl url = getBaseUrlBuilder()
