@@ -42,11 +42,9 @@ public class LSB {
 
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                LSBlocation = location;
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
             }
 
             public void onProviderEnabled(String provider) {
@@ -55,20 +53,17 @@ public class LSB {
             public void onProviderDisabled(String provider) {
             }
         };
-        if (isGPSEnabled == true) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-        } else if (isNetworkEnabled == true) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        String locationNet = LocationManager.NETWORK_PROVIDER;
+        String locationGPS = LocationManager.GPS_PROVIDER;
+        if (isNetworkEnabled == true) {
+            LSBlocation = locationManager.getLastKnownLocation(locationNet);
+        } else if (isGPSEnabled == true) {
+            LSBlocation = locationManager.getLastKnownLocation(locationGPS);
         } else {
             Toast.makeText(context, "좌표를 받아 올 수 없습니다.", Toast.LENGTH_SHORT).show();
         }
 
         // 수동으로 위치 구하기
-        String locationProvider = LocationManager.GPS_PROVIDER;
-        Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
-        if (lastKnownLocation != null) {
-            LSBlocation = lastKnownLocation;
-        }
-    return LSBlocation;
+        return LSBlocation;
     }
 }

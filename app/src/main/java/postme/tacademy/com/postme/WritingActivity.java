@@ -84,7 +84,6 @@ public class WritingActivity extends AppCompatActivity {
             }
         });
 
-
         /*
 
         situation_radio_group = (RadioGroup) findViewById(R.id.situation_radio);

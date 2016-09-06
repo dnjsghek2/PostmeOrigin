@@ -1,8 +1,11 @@
 package postme.tacademy.com.postme.fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,15 +31,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import postme.tacademy.com.postme.LSB;
 import postme.tacademy.com.postme.data.Cok;
 import postme.tacademy.com.postme.data.CokList;
+import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.dialog.MapDialog;
 import postme.tacademy.com.postme.PostlistActivity;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.WritingActivity;
 import postme.tacademy.com.postme.manager.NetworkManager;
+import postme.tacademy.com.postme.request.CokcheckRequest;
 import postme.tacademy.com.postme.request.Map_Request;
 import postme.tacademy.com.postme.request.MapsearchRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
@@ -56,6 +66,7 @@ public class MapFragment extends Fragment implements
     public static MapFragment getInstance() {
         return ourInstance;
     }
+
     Location location;
     static public Menu menu;
     static public MenuInflater menuInflater;
@@ -65,6 +76,7 @@ public class MapFragment extends Fragment implements
     private GoogleMap googleMap;
     View relativeLayout;
     View view;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +140,7 @@ public class MapFragment extends Fragment implements
         Intent intent;
         int id = item.getItemId();
         switch (id) {
-            case R.id.map_search:
+            case R.id.map_search:           //콕을 검색하는 툴바 아이템
                 relativeLayout.setVisibility(view.VISIBLE);
                 MapFragment.menu.getItem(0).setVisible(false);
                 MapFragment.menu.getItem(1).setVisible(false);
@@ -136,29 +148,19 @@ public class MapFragment extends Fragment implements
                 MapFragment.menu.getItem(3).setVisible(true);
                 fab.hide();
                 break;
-
-            case R.id.map_ok:
+            case R.id.map_ok:               //콕 생성 툴바 아이템
                 fab.show();
                 MapFragment.menu.getItem(0).setVisible(true);
                 MapFragment.menu.getItem(1).setVisible(false);
                 MapFragment.menu.getItem(2).setVisible(false);
                 MapFragment.menu.getItem(3).setVisible(false);
-                /*intent = new Intent(getContext(), WritingActivity.class);
-                getContext().startActivity(intent);
-                */
-                LSB lsb = new LSB(getContext());
-                location = lsb.onLcation();
-
-
-                Toast.makeText(getContext(), "lat : "+location.getLatitude()+", long : "+location.getLongitude(), Toast.LENGTH_SHORT).show();
-
+                cokCheck();
                 break;
-
-            case R.id.map_cancel:
+            case R.id.map_cancel:           //글 작성 취소 아이템
                 final MapDialog mapDialog = new MapDialog(getContext());
                 mapDialog.show();
                 break;
-            case R.id.map_search_cancel:
+            case R.id.map_search_cancel:    //검색 취소 아이템
                 MapFragment.menu.getItem(0).setVisible(true);
                 MapFragment.menu.getItem(1).setVisible(false);
                 MapFragment.menu.getItem(2).setVisible(false);
@@ -171,12 +173,10 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onCameraMove() {
-
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
-
     }
 
     @Override
@@ -185,20 +185,23 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onMapReady(GoogleMap Map) {
-        googleMap = Map;
-
-        beginningCok();
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission();
         }
-        googleMap.setMyLocationEnabled(true);
 
+        googleMap = Map;
+        googleMap.setMyLocationEnabled(true);
+        LSB lsb = new LSB(getContext());
+        location = lsb.onLcation();
+        beginningCok(location);
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Toast.makeText(getContext(), ""+marker.getTag(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + marker.getTag(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), PostlistActivity.class);
-                intent.putExtra("COK_INFO", (int)marker.getTag());
+                intent.putExtra("COK_INFO", (int) marker.getTag());
                 intent.putExtra("COK_NAME", marker.getTitle());
                 startActivity(intent);
             }
@@ -236,13 +239,16 @@ public class MapFragment extends Fragment implements
     public void onMarkerDragEnd(Marker marker) {
     }
 
-    private void beginningCok() {
-        Map_Request request = new Map_Request(getContext(), "37.4771480", "126.9619530", 0, 10);
+
+    //어플 실행시 현재 위치의 주변 콕들을 검색하는 메서드(3km)
+    private void beginningCok(Location location) {
+        Map_Request request = new Map_Request(getContext(),
+                String.valueOf(location.getLatitude()),
+                String.valueOf(location.getLongitude()), 0, 10);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<CokList>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<CokList>> request, NetworkResult<CokList> result) {
                 Cok coks[] = result.getResult().getCok();
-
                 for (Cok cok : coks) {
                     addMarker(cok);
                 }
@@ -255,7 +261,10 @@ public class MapFragment extends Fragment implements
         });
 
     }
-    private void searchCok(){
+
+
+    //지정 위치와 키워드로 콕을 검색하는 메서드
+    private void searchCok() {
         MapsearchRequest request = new MapsearchRequest(getContext(), "어딘가", "검색중", 0, 10);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<CokList>>() {
             @Override
@@ -274,6 +283,7 @@ public class MapFragment extends Fragment implements
         });
 
     }
+
     private void addMarker(Cok cok) {
         MarkerOptions options = new MarkerOptions();
         options.position(new LatLng(cok.getLatitude(), cok.getLongitude()));
@@ -293,6 +303,56 @@ public class MapFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-
     }
+
+    private void cokCheck() {
+        LSB lsb = new LSB(getContext());
+        location = lsb.onLcation();
+
+        CokcheckRequest request = new CokcheckRequest(getContext(), String.valueOf(location.getLatitude()),
+                String.valueOf(location.getLongitude()));
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
+            @Override
+            public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
+                if (result.getResult().getMessage().equals("1")) {
+                    Log.d("check", getAddress(getContext(), location.getLatitude(), location.getLongitude()));
+                    /*getAddress(getContext(), location.getLatitude(), location.getLongitude());*/
+                } else if (result.getResult().getMessage().equals("2")) {
+                    Intent intent = new Intent(getContext(), WritingActivity.class);
+                    getContext().startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFail(NetworkRequest<NetworkResult<Message>> request, int errorCode, String errorMessage, Throwable e) {
+
+            }
+        });
+    }
+
+
+    public static String getAddress(Context mContext, double lat, double lng) {
+        String nowAddress = "현재 위치를 확인 할 수 없습니다.";
+        Geocoder geocoder = new Geocoder(mContext, Locale.KOREA);
+        List<Address> address;
+        try {
+            if (geocoder != null) {
+                //세번째 파라미터는 좌표에 대해 주소를 리턴 받는 갯수로
+                //한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 최대갯수 설정
+                address = geocoder.getFromLocation(lat, lng, 1);
+
+                if (address != null && address.size() > 0) {
+                    // 주소 받아오기
+                    String currentLocationAddress = address.get(0).getAddressLine(0).toString();
+                    nowAddress = currentLocationAddress;
+
+                }
+            }
+
+        } catch (IOException e) {
+            Toast.makeText(mContext, "주소를 가져 올 수 없습니다.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();}
+        return nowAddress;
+    }
+
 }
