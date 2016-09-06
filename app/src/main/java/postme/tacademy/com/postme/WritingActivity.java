@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -49,12 +50,13 @@ public class WritingActivity extends AppCompatActivity {
     ImageView pictureview;
     FrameLayout picturelayout;
     EditText contentstext;
-
+    Location location;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_writing);
         setSupportActionBar((Toolbar) findViewById(R.id.writing_toolbar));
+
 
         final ImageView writing_location_map = (ImageView) findViewById(R.id.writing_location_map);
 

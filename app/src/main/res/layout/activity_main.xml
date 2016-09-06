@@ -14,7 +14,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/splash_string_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="12sp" />
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/splash_img_main"
@@ -34,7 +34,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/splash_string_contents"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="19sp" />
+        android:textSize="22sp" />
 
     <ImageButton
         android:id="@+id/btn_login"
@@ -68,7 +68,7 @@
         android:layout_marginTop="246dp"
         android:text="@string/splash_string_bottom"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="19sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="48dp"

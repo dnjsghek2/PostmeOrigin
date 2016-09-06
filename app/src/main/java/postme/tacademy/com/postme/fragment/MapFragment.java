@@ -3,7 +3,9 @@ package postme.tacademy.com.postme.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import postme.tacademy.com.postme.LSB;
 import postme.tacademy.com.postme.data.Cok;
 import postme.tacademy.com.postme.data.CokList;
 import postme.tacademy.com.postme.data.NetworkResult;
@@ -53,26 +56,30 @@ public class MapFragment extends Fragment implements
     public static MapFragment getInstance() {
         return ourInstance;
     }
-
+    Location location;
     static public Menu menu;
     static public MenuInflater menuInflater;
-    static View view;
     static public FloatingActionButton fab;
     static public SupportMapFragment fragment;
     static final LatLng SEOUL = new LatLng(37.56, 126.97);
     private GoogleMap googleMap;
     View relativeLayout;
-
+    View view;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (view == null) {
+        if (null == this.getChildFragmentManager().findFragmentById(R.id.map_fragment)) {
             view = inflater.inflate(R.layout.f_map, container, false); //비어있는 layout 생성
             relativeLayout = view.findViewById(R.id.search_layout);
             fragment =
                     (SupportMapFragment) this.getChildFragmentManager()
                             .findFragmentById(R.id.map_fragment);
+
             fragment.getMapAsync(this);
             setHasOptionsMenu(true);
             fab = (FloatingActionButton) view.findViewById(R.id.fab_click);
@@ -136,8 +143,15 @@ public class MapFragment extends Fragment implements
                 MapFragment.menu.getItem(1).setVisible(false);
                 MapFragment.menu.getItem(2).setVisible(false);
                 MapFragment.menu.getItem(3).setVisible(false);
-                intent = new Intent(getContext(), WritingActivity.class);
+                /*intent = new Intent(getContext(), WritingActivity.class);
                 getContext().startActivity(intent);
+                */
+                LSB lsb = new LSB(getContext());
+                location = lsb.onLcation();
+
+
+                Toast.makeText(getContext(), "lat : "+location.getLatitude()+", long : "+location.getLongitude(), Toast.LENGTH_SHORT).show();
+
                 break;
 
             case R.id.map_cancel:
@@ -276,5 +290,9 @@ public class MapFragment extends Fragment implements
         googleMap.addMarker(options).setTag(cok.getCok_id());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+    }
 }
