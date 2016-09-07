@@ -2,15 +2,23 @@ package postme.tacademy.com.postme;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +26,31 @@ import android.widget.Toast;
  * Created by Monkey on 2016. 8. 29..
  */
 public class ATActivity extends AppCompatActivity {
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_at);
+
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.a_at_title);
+        ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        p.gravity = Gravity.CENTER;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setElevation(0);
+
+//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+//        getSupportActionBar().setCustomView(R.layout.a_at_title);
+
+
+
 
         final Button btn = (Button)findViewById(R.id.btn_join);
         btn.setEnabled(false);
@@ -35,7 +64,7 @@ public class ATActivity extends AppCompatActivity {
                 if (yak_checkbox01.isChecked() && yak_checkbox02.isChecked()
                         && yak_checkbox03.isChecked() && yak_checkbox04.isChecked()) {
                     btn.setEnabled(true);
-                    btn.setText("Thanks Checked");
+                    btn.setText("동의 감사합니다");
                 } else if (btn.isEnabled()) {
                     btn.setEnabled(false);
                 }
@@ -114,6 +143,9 @@ public class ATActivity extends AppCompatActivity {
             }
         }
     };
+
+
+
 }
 
 

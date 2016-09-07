@@ -1,96 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:backgroundTint="#ffffff">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="YakGuan"
-        android:textSize="30sp"
-        android:id="@+id/text_yakguan" />
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please Check all"
-        android:id="@+id/btn_join"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/a_at_linear01"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/yak_checkBox01"
+            android:checked="false"/>
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="서비스 이용 약관 동의 (필수)"
+            android:id="@+id/yak_contents01"
+            android:textSize="14sp"
+            android:textColor="#000000" />
+    </LinearLayout>
 
-    <CheckBox
+
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/yak_checkBox01"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="95dp"
-        android:checked="false"
-        android:text="yak01" />
-
+        android:id="@+id/a_at_linear02"
+        android:layout_below="@+id/a_at_linear01"
+        android:layout_alignLeft="@+id/a_at_linear01"
+        android:layout_alignStart="@+id/a_at_linear01"
+        android:layout_marginTop="25dp">
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yak_checkBox02"
-        android:layout_below="@+id/yak_checkBox01"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="73dp"
         android:checked="false"
-        android:text="yak02" />
+        android:layout_below="@+id/a_at_linear01" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="개인 정보 수집 및 이용 동의 (필수)"
+        android:id="@+id/yak_contents02"
+        android:textSize="14sp"
+        android:layout_marginLeft="15dp"
+        android:textColor="#000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/a_at_linear03"
+        android:layout_below="@+id/yak_contents04"
+        android:layout_alignLeft="@+id/a_at_linear02"
+        android:layout_alignStart="@+id/a_at_linear02"
+        android:layout_marginTop="28dp">
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yak_checkBox03"
-        android:layout_above="@+id/yak_checkBox04"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="102dp"
         android:checked="false"
-        android:text="yak03" />
+        android:layout_below="@+id/yak_checkBox02"
+        android:layout_alignParentRight="true" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="위치정보 수집 및 이용 동의"
+            android:id="@+id/yak_contents05"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/yak_contents08"
+            android:layout_alignEnd="@+id/yak_contents08"
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/a_at_linear04"
+        android:layout_below="@+id/yak_contents06"
+        android:layout_alignLeft="@+id/a_at_linear03"
+        android:layout_alignStart="@+id/a_at_linear03"
+        android:layout_marginTop="25dp">
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yak_checkBox04"
-        android:layout_marginBottom="45dp"
-        android:layout_above="@+id/btn_join"
+        android:checked="false"
+        android:layout_below="@+id/yak_checkBox03"
+        android:layout_alignParentRight="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="연령 (만 14세 이상) 확인"
+            android:id="@+id/yak_contents07"
+            android:textSize="14sp"
+            android:layout_below="@+id/yak_contents06"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+
+
+
+
+
+    <Button
+        android:layout_width="288dp"
+        android:layout_height="40dp"
+        android:text="동의하고 가입합니다"
+        android:id="@+id/btn_join"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/yak_contents08"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:textColor="#ffffff"
+        android:padding="-10dp"
+        android:gravity="center_horizontal" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현 위치 기능 제공을 위해 이용자의 위치정보 및 사용 데이터가 필요합니다."
+        android:id="@+id/yak_contents06"
+        android:textSize="10sp"
+        android:layout_below="@+id/a_at_linear03"
+        android:layout_alignLeft="@+id/yak_contents04"
+        android:layout_alignStart="@+id/yak_contents04"
+        android:layout_alignRight="@+id/yak_contents03"
+        android:layout_alignEnd="@+id/yak_contents03"
+        android:layout_marginTop="15dp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치기반 서비스는 만 14세 이상 이용자만 이용할 수 있습니다."
+        android:id="@+id/yak_contents08"
+        android:textSize="10sp"
+        android:layout_below="@+id/a_at_linear04"
+        android:layout_alignLeft="@+id/yak_contents06"
+        android:layout_alignStart="@+id/yak_contents06"
+        android:layout_marginTop="15dp"
+        android:layout_alignRight="@+id/yak_contents06"
+        android:layout_alignEnd="@+id/yak_contents06"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치 정보 약관 동의"
+        android:id="@+id/yak_contents04"
+        android:textSize="14sp"
+        android:layout_below="@+id/yak_contents03"
+        android:layout_alignLeft="@+id/yak_contents03"
+        android:layout_alignStart="@+id/yak_contents03"
+        android:layout_marginTop="45dp" />
+
+    <TextView
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:text="포스크 미(이하 “회사” 또는 “POST ME”라함)는 관련 법령에 의거한 개인정보 취급방침을 정하여 이용자 권익 보호에 최선을 다하고 있습니다."
+        android:id="@+id/yak_contents03"
+        android:textSize="10sp"
+        android:layout_below="@+id/a_at_linear02"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:checked="false"
-        android:text="yak04" />
+        android:layout_marginLeft="77dp"
+        android:layout_marginTop="15dp"
+        android:layout_alignRight="@+id/a_at_linear02"
+        android:layout_alignEnd="@+id/a_at_linear02"
+        android:textColor="#000000" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/style_underline"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:id="@+id/yak_view01"
-        android:layout_alignTop="@+id/yak_checkBox01"
+        android:layout_alignBottom="@+id/a_at_linear01"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="30dp"
+        android:textColor="#ff0000" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/style_underline"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:id="@+id/yak_view02"
-        android:layout_alignTop="@+id/yak_checkBox02"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/a_at_linear02"
+        android:layout_alignLeft="@+id/yak_view01"
+        android:layout_alignStart="@+id/yak_view01"
+        android:layout_marginRight="30dp"
+        android:textColor="#ff0000" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/style_underline"
-        android:textSize="20sp"
-        android:id="@+id/yak_view03"
-        android:layout_alignTop="@+id/yak_checkBox03"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/style_underline"
+    android:textSize="15sp"
+    android:id="@+id/yak_view03"
+        android:layout_alignBottom="@+id/a_at_linear03"
+        android:layout_alignLeft="@+id/yak_view02"
+        android:layout_alignStart="@+id/yak_view02"
+        android:textColor="#ff0000" />
 
 </RelativeLayout>

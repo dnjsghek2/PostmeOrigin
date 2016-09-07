@@ -6,5 +6,6 @@
     <color name="colorRed">#f1a9a9</color>
     <color name="bgwhite">#FFFFFF</color>
     <color name="bgblack">#424242</color>
+    <color name="bggrey">#a1a1a1</color>
     <color name="transparent">#00000000</color>
 </resources>

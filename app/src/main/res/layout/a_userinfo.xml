@@ -4,67 +4,44 @@
     android:layout_height="match_parent">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start PostMe"
+        android:layout_width="288dp"
+        android:layout_height="40dp"
+        android:text="POST ME 시작하기"
         android:id="@+id/btn_userinfo"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:textColor="#ffffff" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="POST ME"
-        android:textSize="50dp"
-        android:id="@+id/text_uinfo_POSTME"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="POSTME에 오신 것을 환영합니다"
-        android:textSize="25dp"
+        android:text="POST ME에 오신 것을 환영합니다"
+        android:textSize="23sp"
         android:id="@+id/text_uinfo_welcome"
-        android:layout_below="@+id/text_uinfo_POSTME"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
 
     <postme.tacademy.com.postme.UserInfoEditText
-        android:layout_width="match_parent"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:hint="닉네임을 입력해주세요"
-        android:layout_below="@+id/text_uinfo_welcome"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="69dp" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner_uinfo"
-        android:spinnerMode="dropdown"
-        android:background="#96dfb4"
-        android:entries="@array/nacimiento_array"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:hint="닉네임 영문, 숫자 5~8 글자"
+        android:layout_below="@+id/text_uinfo_POSTME"
+        android:layout_centerHorizontal="true"
+        android:textSize="13sp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/view" />
 
 
     <RadioGroup
         android:id="@+id/radiogroup_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="71dp"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:padding="50dp"
         android:layout_below="@+id/spinner_uinfo"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp">
 
 
         <RadioButton
@@ -75,10 +52,11 @@
             android:layout_below="@+id/spinner_uinfo"
             android:layout_toLeftOf="@+id/btn_userinfo"
             android:layout_toStartOf="@+id/btn_userinfo"
-            android:padding="30dp"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="0dp"
-            android:button="@drawable/selectonoff"/>
+            android:button="@drawable/selectonoff"
+            android:scaleX="3.5"
+            android:scaleY="3.5"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp" />
 
         <RadioButton
             android:id="@+id/radio_woman_uinfo"
@@ -88,10 +66,11 @@
             android:layout_alignTop="@+id/radio_man_uinfo"
             android:layout_alignRight="@+id/btn_userinfo"
             android:layout_alignEnd="@+id/btn_userinfo"
-            android:layout_weight="0"
-            android:padding="30dp"
-            android:layout_gravity="center_vertical"
-            android:button="@drawable/selectonoff"/>
+            android:button="@drawable/womanoff"
+            android:scaleX="3.5"
+            android:scaleY="3.5"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp" />
     </RadioGroup>
 
 
@@ -100,6 +79,71 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_uinfo_select"
         android:layout_above="@+id/btn_userinfo"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기본정보를 입력 해주세요"
+        android:textSize="23sp"
+        android:id="@+id/text_uinfo_POSTME"
+        android:layout_weight="1"
+        android:layout_below="@+id/text_uinfo_welcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영문, 숫자 5~8글자"
+        android:id="@+id/textView"
+        android:textColor="#ff0000"
+        android:layout_below="@+id/view"
+        android:layout_alignLeft="@+id/view"
+        android:layout_alignStart="@+id/view" />
+
+    <Spinner
+        android:layout_width="287dp"
+        android:layout_height="33dp"
+        android:id="@+id/spinner_uinfo"
+        android:spinnerMode="dropdown"
+        android:gravity="center"
+        android:background="@drawable/spinner_style"
+        android:entries="@array/nacimiento_array"
+        android:layout_weight="1"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/radiogroup_select"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남"
+            android:id="@+id/radio_text_male"
+            android:layout_below="@+id/radiogroup_select"
+            android:layout_alignLeft="@+id/radiogroup_select"
+            android:layout_alignStart="@+id/radiogroup_select"
+            android:layout_marginLeft="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여"
+            android:id="@+id/radio_text_female"
+            android:layout_alignBottom="@+id/spinner_uinfo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="65dp" />
+    </RadioGroup>
 
 </RelativeLayout>

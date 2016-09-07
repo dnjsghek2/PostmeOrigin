@@ -1,11 +1,15 @@
 package postme.tacademy.com.postme;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,22 +33,32 @@ public class UserInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_userinfo);
 
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.a_at_userinfo);
+        ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        p.gravity = Gravity.CENTER;
+        this.getSupportActionBar().setElevation(0);
+
+
         //Spinner
         Spinner spinner;
         spinner = (Spinner)findViewById(R.id.spinner_uinfo);
+//        스피너.setAdapter(new ArrayAdapter<String>(컨텍스트, R.layout.위소스의주소, new String[]{"가나다라","테스트2"}));
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getApplicationContext(),
-                R.array.nacimiento_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.nacimiento_array, R.layout.spinner_items);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(adapter);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Tag","index" + position);
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         
@@ -61,7 +75,7 @@ public class UserInfoActivity extends AppCompatActivity {
         });
         
         //Radio Select
-        findViewById(R.id.radio_man_uinfo).setOnClickListener(new Button.OnClickListener() {
+        findViewById(R.id.radiogroup_select).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
                 printChecked(view);
             }

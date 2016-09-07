@@ -51,10 +51,11 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ATActivity"
             android:label="ATActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/CustomAction"
             android:parentActivityName=".MainActivity"/>
 
-        <activity android:name=".UserInfoActivity"/>
+        <activity android:name=".UserInfoActivity"
+            android:theme="@style/CustomAction"/>
 
         <activity android:name=".WritingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
