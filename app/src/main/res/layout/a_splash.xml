@@ -42,14 +42,11 @@
 
     <TextView
         android:id="@+id/splash_text_bottom"
-        android:textColor="@color/bgblack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/splash_img_main"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="27dp"
-        android:layout_marginTop="246dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/splash_string_bottom"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="15sp" />

@@ -11,38 +11,47 @@
         android:layout_centerInParent="true">
 
         <TextView
-            android:layout_marginTop="20dp"
             android:id="@+id/txt_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="포스트 작성을 취소 하시겠습니까"
-            android:layout_centerHorizontal="true"
             android:textStyle="bold" />
 
-        <Button
+        <TextView
             android:id="@+id/writingCancel"
-            android:layout_width="130dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cancel"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp" />
-
-        <Button
-            android:id="@+id/writingOk"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="43dp"
             android:layout_weight="1"
-            android:text="OK"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="취소"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/writingOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp" />
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="43dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="확인" />
 
 
     </RelativeLayout>

@@ -1,6 +1,7 @@
 package postme.tacademy.com.postme.request;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.Image;
 
 import com.google.gson.reflect.TypeToken;
@@ -22,31 +23,14 @@ import postme.tacademy.com.postme.data.User;
 
 public class WritingRequest extends AbstractRequest<NetworkResult<NetworkResultTemp>> {
     Request request;
-    public WritingRequest(Context context, String cok_id, String nickname, String content, Image image, String feeling,
+    public WritingRequest(Context context, String content, String image, String feeling,
                           String state, String latitude, String longitude){
         HttpUrl url = getBaseUrlBuilder()
                 .addPathSegments("posts")
                 .build();
-/*
-        RequestBody body = new FormBody.Builder()
-                .add("cok_id", cok_id)
-                .add("nickname", nickname)
-                .add("body", content)
-                */
-/*.add("Image", "null")*//*
-
-                .add("feeling", feeling)
-                .add("state", state)
-                .add("latitude", latitude)
-                .add("longitude", longitude)
-                .build();
-*/
-
         MultipartBody.Builder multipartBody = new MultipartBody.Builder()
-                .addFormDataPart("cok_id", cok_id)
-                .addFormDataPart("nickname", nickname)
                 .addFormDataPart("body", content)
-                /*.add("Image", "null")*/
+                .addFormDataPart("image", "null")
                 .addFormDataPart("feeling", feeling)
                 .addFormDataPart("state", state)
                 .addFormDataPart("latitude", latitude)

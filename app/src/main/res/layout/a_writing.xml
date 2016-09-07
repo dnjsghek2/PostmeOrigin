@@ -12,38 +12,42 @@
         android:layout_height="wrap_content"
         android:height="?actionBarSize"
         android:background="#ffffff"
-        app:theme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Light" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
 
-            <ToggleButton
+            <TextView
                 android:id="@+id/feeling"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginLeft="69dp"
+                android:background="@drawable/feeling_radio_group_off"
+                android:button="@android:color/transparent"
+                android:checked="false"
+                android:textOff=""
+                android:textOn="" />
 
-                android:text="감정버튼"
-                android:checked="false" />
-
-            <ToggleButton
+            <TextView
                 android:id="@+id/situation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="50dp"
-                android:text="상황버튼" />
+                android:layout_marginRight="69dp"
+                android:background="@drawable/situation_radio_group_off"
+                android:textOff=""
+                android:textOn="" />
         </RelativeLayout>
 
         <FrameLayout
@@ -62,46 +66,95 @@
                 android:orientation="horizontal"
                 android:paddingBottom="9dp"
                 android:paddingTop="9dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <RadioButton
                     android:id="@+id/joy"
-                    android:layout_width="39dp"
-                    android:layout_height="39dp"
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
                     android:layout_marginRight="48dp"
-                    android:background="@drawable/radio"
-                    android:button="@android:color/transparent" />
+                    android:background="@drawable/joy_noclick"
+                    android:button="@android:color/transparent"
+                    android:checked="false" />
 
                 <RadioButton
                     android:id="@+id/anger"
-                    android:layout_width="39dp"
-                    android:layout_height="39dp"
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
                     android:layout_marginRight="48dp"
-                    android:background="@drawable/radio1"
+                    android:background="@drawable/anger_noclick"
                     android:button="@android:color/transparent" />
 
                 <RadioButton
                     android:id="@+id/sorrow"
-                    android:layout_width="39dp"
-                    android:layout_height="39dp"
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
                     android:layout_marginRight="48dp"
-                    android:background="@drawable/radio2"
+                    android:background="@drawable/sorrow_noclick"
                     android:button="@android:color/transparent" />
 
                 <RadioButton
                     android:id="@+id/pleasure"
-                    android:layout_width="39dp"
-                    android:layout_height="39dp"
-                    android:background="@drawable/radio3"
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
+                    android:background="@drawable/pleasure_noclick"
                     android:button="@android:color/transparent" />
             </RadioGroup>
+
+
+            <RadioGroup
+                android:id="@+id/situation_radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:background="#88888888"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="9dp"
+                android:paddingTop="9dp"
+                android:visibility="visible">
+
+                <RadioButton
+
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
+                    android:layout_marginRight="48dp"
+                    android:background="@drawable/joy_noclick"
+                    android:button="@android:color/transparent"
+                    android:checked="false" />
+
+                <RadioButton
+
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
+                    android:layout_marginRight="48dp"
+                    android:background="@drawable/anger_noclick"
+                    android:button="@android:color/transparent" />
+
+                <RadioButton
+
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
+                    android:layout_marginRight="48dp"
+                    android:background="@drawable/sorrow_noclick"
+                    android:button="@android:color/transparent" />
+
+                <RadioButton
+
+                    android:layout_width="42dp"
+                    android:layout_height="59dp"
+                    android:background="@drawable/pleasure_noclick"
+                    android:button="@android:color/transparent" />
+            </RadioGroup>
+
         </FrameLayout>
     </LinearLayout>
 
     <ScrollView
-        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ffffff"
         android:orientation="vertical">
 
         <LinearLayout
@@ -140,11 +193,11 @@
                     android:hint="글자 수 제한 테스트만 작성시 60자이미지 첨부 30자" />
 
                 <Button
-                    android:layout_marginRight="12dp"
                     android:id="@+id/picture_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|top"
+                    android:layout_marginRight="12dp"
                     android:text="사진 첨부" />
 
                 <ToggleButton

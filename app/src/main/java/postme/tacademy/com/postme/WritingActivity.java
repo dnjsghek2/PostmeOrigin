@@ -1,5 +1,6 @@
 package postme.tacademy.com.postme;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -7,12 +8,12 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -30,10 +33,8 @@ import java.io.IOException;
 
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.NetworkResultTemp;
-import postme.tacademy.com.postme.data.User;
 import postme.tacademy.com.postme.dialog.WritingDialog;
 import postme.tacademy.com.postme.manager.NetworkManager;
-import postme.tacademy.com.postme.request.LoginRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
 import postme.tacademy.com.postme.request.WritingRequest;
 
@@ -43,14 +44,22 @@ import postme.tacademy.com.postme.request.WritingRequest;
 public class WritingActivity extends AppCompatActivity {
 
     final int REQ_CODE_SELECT_IMAGE = 100;
-    ToggleButton feeling_btn;
-    ToggleButton situation_btn;
+    TextView feeling_btn, situation_btn;
     RadioGroup feeling_radio_group;
     RadioGroup situation_radio_group;
     ImageView pictureview;
     FrameLayout picturelayout;
     EditText contentstext;
     Location location;
+    RadioButton joy, pleasure, sorrow, anger;
+    Bitmap image_bitmap;
+
+    boolean feeling_btn_check = false;
+    boolean feeling_item_Checked = false;
+    boolean situation_btn_Check = false;
+    boolean situation_item_Checked = false;
+    String feeling_item = "0";
+    String situation_item = "0";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,29 +71,60 @@ public class WritingActivity extends AppCompatActivity {
 
         picturelayout = (FrameLayout) findViewById(R.id.picture_layout);
         contentstext = (EditText) findViewById(R.id.contents_text);
-
+        joy = (RadioButton) findViewById(R.id.joy);
+        pleasure = (RadioButton) findViewById(R.id.pleasure);
+        sorrow = (RadioButton) findViewById(R.id.sorrow);
+        anger = (RadioButton) findViewById(R.id.anger);
 
         feeling_radio_group = (RadioGroup) findViewById(R.id.feeling_radio);
         feeling_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.joy:
-
+                        joy.setBackgroundResource(R.drawable.joy);
+                        anger.setBackgroundResource(R.drawable.anger_noclick);
+                        sorrow.setBackgroundResource(R.drawable.sorrow_noclick);
+                        pleasure.setBackgroundResource(R.drawable.pleasure_noclick);
+                        feeling_btn.setBackgroundResource(R.drawable.radio);
+                        feeling_item_Checked = true;
+                        feeling_item = "1";
                         break;
+
                     case R.id.anger:
-
+                        joy.setBackgroundResource(R.drawable.joy_noclick);
+                        anger.setBackgroundResource(R.drawable.anger);
+                        sorrow.setBackgroundResource(R.drawable.sorrow_noclick);
+                        pleasure.setBackgroundResource(R.drawable.pleasure_noclick);
+                        feeling_btn.setBackgroundResource(R.drawable.radio1);
+                        feeling_item_Checked = true;
+                        feeling_item = "2";
                         break;
+
                     case R.id.sorrow:
-
+                        joy.setBackgroundResource(R.drawable.joy_noclick);
+                        anger.setBackgroundResource(R.drawable.anger_noclick);
+                        sorrow.setBackgroundResource(R.drawable.sorrow);
+                        pleasure.setBackgroundResource(R.drawable.pleasure_noclick);
+                        feeling_btn.setBackgroundResource(R.drawable.radio2);
+                        feeling_item_Checked = true;
+                        feeling_item = "3";
                         break;
+
                     case R.id.pleasure:
+                        joy.setBackgroundResource(R.drawable.joy_noclick);
+                        anger.setBackgroundResource(R.drawable.anger_noclick);
+                        sorrow.setBackgroundResource(R.drawable.sorrow_noclick);
+                        pleasure.setBackgroundResource(R.drawable.pleasure);
+                        feeling_btn.setBackgroundResource(R.drawable.radio3);
+                        feeling_item = "4";
+                        feeling_item_Checked = true;
                         break;
                 }
             }
         });
 
-        /*
 
         situation_radio_group = (RadioGroup) findViewById(R.id.situation_radio);
         situation_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -105,25 +145,25 @@ public class WritingActivity extends AppCompatActivity {
                 }
             }
         });
-*/
-
-        feeling_btn = (ToggleButton) findViewById(R.id.feeling);
+        feeling_btn = (TextView) findViewById(R.id.feeling);
         feeling_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                feeling_btn_check = !feeling_btn_check;
+                situation_btn_Check = false;
                 ToggleCheck();
             }
         });
-
-        situation_btn = (ToggleButton) findViewById(R.id.situation);
+        situation_btn = (TextView) findViewById(R.id.situation);
         situation_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                feeling_btn.setChecked(false);
+            public void onClick(View v) {
+                situation_btn_Check = !situation_btn_Check;
+
+                feeling_btn_check = false;
                 ToggleCheck();
             }
         });
-
         ToggleButton location_btn = (ToggleButton) findViewById(R.id.writing_location);
         location_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -167,17 +207,32 @@ public class WritingActivity extends AppCompatActivity {
     }
 
     void ToggleCheck() {
-        if (feeling_btn.isChecked()) {
-            situation_btn.setChecked(false);
+
+        if (!feeling_item_Checked) { //아이템 선택이 안된경우 실행
+            if (feeling_btn_check) { //거짓이라면 on으로 바꿔줌
+                feeling_btn.setBackgroundResource(R.drawable.feeling_radio_group_on);
+            } else if (!feeling_btn_check) { //참이라면 거짓으로 바꿔줌
+                feeling_btn.setBackgroundResource(R.drawable.feeling_radio_group_off);
+            }
+        }
+
+        if (!situation_item_Checked) { //아이템 선택이 안된경우 실행
+            if (situation_btn_Check) { //on으로 바꿔줌
+                situation_btn.setBackgroundResource(R.drawable.situation_radio_group_on);
+            } else if (!situation_btn_Check) { //참이라면 거짓으로 바꿔줌
+                situation_btn.setBackgroundResource(R.drawable.situation_radio_group_off);
+            }
+        }
+
+        if (feeling_btn_check) {
             feeling_radio_group.setVisibility(View.VISIBLE);
-            /*situation_radio_group.setVisibility(View.GONE);*/
-        } else if (situation_btn.isChecked()) {
-            feeling_btn.setChecked(false);
+            situation_radio_group.setVisibility(View.GONE);
+        } else if (situation_btn_Check) {
             feeling_radio_group.setVisibility(View.GONE);
-            /*situation_radio_group.setVisibility(View.VISIBLE);*/
-        } else if (!(feeling_btn.isChecked() && situation_btn.isChecked())) {
+            situation_radio_group.setVisibility(View.VISIBLE);
+        } else if (!feeling_btn_check && !situation_btn_Check) {
             feeling_radio_group.setVisibility(View.GONE);
-            /*situation_radio_group.setVisibility(View.GONE);*/
+            situation_radio_group.setVisibility(View.GONE);
         }
     }
 
@@ -191,7 +246,8 @@ public class WritingActivity extends AppCompatActivity {
                     //String name_Str = getImageNameToUri(data.getData());
 
                     //이미지 데이터를 비트맵으로 받아온다.
-                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
                     pictureview = (ImageView) findViewById(R.id.picture_view);
                     //배치해놓은 ImageView에 set
                     pictureview.setImageBitmap(image_bitmap);
@@ -229,7 +285,11 @@ public class WritingActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.writing_ok:
-                onPost("20", "wonho", contentstext.getText().toString(), null, "", "", "37.4771480", "126.9619530");
+                LSB lsb = new LSB(WritingActivity.this);
+                location = lsb.onLcation();
+                String lat = String.valueOf(location.getLatitude());
+                String lon = String.valueOf(location.getLongitude());
+                onPost(contentstext.getText().toString(), null, feeling_item, "1", lat, lon);
                 break;
             case R.id.writing_cancel:
                 final WritingDialog writingDialog = new WritingDialog(this);
@@ -240,20 +300,21 @@ public class WritingActivity extends AppCompatActivity {
     }
 
 
-    public void onPost(String cok_id, String nickname, String content, Image image, String feeling,
-                       String state, String latitude, String longitude){
+    public void onPost(String content, Bitmap image, String feeling,
+                       String state, String latitude, String longitude) {
 
-        WritingRequest request = new WritingRequest(WritingActivity.this, cok_id, nickname, content, image, feeling,
+        WritingRequest request = new WritingRequest(WritingActivity.this, content, "", feeling,
                 state, latitude, longitude);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<NetworkResultTemp>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<NetworkResultTemp>> request, NetworkResult<NetworkResultTemp> result) {
-                Toast.makeText(WritingActivity.this, ""+result.getResult().getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(WritingActivity.this, "" + result.getResult().getMessage()+result.getResult().getCok_id(), Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFail(NetworkRequest<NetworkResult<NetworkResultTemp>> request, int errorCode, String errorMessage, Throwable e) {
+                Toast.makeText(WritingActivity.this, errorMessage.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

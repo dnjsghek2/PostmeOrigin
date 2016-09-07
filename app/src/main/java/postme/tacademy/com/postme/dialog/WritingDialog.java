@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.WritingActivity;
@@ -28,14 +29,14 @@ public class WritingDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.d_writing);
-        Button ok_btn = (Button) findViewById(R.id.writingOk);
+        TextView ok_btn = (TextView) findViewById(R.id.writingOk);
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((WritingActivity)context).finish();
             }
         });
-        Button Cancel_btn = (Button) findViewById(R.id.writingCancel);
+        TextView Cancel_btn = (TextView) findViewById(R.id.writingCancel);
         Cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

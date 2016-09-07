@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import postme.tacademy.com.postme.fragment.MapFragment;
 import postme.tacademy.com.postme.R;
@@ -23,7 +24,7 @@ public class MapDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.d_map);
-        Button ok_btn = (Button) findViewById(R.id.postOk);
+        TextView ok_btn = (TextView)findViewById(R.id.postOk);
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,7 +35,7 @@ public class MapDialog extends Dialog {
                 MapDialog.this.dismiss();
             }
         });
-        Button Cancel_btn = (Button) findViewById(R.id.postCancel);
+        TextView Cancel_btn = (TextView) findViewById(R.id.postCancel);
         Cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -40,6 +40,7 @@ import postme.tacademy.com.postme.data.Cok;
 import postme.tacademy.com.postme.data.CokList;
 import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
+import postme.tacademy.com.postme.dialog.CokCreateDialog;
 import postme.tacademy.com.postme.dialog.MapDialog;
 import postme.tacademy.com.postme.PostlistActivity;
 import postme.tacademy.com.postme.R;
@@ -199,7 +200,6 @@ public class MapFragment extends Fragment implements
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Toast.makeText(getContext(), "" + marker.getTag(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), PostlistActivity.class);
                 intent.putExtra("COK_INFO", (int) marker.getTag());
                 intent.putExtra("COK_NAME", marker.getTitle());
@@ -315,9 +315,17 @@ public class MapFragment extends Fragment implements
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
                 if (result.getResult().getMessage().equals("1")) {
-                    Log.d("check", getAddress(getContext(), location.getLatitude(), location.getLongitude()));
-                    /*getAddress(getContext(), location.getLatitude(), location.getLongitude());*/
+                    Toast.makeText(getContext(), "소속될 콕이 없습니다. 콕을 생성 합니다..", Toast.LENGTH_SHORT).show();
+                    String lat = String.valueOf(location.getLatitude());
+                    String lon = String.valueOf(location.getLongitude());
+
+                    String address = getAddress(getContext(), location.getLatitude(), location.getLongitude());
+
+                    final CokCreateDialog cokCreateDialog = new CokCreateDialog(getContext(), address, lat, lon);
+                    cokCreateDialog.show();
+
                 } else if (result.getResult().getMessage().equals("2")) {
+                    Toast.makeText(getContext(), "가까운 콕에 포스트가 작성 됩니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), WritingActivity.class);
                     getContext().startActivity(intent);
                 }
@@ -329,8 +337,6 @@ public class MapFragment extends Fragment implements
             }
         });
     }
-
-
     public static String getAddress(Context mContext, double lat, double lng) {
         String nowAddress = "현재 위치를 확인 할 수 없습니다.";
         Geocoder geocoder = new Geocoder(mContext, Locale.KOREA);
