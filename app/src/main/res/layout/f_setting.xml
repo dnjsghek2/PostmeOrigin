@@ -17,7 +17,8 @@
             android:layout_gravity="right"
             android:layout_alignBottom="@+id/textView6"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:background="@color/transparent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -139,7 +140,8 @@
             android:layout_gravity="right"
             android:layout_alignBottom="@+id/textView12"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:background="@color/transparent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -164,7 +166,8 @@
             android:layout_gravity="right"
             android:layout_alignBottom="@+id/textView13"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:background="@color/transparent" />
 
         <TextView
             android:layout_width="wrap_content"

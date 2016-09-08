@@ -5,13 +5,33 @@ package postme.tacademy.com.postme.data;
  */
 public class History
 {
+    private String jjimcount;
+
     private String body;
+
     private String feeling;
+
     private String state;
+
     private String image;
+
     private String user_id;
+
     private String post_id;
+
     private String ctime;
+
+    private String jjim;
+
+    public String getJjimcount ()
+    {
+        return jjimcount;
+    }
+
+    public void setJjimcount (String jjimcount)
+    {
+        this.jjimcount = jjimcount;
+    }
 
     public String getBody ()
     {
@@ -83,9 +103,19 @@ public class History
         this.ctime = ctime;
     }
 
+    public String getJjim ()
+    {
+        return jjim;
+    }
+
+    public void setJjim (String jjim)
+    {
+        this.jjim = jjim;
+    }
+
     @Override
     public String toString()
     {
-        return "ClassPojo [body = "+body+", feeling = "+feeling+", state = "+state+", image = "+image+", user_id = "+user_id+", post_id = "+post_id+", ctime = "+ctime+"]";
+        return "ClassPojo [jjimcount = "+jjimcount+", body = "+body+", feeling = "+feeling+", state = "+state+", image = "+image+", user_id = "+user_id+", post_id = "+post_id+", ctime = "+ctime+", jjim = "+jjim+"]";
     }
 }

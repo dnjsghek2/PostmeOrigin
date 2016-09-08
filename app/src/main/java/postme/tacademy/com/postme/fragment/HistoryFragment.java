@@ -1,6 +1,7 @@
 package postme.tacademy.com.postme.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,13 +29,15 @@ import postme.tacademy.com.postme.manager.NetworkManager;
 import postme.tacademy.com.postme.request.HistoryRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
 
+import static android.support.v7.widget.RecyclerView.*;
+
 
 /**
  * Created by wonhochoi on 2016. 8. 23..
  */
 public class HistoryFragment extends Fragment {
-    private History_Rc_Adapter mAdapter;
-    private ArrayList<History> mItems;
+    History_Rc_Adapter mAdapter;
+    ArrayList<History> mItems;
 //    Toolbar toolbar;
     ImageView imageView;
     EditText edittext01;
@@ -43,6 +46,7 @@ public class HistoryFragment extends Fragment {
     RelativeLayout relativeLayout_toolbar;
     RelativeLayout relativeLayout_radio;
     RecyclerView recyclerView;
+
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -54,6 +58,7 @@ public class HistoryFragment extends Fragment {
 //        }
 //    }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,8 +69,6 @@ public class HistoryFragment extends Fragment {
 //        btn_history.setOnClickListener(this);
 
 
-
-
         imageView = (ImageView) view.findViewById(R.id.history_toolbar);
         edittext01 = (EditText) view.findViewById(R.id.his_toolbar_edit01);
         edittext02 = (EditText) view.findViewById(R.id.his_toolbar_edit02);
@@ -73,12 +76,10 @@ public class HistoryFragment extends Fragment {
         relativeLayout_toolbar = (RelativeLayout)view.findViewById(R.id.his_toolbar);
         relativeLayout_radio = (RelativeLayout)view.findViewById(R.id.his_radio);
 
-
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        setHasOptionsMenu(true);
-
+    setHasOptionsMenu(true);
 
         HistoryRequest request = new HistoryRequest(getContext(), 0, 10);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<HistoryList>>() {
@@ -94,12 +95,10 @@ public class HistoryFragment extends Fragment {
                     public void onCardViewTap(View view, int position) {
                         Toast.makeText(getContext(), "Tapped " + mItems.get(position), Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onButton1Click(View view, int position) {
                         Toast.makeText(getContext(), "Clicked Button1 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onButton2Click(View view, int position) {
                         Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
@@ -108,17 +107,13 @@ public class HistoryFragment extends Fragment {
                 mAdapter = new History_Rc_Adapter(mItems, itemTouchListener);
 
                 recyclerView.setAdapter(mAdapter);
-
-
             }
-
 
             @Override
             public void onFail(NetworkRequest<NetworkResult<HistoryList>> request, int errorCode, String errorMessage, Throwable e) {
 
             }
         });
-
         return view; //완성된 VIEW return
     }
 

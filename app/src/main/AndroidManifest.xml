@@ -21,7 +21,7 @@
         <!-- 구글 맵 api_key-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="x" />
+            android:value="XXX" />
         <!--
                         &lt;!&ndash; kakao mata &ndash;&gt;
                         <meta-data

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PostMe</string>
-    <string name="facebook_app_id">xx</string>
-    <string name="koko_api_key">xx</string>
+    <string name="facebook_app_id">XXX</string>
+    <string name="koko_api_key">XXX</string>
 
     <string name="add">Add</string>
     <string name="remove">Remove</string>

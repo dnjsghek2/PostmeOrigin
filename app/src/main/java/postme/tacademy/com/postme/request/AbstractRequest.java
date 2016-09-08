@@ -25,7 +25,7 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
     protected HttpUrl.Builder getBaseUrlBuilder() {
         HttpUrl.Builder builder = new HttpUrl.Builder();
         builder.scheme("https");
-        builder.host("xxx"); //연결될 서버
+        builder.host("XXX"); //연결될 서버
         return builder;
     }
 
