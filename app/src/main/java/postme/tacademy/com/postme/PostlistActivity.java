@@ -29,7 +29,7 @@ import postme.tacademy.com.postme.request.PostlistRequest;
 public class PostlistActivity extends AppCompatActivity {
     private Post_Rc_Adapter mAdapter;
     private ArrayList<Post> mItems;
-    static int CURRENTPAGE = 1;
+    static int CURRENTPAGE = 0;
     static int ITEMPERPAGE = 10;
     Intent intent;
     int Cok_id = -1;

@@ -27,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -60,7 +61,8 @@ public class MapFragment extends Fragment implements
         GoogleMap.OnMapClickListener,         //맵 클릭시 이벤트 처리
         GoogleMap.OnMarkerClickListener,      //마커 클릭시 이벤트 처리
         GoogleMap.OnInfoWindowClickListener,  //Infowindow 클릭시 이벤트 처리
-        GoogleMap.OnMarkerDragListener {
+        GoogleMap.OnMarkerDragListener
+{
 
     private static MapFragment ourInstance = new MapFragment();
 
@@ -77,7 +79,7 @@ public class MapFragment extends Fragment implements
     private GoogleMap googleMap;
     View relativeLayout;
     View view;
-
+    float zoomLevel = 0;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,19 +186,40 @@ public class MapFragment extends Fragment implements
     public void onInfoWindowClick(Marker marker) {
     }
 
+
     @Override
     public void onMapReady(GoogleMap Map) {
+        //LOCATION 퍼미션 획득 과정
+
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission();
         }
-
         googleMap = Map;
         googleMap.setMyLocationEnabled(true);
+
+        //구글 맵의 카메라의 변화가 있을시에 호출됨
+        googleMap.setOnCameraMoveCanceledListener(new GoogleMap.OnCameraMoveCanceledListener() {
+            @Override
+            public void onCameraMoveCanceled() {
+                zoomLevel = googleMap.getCameraPosition().zoom;
+                Log.d("zoomLevel", ""+zoomLevel);
+            }
+        });
+
+        //구글맵 회전 OFF
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setRotateGesturesEnabled(false);
+
+        //현재 좌표 얻기
         LSB lsb = new LSB(getContext());
         location = lsb.onLcation();
+
+        //어플 실행시 현재 위치의 주변 콕 검색
         beginningCok(location);
+
+        //콕 타이틀바 선택시 안에 있는 포스트 불러오기
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -208,7 +231,7 @@ public class MapFragment extends Fragment implements
         });
         SEOUL.hashCode();
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 15));
-
+        zoomLevel = googleMap.getCameraPosition().zoom;
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
 

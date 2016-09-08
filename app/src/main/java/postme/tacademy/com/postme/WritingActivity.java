@@ -10,6 +10,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +29,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.NetworkResultTemp;
@@ -60,6 +64,8 @@ public class WritingActivity extends AppCompatActivity {
     boolean situation_item_Checked = false;
     String feeling_item = "0";
     String situation_item = "0";
+    File file;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,6 +254,19 @@ public class WritingActivity extends AppCompatActivity {
                     //이미지 데이터를 비트맵으로 받아온다.
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
+                    file = new File(getCacheDir(), "image.jpeg");
+                    file.createNewFile();
+                    OutputStream os = new FileOutputStream(file);
+                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 80, os);
+
+                    if (image_bitmap.getHeight() > 600) {
+
+                    } else if (image_bitmap.getWidth() > 600) {
+
+                    }
+
+                    os.flush();
+                    os.close();
                     pictureview = (ImageView) findViewById(R.id.picture_view);
                     //배치해놓은 ImageView에 set
                     pictureview.setImageBitmap(image_bitmap);
@@ -260,6 +279,8 @@ public class WritingActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+
                 }
             }
         }
@@ -289,7 +310,7 @@ public class WritingActivity extends AppCompatActivity {
                 location = lsb.onLcation();
                 String lat = String.valueOf(location.getLatitude());
                 String lon = String.valueOf(location.getLongitude());
-                onPost(contentstext.getText().toString(), null, feeling_item, "1", lat, lon);
+                onPost(contentstext.getText().toString(), file, feeling_item, "1", lat, lon);
                 break;
             case R.id.writing_cancel:
                 final WritingDialog writingDialog = new WritingDialog(this);
@@ -300,15 +321,18 @@ public class WritingActivity extends AppCompatActivity {
     }
 
 
-    public void onPost(String content, Bitmap image, String feeling,
+    public void onPost(String content, File image, String feeling,
                        String state, String latitude, String longitude) {
 
-        WritingRequest request = new WritingRequest(WritingActivity.this, content, "", feeling,
+        WritingRequest request = new WritingRequest(WritingActivity.this, content, image, feeling,
                 state, latitude, longitude);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<NetworkResultTemp>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<NetworkResultTemp>> request, NetworkResult<NetworkResultTemp> result) {
-                Toast.makeText(WritingActivity.this, "" + result.getResult().getMessage()+result.getResult().getCok_id(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(WritingActivity.this, "" + result.getResult().getMessage() + result.getResult().getCok_id(), Toast.LENGTH_SHORT).show();
+                if (file == null){
+                    file.delete();
+                }
                 finish();
             }
 
@@ -318,4 +342,6 @@ public class WritingActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

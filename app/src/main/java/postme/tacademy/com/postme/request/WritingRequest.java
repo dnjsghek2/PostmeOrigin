@@ -6,10 +6,12 @@ import android.media.Image;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -23,14 +25,15 @@ import postme.tacademy.com.postme.data.User;
 
 public class WritingRequest extends AbstractRequest<NetworkResult<NetworkResultTemp>> {
     Request request;
-    public WritingRequest(Context context, String content, String image, String feeling,
+    public WritingRequest(Context context, String content, File image, String feeling,
                           String state, String latitude, String longitude){
         HttpUrl url = getBaseUrlBuilder()
                 .addPathSegments("posts")
                 .build();
         MultipartBody.Builder multipartBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
                 .addFormDataPart("body", content)
-                .addFormDataPart("image", "null")
+                .addFormDataPart("image", image.getName(), RequestBody.create(MediaType.parse("image/jpeg"), image))
                 .addFormDataPart("feeling", feeling)
                 .addFormDataPart("state", state)
                 .addFormDataPart("latitude", latitude)
