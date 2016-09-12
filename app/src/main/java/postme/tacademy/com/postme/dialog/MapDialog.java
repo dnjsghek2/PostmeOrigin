@@ -29,9 +29,11 @@ public class MapDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 MapFragment.fab.show();
-                MapFragment.menu.getItem(0).setVisible(true);
-                MapFragment.menu.getItem(1).setVisible(false);
-                MapFragment.menu.getItem(2).setVisible(false);
+                MapFragment.checkitem = new boolean[] {true, false, false, false};
+                MapFragment.menu.getItem(0).setVisible(MapFragment.checkitem[0]);
+                MapFragment.menu.getItem(1).setVisible(MapFragment.checkitem[1]);
+                MapFragment.menu.getItem(2).setVisible(MapFragment.checkitem[2]);
+                MapFragment.menu.getItem(2).setVisible(MapFragment.checkitem[3]);
                 MapDialog.this.dismiss();
             }
         });
@@ -42,9 +44,5 @@ public class MapDialog extends Dialog {
                 MapDialog.this.dismiss();
             }
         });
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
     }
 }

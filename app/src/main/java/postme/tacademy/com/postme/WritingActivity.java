@@ -1,20 +1,23 @@
 package postme.tacademy.com.postme;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,17 +26,30 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.NetworkResultTemp;
@@ -45,8 +61,10 @@ import postme.tacademy.com.postme.request.WritingRequest;
 /**
  * Created by wonhochoi on 2016. 8. 29..
  */
-public class WritingActivity extends AppCompatActivity {
+public class WritingActivity extends AppCompatActivity implements
+        OnMapReadyCallback {
 
+    boolean snapshotcheck = false;
     final int REQ_CODE_SELECT_IMAGE = 100;
     TextView feeling_btn, situation_btn;
     RadioGroup feeling_radio_group;
@@ -65,15 +83,20 @@ public class WritingActivity extends AppCompatActivity {
     String feeling_item = "0";
     String situation_item = "0";
     File file;
+    private GoogleMap googleMap;
+    MapFragment fragment;
+    LinearLayout maplayout;
+    File snapshotfile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_writing);
         setSupportActionBar((Toolbar) findViewById(R.id.writing_toolbar));
-
-
-        final ImageView writing_location_map = (ImageView) findViewById(R.id.writing_location_map);
+        maplayout = (LinearLayout) findViewById(R.id.map_layout);
+        fragment = (MapFragment) this.getFragmentManager()
+                .findFragmentById(R.id.writing_location_map);
+        fragment.getMapAsync(this);
 
         picturelayout = (FrameLayout) findViewById(R.id.picture_layout);
         contentstext = (EditText) findViewById(R.id.contents_text);
@@ -89,40 +112,24 @@ public class WritingActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.joy:
-                        joy.setBackgroundResource(R.drawable.joy);
-                        anger.setBackgroundResource(R.drawable.anger_noclick);
-                        sorrow.setBackgroundResource(R.drawable.sorrow_noclick);
-                        pleasure.setBackgroundResource(R.drawable.pleasure_noclick);
                         feeling_btn.setBackgroundResource(R.drawable.radio);
                         feeling_item_Checked = true;
                         feeling_item = "1";
                         break;
 
                     case R.id.anger:
-                        joy.setBackgroundResource(R.drawable.joy_noclick);
-                        anger.setBackgroundResource(R.drawable.anger);
-                        sorrow.setBackgroundResource(R.drawable.sorrow_noclick);
-                        pleasure.setBackgroundResource(R.drawable.pleasure_noclick);
                         feeling_btn.setBackgroundResource(R.drawable.radio1);
                         feeling_item_Checked = true;
                         feeling_item = "2";
                         break;
 
                     case R.id.sorrow:
-                        joy.setBackgroundResource(R.drawable.joy_noclick);
-                        anger.setBackgroundResource(R.drawable.anger_noclick);
-                        sorrow.setBackgroundResource(R.drawable.sorrow);
-                        pleasure.setBackgroundResource(R.drawable.pleasure_noclick);
                         feeling_btn.setBackgroundResource(R.drawable.radio2);
                         feeling_item_Checked = true;
                         feeling_item = "3";
                         break;
 
                     case R.id.pleasure:
-                        joy.setBackgroundResource(R.drawable.joy_noclick);
-                        anger.setBackgroundResource(R.drawable.anger_noclick);
-                        sorrow.setBackgroundResource(R.drawable.sorrow_noclick);
-                        pleasure.setBackgroundResource(R.drawable.pleasure);
                         feeling_btn.setBackgroundResource(R.drawable.radio3);
                         feeling_item = "4";
                         feeling_item_Checked = true;
@@ -170,14 +177,19 @@ public class WritingActivity extends AppCompatActivity {
                 ToggleCheck();
             }
         });
-        ToggleButton location_btn = (ToggleButton) findViewById(R.id.writing_location);
-        location_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        final Button location_btn = (Button) findViewById(R.id.writing_location);
+        location_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    writing_location_map.setVisibility(View.VISIBLE);
+            public void onClick(View v) {
+                if (maplayout.getVisibility() == View.VISIBLE) {
+                    onSnapshot();
+                    maplayout.setVisibility(View.GONE);
+                    location_btn.setBackgroundResource(R.drawable.location_bottom);
+
                 } else {
-                    writing_location_map.setVisibility(View.GONE);
+                    maplayout.setVisibility(View.VISIBLE);
+                    location_btn.setBackgroundResource(R.drawable.location_top);
                 }
             }
         });
@@ -203,7 +215,6 @@ public class WritingActivity extends AppCompatActivity {
                 picturelayout.setVisibility(View.GONE);
             }
         });
-
     }
 
     @Override
@@ -253,18 +264,27 @@ public class WritingActivity extends AppCompatActivity {
 
                     //이미지 데이터를 비트맵으로 받아온다.
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-
+                    Bitmap reimage_bitmap;
                     file = new File(getCacheDir(), "image.jpeg");
                     file.createNewFile();
                     OutputStream os = new FileOutputStream(file);
-                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 80, os);
+                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                    Log.d("image_bitmap", "" + image_bitmap.getByteCount());
 
-                    if (image_bitmap.getHeight() > 600) {
-
-                    } else if (image_bitmap.getWidth() > 600) {
-
+                    if (image_bitmap.getWidth() > 1024 && image_bitmap.getHeight() > 1024) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        if (image_bitmap.getWidth() > 1024) {
+                            options.inSampleSize = image_bitmap.getWidth() / 1024;
+                        } else if (image_bitmap.getHeight() > 1024) {
+                            options.inSampleSize = image_bitmap.getHeight() / 1024;
+                        }
+                        image_bitmap = BitmapFactory.decodeFile(file.getPath(), options);
+                        file.delete();
+                        os = new FileOutputStream(file);
+                        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
                     }
 
+                    Log.d("image_bitmap", "" + image_bitmap.getByteCount());
                     os.flush();
                     os.close();
                     pictureview = (ImageView) findViewById(R.id.picture_view);
@@ -286,31 +306,23 @@ public class WritingActivity extends AppCompatActivity {
         }
     }
 
-
-    public String getImageNameToUri(Uri data)//이미지 파일의 uri를 가져오는 메서드
-    {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(data, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-        cursor.moveToFirst();
-
-        String imgPath = cursor.getString(column_index);
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
-
-        return imgName;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.writing_ok:
-                LSB lsb = new LSB(WritingActivity.this);
-                location = lsb.onLcation();
-                String lat = String.valueOf(location.getLatitude());
-                String lon = String.valueOf(location.getLongitude());
-                onPost(contentstext.getText().toString(), file, feeling_item, "1", lat, lon);
+                onSnapshot();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LSB lsb = new LSB(WritingActivity.this);
+                        location = lsb.onLcation();
+                        String lat = String.valueOf(location.getLatitude());
+                        String lon = String.valueOf(location.getLongitude());
+                        onPost(contentstext.getText().toString(), file, feeling_item, "1", lat, lon);
+                    }
+                }, 1000);
                 break;
             case R.id.writing_cancel:
                 final WritingDialog writingDialog = new WritingDialog(this);
@@ -320,18 +332,23 @@ public class WritingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void onPost(String content, File image, String feeling,
                        String state, String latitude, String longitude) {
-
-        WritingRequest request = new WritingRequest(WritingActivity.this, content, image, feeling,
-                state, latitude, longitude);
+        WritingRequest request;
+        if (image != null) {
+            request = new WritingRequest(WritingActivity.this, content, image, snapshotfile, feeling,
+                    state, latitude, longitude);
+        } else {
+            request = new WritingRequest(WritingActivity.this, content, snapshotfile, feeling,
+                    state, latitude, longitude);
+        }
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<NetworkResultTemp>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<NetworkResultTemp>> request, NetworkResult<NetworkResultTemp> result) {
                 Toast.makeText(WritingActivity.this, "" + result.getResult().getMessage() + result.getResult().getCok_id(), Toast.LENGTH_SHORT).show();
-                if (file == null){
+                if (file != null) {
                     file.delete();
+                    snapshotfile.delete();
                 }
                 finish();
             }
@@ -343,5 +360,60 @@ public class WritingActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            return;
+        }
 
+        this.googleMap = googleMap;
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setZoomGesturesEnabled(false);   //줌 컨트롤
+        uiSettings.setScrollGesturesEnabled(false); //스크롤 컨트롤
+        uiSettings.setTiltGesturesEnabled(false);   //틸트??
+        uiSettings.setRotateGesturesEnabled(false); //회전 컨트롤
+        uiSettings.setMapToolbarEnabled(false);     //길찾기, 현재위치 등등 툴바 컨트롤
+        LSB lsb = new LSB(this);
+        Location location = lsb.onLcation();
+        Log.d("location", "" + location.getLatitude() + "  " + location.getLongitude());
+        final LatLng SEOUL = new LatLng(location.getLatitude(), location.getLongitude());
+        Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL)
+                .title("이글의 위치"));
+
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 15));
+        this.googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+    }
+
+    void onSnapshot() {
+        if (maplayout.getVisibility() != View.GONE) {
+            googleMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
+                @Override
+                public void onSnapshotReady(Bitmap snapshot) {
+                    if (snapshot == null)
+                        Toast.makeText(WritingActivity.this, "null", Toast.LENGTH_SHORT).show();
+                    else {
+                        snapshotfile = new File(getCacheDir(), "location.jpeg");
+                        OutputStream out = null;
+                        try {
+                            snapshotfile.createNewFile();
+                            out = new FileOutputStream(snapshotfile);
+                            snapshot.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            try {
+                                out.close();
+                                snapshotcheck = true;
+                                Toast.makeText(WritingActivity.this, "saved.",
+                                        Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
 }

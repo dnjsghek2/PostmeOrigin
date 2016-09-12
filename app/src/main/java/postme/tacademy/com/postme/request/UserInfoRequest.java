@@ -19,12 +19,11 @@ import postme.tacademy.com.postme.data.NetworkResultTemp;
  */
 public class UserInfoRequest extends AbstractRequest<NetworkResult<Message>>{
     Request request;
-    public UserInfoRequest(Context context, String nickname, String  gender, String birth, String email){
+    public UserInfoRequest(Context context, String nickname, String  gender, String birth){
         HttpUrl url = getBaseUrlBuilder()
                 .addEncodedPathSegment("users")
                 .build();
         RequestBody body = new FormBody.Builder()
-                .add("email", email)
                 .add("birth", birth)
                 .add("gender", gender)
                 .add("nickname",nickname)

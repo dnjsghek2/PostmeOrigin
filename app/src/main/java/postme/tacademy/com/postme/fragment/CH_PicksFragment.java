@@ -44,16 +44,6 @@ public class CH_PicksFragment extends Fragment {
 
         OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
             @Override
-            public void onCardViewTap(View view, int position) {
-                Toast.makeText(getContext(), "Tapped " + mItems.get(position), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onButton1Click(View view, int position) {
-                Toast.makeText(getContext(), "Clicked Button1 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
             public void onButton2Click(View view, int position) {
                 Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
             }
@@ -70,22 +60,11 @@ public class CH_PicksFragment extends Fragment {
 
                 OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
                     @Override
-                    public void onCardViewTap(View view, int position) {
-                        Toast.makeText(getContext(), "Tapped " + mItems.get(position), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onButton1Click(View view, int position) {
-                        Toast.makeText(getContext(), "Clicked Button1 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
                     public void onButton2Click(View view, int position) {
                         Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
                     }
                 };
                 mAdapter = new CH_Pick_Rc_Adapter(mItems, itemTouchListener);
-
                 recyclerView.setAdapter(mAdapter);
 
 

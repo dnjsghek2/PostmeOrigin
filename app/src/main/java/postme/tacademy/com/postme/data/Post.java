@@ -3,11 +3,14 @@ package postme.tacademy.com.postme.data;
 /**
  * Created by wonhochoi on 16. 9. 2..
  */
-public class Post
-{
+public class
+
+Post {
+    private String map;
+
     private String body;
 
-    private String nickname;
+    private String nick;
 
     private String feeling;
 
@@ -19,79 +22,69 @@ public class Post
 
     private String ctime;
 
-    public String getBody ()
-    {
+    public String getBody() {
         return body;
     }
 
-    public void setBody (String body)
-    {
+    public void setBody(String body) {
         this.body = body;
     }
 
-    public String getNickname ()
-    {
-        return nickname;
+    public String getNick() {
+        return nick;
     }
 
-    public void setNickname (String nickname)
-    {
-        this.nickname = nickname;
+    public void setNick(String nickname) {
+        this.nick = nickname;
     }
 
-    public String getFeeling ()
-    {
+    public String getFeeling() {
         return feeling;
     }
 
-    public void setFeeling (String feeling)
-    {
+    public void setFeeling(String feeling) {
         this.feeling = feeling;
     }
 
-    public String getState ()
-    {
+    public String getState() {
         return state;
     }
 
-    public void setState (String state)
-    {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public String getImage ()
-    {
+    public String getImage() {
         return image;
     }
 
-    public void setImage (String image)
-    {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public String getPost_id ()
-    {
+    public String getPost_id() {
         return post_id;
     }
 
-    public void setPost_id (String post_id)
-    {
+    public void setPost_id(String post_id) {
         this.post_id = post_id;
     }
 
-    public String getCtime ()
-    {
+    public String getCtime() {
         return ctime;
     }
 
-    public void setCtime (String ctime)
-    {
+    public void setCtime(String ctime) {
         this.ctime = ctime;
     }
 
+    public String getMap() {return map;}
+
+    public void setMap(String map) {this.map = map;}
+
+
     @Override
-    public String toString()
-    {
-        return "ClassPojo [body = "+body+", nickname = "+nickname+", feeling = "+feeling+", state = "+state+", image = "+image+", post_id = "+post_id+", ctime = "+ctime+"]";
+    public String toString() {
+        return "ClassPojo [body = " + body + ", nickname = " + nick + ", feeling = " + feeling + ", state = " + state + ", image = " + image + ", post_id = " + post_id + ", ctime = " + ctime + "]";
     }
 }

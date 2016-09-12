@@ -8,10 +8,10 @@
         android:layout_height="40dp"
         android:text="POST ME 시작하기"
         android:id="@+id/btn_userinfo"
-        android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:layout_below="@+id/radiogroup_select" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
     <RadioGroup
         android:id="@+id/radiogroup_select"
         android:layout_width="160dp"
-        android:layout_height="71dp"
+        android:layout_height="82dp"
         android:orientation="horizontal"
         android:layout_below="@+id/spinner_uinfo"
         android:layout_centerHorizontal="true"
@@ -46,31 +46,25 @@
 
         <RadioButton
             android:id="@+id/radio_man_uinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="82dp"
             android:checked="false"
             android:layout_below="@+id/spinner_uinfo"
             android:layout_toLeftOf="@+id/btn_userinfo"
             android:layout_toStartOf="@+id/btn_userinfo"
-            android:button="@drawable/selectonoff"
-            android:scaleX="3.5"
-            android:scaleY="3.5"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp" />
+            android:button="@drawable/man_radio_btn"/>
 
         <RadioButton
             android:id="@+id/radio_woman_uinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="82dp"
             android:checked="false"
-            android:layout_alignTop="@+id/radio_man_uinfo"
-            android:layout_alignRight="@+id/btn_userinfo"
-            android:layout_alignEnd="@+id/btn_userinfo"
-            android:button="@drawable/womanoff"
-            android:scaleX="3.5"
-            android:scaleY="3.5"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp" />
+            android:layout_below="@+id/spinner_uinfo"
+            android:layout_toLeftOf="@+id/btn_userinfo"
+            android:layout_toStartOf="@+id/btn_userinfo"
+            android:layout_marginLeft="20dp"
+            android:button="@drawable/woman_radio_btn"/>
     </RadioGroup>
 
 
@@ -115,35 +109,5 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/radiogroup_select"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="남"
-            android:id="@+id/radio_text_male"
-            android:layout_below="@+id/radiogroup_select"
-            android:layout_alignLeft="@+id/radiogroup_select"
-            android:layout_alignStart="@+id/radiogroup_select"
-            android:layout_marginLeft="30dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="여"
-            android:id="@+id/radio_text_female"
-            android:layout_alignBottom="@+id/spinner_uinfo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="65dp" />
-    </RadioGroup>
 
 </RelativeLayout>

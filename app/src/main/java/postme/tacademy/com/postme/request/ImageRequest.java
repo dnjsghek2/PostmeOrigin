@@ -14,6 +14,14 @@ import java.net.URL;
  * Created by wonhochoi on 16. 9. 5..
  */
 public class ImageRequest {
+    ImageRequest instance;
+
+    public ImageRequest getInstance() {
+        if (instance == null) {
+            instance = new ImageRequest();
+        }
+        return instance;
+    }
 
     public ImageRequest() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

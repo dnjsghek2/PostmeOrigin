@@ -59,22 +59,21 @@
                 android:id="@+id/feeling_radio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
                 android:background="#ffffff"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingBottom="9dp"
                 android:paddingTop="9dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RadioButton
                     android:id="@+id/joy"
                     android:layout_width="42dp"
                     android:layout_height="59dp"
                     android:layout_marginRight="48dp"
-                    android:background="@drawable/joy_noclick"
-                    android:button="@android:color/transparent"
+                    android:button="@drawable/w_joy_radio_btn"
                     android:checked="false" />
 
                 <RadioButton
@@ -82,23 +81,23 @@
                     android:layout_width="42dp"
                     android:layout_height="59dp"
                     android:layout_marginRight="48dp"
-                    android:background="@drawable/anger_noclick"
-                    android:button="@android:color/transparent" />
+                    android:button="@drawable/w_anger_radio_btn"
+                    android:checked="false" />
 
                 <RadioButton
                     android:id="@+id/sorrow"
                     android:layout_width="42dp"
                     android:layout_height="59dp"
                     android:layout_marginRight="48dp"
-                    android:background="@drawable/sorrow_noclick"
-                    android:button="@android:color/transparent" />
+                    android:button="@drawable/w_sorrow_radio_btn"
+                    android:checked="false" />
 
                 <RadioButton
                     android:id="@+id/pleasure"
                     android:layout_width="42dp"
                     android:layout_height="59dp"
-                    android:background="@drawable/pleasure_noclick"
-                    android:button="@android:color/transparent" />
+                    android:button="@drawable/w_pleasure_radio_btn"
+                    android:checked="false" />
             </RadioGroup>
 
 
@@ -106,14 +105,14 @@
                 android:id="@+id/situation_radio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
                 android:background="#88888888"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingBottom="9dp"
                 android:paddingTop="9dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <RadioButton
 
@@ -190,33 +189,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:gravity="center"
-                    android:hint="글자 수 제한 테스트만 작성시 60자이미지 첨부 30자" />
+                    android:hint="글자 수 제한 \n 텍스트만 작성시 60자 \n 이미지 첨부 30자" />
 
                 <Button
                     android:id="@+id/picture_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="42dp"
                     android:layout_gravity="right|top"
                     android:layout_marginRight="12dp"
-                    android:text="사진 첨부" />
+                    android:background="@drawable/w_picture"
+                    android:padding="0dp" />
 
-                <ToggleButton
+                <Button
                     android:id="@+id/writing_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="104dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="left|bottom"
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="20dp"
-                    android:text="현 위치" />
+                    android:background="@drawable/location_top" />
+
             </FrameLayout>
 
-            <ImageView
-                android:id="@+id/writing_location_map"
+            <LinearLayout
+                android:id="@+id/map_layout"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@drawable/mapimg"
-                android:orientation="horizontal"
-                android:visibility="gone" />
+                android:layout_height="wrap_content">
+
+                <fragment
+                    android:id="@+id/writing_location_map"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

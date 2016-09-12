@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -22,7 +21,6 @@ import java.util.Arrays;
 
 import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
-import postme.tacademy.com.postme.data.NetworkResultTemp;
 import postme.tacademy.com.postme.manager.NetworkManager;
 import postme.tacademy.com.postme.request.FacebookLoginRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
@@ -52,14 +50,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         setButtonLabel();
-
     }
 
     private void setButtonLabel() {
         if (isLogin()) {
-            facebookButton.setImageResource(R.drawable.facebookbtn_in_img);
+            facebookButton.setImageResource(R.drawable.facebook_on);
         } else {
-            facebookButton.setImageResource(R.drawable.facebookbtn_out_img);
+            facebookButton.setImageResource(R.drawable.facebook_off);
         }
     }
 

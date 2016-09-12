@@ -33,7 +33,6 @@ public class UserInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_userinfo);
 
-
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.a_at_userinfo);
         ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -43,7 +42,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
         //Spinner
         Spinner spinner;
-        spinner = (Spinner)findViewById(R.id.spinner_uinfo);
+        spinner = (Spinner) findViewById(R.id.spinner_uinfo);
 //        스피너.setAdapter(new ArrayAdapter<String>(컨텍스트, R.layout.위소스의주소, new String[]{"가나다라","테스트2"}));
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.nacimiento_array, R.layout.spinner_items);
@@ -53,17 +52,16 @@ public class UserInfoActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Tag","index" + position);
-
+                Log.i("Tag", "index" + position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        
+
         //Bottom Button
-        Button btn_userinfo = (Button)findViewById(R.id.btn_userinfo);
+        Button btn_userinfo = (Button) findViewById(R.id.btn_userinfo);
         btn_userinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,15 +71,17 @@ public class UserInfoActivity extends AppCompatActivity {
                 finish();*/
             }
         });
-        
+
         //Radio Select
+/*
         findViewById(R.id.radiogroup_select).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
                 printChecked(view);
             }
         });
+*/
     }
-
+/*
     private void printChecked(View view) {
         RadioButton radiouinfo = (RadioButton)view;
         String resultText = "";
@@ -91,14 +91,15 @@ public class UserInfoActivity extends AppCompatActivity {
         TextView tv = (TextView)findViewById(R.id.text_uinfo_select);
         tv.setText(resultText);
     }
+*/
 
     public void onLogin() {
 
-        UserInfoRequest request = new UserInfoRequest(this, "wonho-choi", "man", "1991-10-10", "didimdol@didimdol.com");
+        UserInfoRequest request = new UserInfoRequest(this, "wonho-choi", "man", "1991-10-10");
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
-                Toast.makeText(UserInfoActivity.this, "Message : "+result.getResult().getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserInfoActivity.this, "Message : " + result.getResult().getMessage(), Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(UserInfoActivity.this, TabActivity.class);
                 startActivity(intent);

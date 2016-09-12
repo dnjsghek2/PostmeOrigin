@@ -48,7 +48,6 @@ public class PostlistActivity extends AppCompatActivity {
         Cok_name = intent.getStringExtra("COK_NAME");
         TextView toolbar_title = (TextView)findViewById(R.id.toolbar_title);
         toolbar_title.setText(Cok_name);
-        Log.d(TAG_D, "" + Cok_id);
         PostRequest();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     }
@@ -66,18 +65,10 @@ public class PostlistActivity extends AppCompatActivity {
                 }
                 OnItemTouchListener itemTouchListener = new OnItemTouchListener() {
                     @Override
-                    public void onCardViewTap(View view, int position) {
-                    }
-
-                    @Override
-                    public void onButton1Click(View view, int position) {
-                    }
-
-                    @Override
                     public void onButton2Click(View view, int position) {
                     }
                 };
-                mAdapter = new Post_Rc_Adapter(mItems, itemTouchListener);
+                mAdapter = new Post_Rc_Adapter(mItems, itemTouchListener, PostlistActivity.this);
                 recyclerView.setAdapter(mAdapter);
             }
 

@@ -23,6 +23,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionBarTheme" tools:targetApi="lollipop">@style/ActionBar</item>
     </style>
+
     <style name="ActionBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:titleTextStyle">@style/ActionBar.Title</item>
         <item name="android:subtitleTextStyle">@style/ActionBar.Subtitle</item>
@@ -35,14 +36,13 @@
     </style>
     <!--end-->
 
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimaryDark">@color/bgblack</item>
-        <item name="colorPrimary">@color/bgblack</item>
+        <item name="colorPrimary">#ffffff</item>
     </style>
-
-
     <style name="ListText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

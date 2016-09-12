@@ -32,7 +32,6 @@ public class FacebookLoginRequest extends AbstractRequest<NetworkResult<Message>
                 .url(url)
                 .post(body)
                 .build();
-
     }
     @Override
     public Request getRequest() {

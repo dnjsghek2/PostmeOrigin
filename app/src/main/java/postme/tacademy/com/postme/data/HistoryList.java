@@ -7,11 +7,11 @@ public class HistoryList
 {
     private History[] history;
 
-    private String itemPerPage;
+    private int itemPerPage;
 
-    private String currentPage;
+    private int currentPage;
 
-    private String totalPage;
+    private int totalpage;
 
     public History[] getHistory ()
     {
@@ -23,39 +23,39 @@ public class HistoryList
         this.history = history;
     }
 
-    public String getItemPerPage ()
+    public int getItemPerPage ()
     {
         return itemPerPage;
     }
 
-    public void setItemPerPage (String itemPerPage)
+    public void setItemPerPage (int itemPerPage)
     {
         this.itemPerPage = itemPerPage;
     }
 
-    public String getCurrentPage ()
+    public int getCurrentPage ()
     {
         return currentPage;
     }
 
-    public void setCurrentPage (String currentPage)
+    public void setCurrentPage (int currentPage)
     {
         this.currentPage = currentPage;
     }
 
-    public String getTotalPage ()
+    public int getTotalPage ()
     {
-        return totalPage;
+        return totalpage;
     }
 
-    public void setTotalPage (String totalPage)
+    public void setTotalPage (int totalPage)
     {
-        this.totalPage = totalPage;
+        this.totalpage = totalPage;
     }
 
     @Override
     public String toString()
     {
-        return "ClassPojo [history = "+history+", itemPerPage = "+itemPerPage+", currentPage = "+currentPage+", totalPage = "+totalPage+"]";
+        return "ClassPojo [history = "+history+", itemPerPage = "+itemPerPage+", currentPage = "+currentPage+", totalPage = "+totalpage+"]";
     }
 }

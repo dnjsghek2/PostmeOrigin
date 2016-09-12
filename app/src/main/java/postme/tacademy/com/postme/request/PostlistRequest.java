@@ -28,7 +28,6 @@ public class PostlistRequest extends AbstractRequest<NetworkResult<PostList>>{
                 .url(url+getUrl)
                 .build();
     }
-
     @Override
     protected Type getType() {
         return new TypeToken<NetworkResult<PostList>>(){}.getType();

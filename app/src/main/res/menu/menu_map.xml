@@ -4,25 +4,28 @@
     <item
         android:id="@+id/map_search"
         app:showAsAction="ifRoom|withText"
-        android:title="검색">
-    </item>
+        android:title=""
+        android:icon="@drawable/search_icon"></item>
     <item
         android:id="@+id/map_ok"
         app:showAsAction="ifRoom|withText"
         android:visible="false"
-        android:title="확인">
+        android:title=""
+        android:icon="@drawable/ok_btn">
     </item>
     <item
         android:id="@+id/map_cancel"
         app:showAsAction="ifRoom|withText"
         android:visible="false"
-        android:title="취소">
+        android:title=""
+        android:icon="@drawable/cancel_btn">
     </item>
     <item
         android:id="@+id/map_search_cancel"
         app:showAsAction="ifRoom|withText"
         android:visible="false"
-        android:title="취소">
+        android:title=""
+        android:icon="@drawable/cancel_btn">
     </item>
 
 </menu>

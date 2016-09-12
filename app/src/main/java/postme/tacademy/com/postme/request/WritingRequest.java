@@ -25,14 +25,16 @@ import postme.tacademy.com.postme.data.User;
 
 public class WritingRequest extends AbstractRequest<NetworkResult<NetworkResultTemp>> {
     Request request;
-    public WritingRequest(Context context, String content, File image, String feeling,
-                          String state, String latitude, String longitude){
+
+    public WritingRequest(Context context, String content, File image, File map, String feeling,
+                          String state, String latitude, String longitude) {
         HttpUrl url = getBaseUrlBuilder()
                 .addPathSegments("posts")
                 .build();
         MultipartBody.Builder multipartBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("body", content)
+                .addFormDataPart("image", map.getName(),(RequestBody.create(MediaType.parse("location/jpeg"), map)))
                 .addFormDataPart("image", image.getName(), RequestBody.create(MediaType.parse("image/jpeg"), image))
                 .addFormDataPart("feeling", feeling)
                 .addFormDataPart("state", state)
@@ -41,6 +43,28 @@ public class WritingRequest extends AbstractRequest<NetworkResult<NetworkResultT
 
         RequestBody body = multipartBody.build();
 
+
+        request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+    }
+
+    public WritingRequest(Context context, String content, File map, String feeling,
+                          String state, String latitude, String longitude) {
+        HttpUrl url = getBaseUrlBuilder()
+                .addPathSegments("posts")
+                .build();
+        MultipartBody.Builder multipartBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("body", content)
+                .addFormDataPart("image", map.getName(),(RequestBody.create(MediaType.parse("location/jpeg"), map)))
+                .addFormDataPart("feeling", feeling)
+                .addFormDataPart("state", state)
+                .addFormDataPart("latitude", latitude)
+                .addFormDataPart("longitude", longitude);
+
+        RequestBody body = multipartBody.build();
 
 
         request = new Request.Builder()
@@ -56,6 +80,7 @@ public class WritingRequest extends AbstractRequest<NetworkResult<NetworkResultT
 
     @Override
     protected Type getType() {
-        return new TypeToken<NetworkResult<NetworkResultTemp>>(){}.getType();
+        return new TypeToken<NetworkResult<NetworkResultTemp>>() {
+        }.getType();
     }
 }

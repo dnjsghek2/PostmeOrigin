@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <fragment
         android:id="@+id/map_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -20,35 +20,39 @@
         android:layout_gravity="right|end|bottom"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        android:src="@mipmap/ic_launcher"
-        app:fabSize="normal"
-        app:rippleColor="#e0e0e0" />
+        app:backgroundTint="#ffffffff"
+        app:borderWidth="0dp"
+        android:src="@drawable/write_btn"
+        app:elevation="2dp"
+        app:fabSize="auto" />
 
     <RelativeLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
         android:background="#88000000"
-        android:visibility="gone"
-        >
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#00000000"/>
+                android:background="#00000000" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="200dp"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:orientation="horizontal"
-            android:id="@+id/linearLayout">
+            android:layout_marginTop="200dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/editText3"
@@ -64,14 +68,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/linearLayout"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:id="@+id/linearLayout2"
-            android:layout_marginLeft="50dp">
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/linearLayout"
+            android:layout_marginLeft="50dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/editText4"
@@ -87,25 +91,26 @@
             <Button
                 android:id="@+id/search_btn"
                 android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_height="50dp" />
         </LinearLayout>
+
         <Button
             android:id="@+id/button7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:layout_below="@+id/button8"
             android:layout_alignLeft="@+id/button8"
-            android:layout_alignStart="@+id/button8" />
+            android:layout_alignStart="@+id/button8"
+            android:layout_below="@+id/button8"
+            android:text="New Button" />
 
         <Button
             android:id="@+id/button8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:layout_below="@+id/linearLayout2"
             android:layout_alignLeft="@+id/linearLayout"
-            android:layout_alignStart="@+id/linearLayout" />
+            android:layout_alignStart="@+id/linearLayout"
+            android:layout_below="@+id/linearLayout2"
+            android:text="New Button" />
 
     </RelativeLayout>
 

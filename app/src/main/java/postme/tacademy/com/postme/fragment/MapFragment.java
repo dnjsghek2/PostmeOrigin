@@ -61,8 +61,7 @@ public class MapFragment extends Fragment implements
         GoogleMap.OnMapClickListener,         //맵 클릭시 이벤트 처리
         GoogleMap.OnMarkerClickListener,      //마커 클릭시 이벤트 처리
         GoogleMap.OnInfoWindowClickListener,  //Infowindow 클릭시 이벤트 처리
-        GoogleMap.OnMarkerDragListener
-{
+        GoogleMap.OnMarkerDragListener {
 
     private static MapFragment ourInstance = new MapFragment();
 
@@ -70,6 +69,7 @@ public class MapFragment extends Fragment implements
         return ourInstance;
     }
 
+    public static boolean[] checkitem = {true, false, false, false};
     Location location;
     static public Menu menu;
     static public MenuInflater menuInflater;
@@ -80,6 +80,7 @@ public class MapFragment extends Fragment implements
     View relativeLayout;
     View view;
     float zoomLevel = 0;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,17 +95,17 @@ public class MapFragment extends Fragment implements
             fragment =
                     (SupportMapFragment) this.getChildFragmentManager()
                             .findFragmentById(R.id.map_fragment);
-
             fragment.getMapAsync(this);
             setHasOptionsMenu(true);
             fab = (FloatingActionButton) view.findViewById(R.id.fab_click);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    menu.getItem(0).setVisible(false);
-                    menu.getItem(1).setVisible(true);
-                    menu.getItem(2).setVisible(true);
-                    menu.getItem(3).setVisible(false);
+                    checkitem = new boolean[]{false, true, true, false};
+                    menu.getItem(0).setVisible(checkitem[0]);
+                    menu.getItem(1).setVisible(checkitem[1]);
+                    menu.getItem(2).setVisible(checkitem[2]);
+                    menu.getItem(3).setVisible(checkitem[3]);
                     fab.hide();
                 }
             });
@@ -114,11 +115,12 @@ public class MapFragment extends Fragment implements
             searchbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    checkitem = new boolean[]{true, false, false, false};
                     searchCok();
-                    MapFragment.menu.getItem(0).setVisible(true);
-                    MapFragment.menu.getItem(1).setVisible(false);
-                    MapFragment.menu.getItem(2).setVisible(false);
-                    MapFragment.menu.getItem(3).setVisible(false);
+                    menu.getItem(0).setVisible(checkitem[0]);
+                    menu.getItem(1).setVisible(checkitem[1]);
+                    menu.getItem(2).setVisible(checkitem[2]);
+                    menu.getItem(3).setVisible(checkitem[3]);
                     relativeLayout.setVisibility(view.GONE);
                     fab.show();
                 }
@@ -130,12 +132,20 @@ public class MapFragment extends Fragment implements
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         this.menuInflater = inflater;
         this.menu = menu;
-        inflater.inflate(R.menu.menu_map, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        menuInflater.inflate(R.menu.menu_map, this.menu);
+        menu.getItem(0).setVisible(checkitem[0]);
+        menu.getItem(1).setVisible(checkitem[1]);
+        menu.getItem(2).setVisible(checkitem[2]);
+        menu.getItem(3).setVisible(checkitem[3]);
+        super.onCreateOptionsMenu(this.menu, menuInflater);
     }
 
     @Override
@@ -145,18 +155,20 @@ public class MapFragment extends Fragment implements
         switch (id) {
             case R.id.map_search:           //콕을 검색하는 툴바 아이템
                 relativeLayout.setVisibility(view.VISIBLE);
-                MapFragment.menu.getItem(0).setVisible(false);
-                MapFragment.menu.getItem(1).setVisible(false);
-                MapFragment.menu.getItem(2).setVisible(false);
-                MapFragment.menu.getItem(3).setVisible(true);
+                checkitem = new boolean[]{false, false, false, true};
+                menu.getItem(0).setVisible(checkitem[0]);
+                menu.getItem(1).setVisible(checkitem[1]);
+                menu.getItem(2).setVisible(checkitem[2]);
+                menu.getItem(3).setVisible(checkitem[3]);
                 fab.hide();
                 break;
             case R.id.map_ok:               //콕 생성 툴바 아이템
                 fab.show();
-                MapFragment.menu.getItem(0).setVisible(true);
-                MapFragment.menu.getItem(1).setVisible(false);
-                MapFragment.menu.getItem(2).setVisible(false);
-                MapFragment.menu.getItem(3).setVisible(false);
+                checkitem = new boolean[]{true, false, false, false};
+                menu.getItem(0).setVisible(checkitem[0]);
+                menu.getItem(1).setVisible(checkitem[1]);
+                menu.getItem(2).setVisible(checkitem[2]);
+                menu.getItem(3).setVisible(checkitem[3]);
                 cokCheck();
                 break;
             case R.id.map_cancel:           //글 작성 취소 아이템
@@ -164,10 +176,11 @@ public class MapFragment extends Fragment implements
                 mapDialog.show();
                 break;
             case R.id.map_search_cancel:    //검색 취소 아이템
-                MapFragment.menu.getItem(0).setVisible(true);
-                MapFragment.menu.getItem(1).setVisible(false);
-                MapFragment.menu.getItem(2).setVisible(false);
-                MapFragment.menu.getItem(3).setVisible(false);
+                checkitem = new boolean[]{true, false, false, false};
+                menu.getItem(0).setVisible(checkitem[0]);
+                menu.getItem(1).setVisible(checkitem[1]);
+                menu.getItem(2).setVisible(checkitem[2]);
+                menu.getItem(3).setVisible(checkitem[3]);
                 relativeLayout.setVisibility(view.GONE);
                 fab.show();
         }
@@ -186,7 +199,6 @@ public class MapFragment extends Fragment implements
     public void onInfoWindowClick(Marker marker) {
     }
 
-
     @Override
     public void onMapReady(GoogleMap Map) {
         //LOCATION 퍼미션 획득 과정
@@ -199,19 +211,9 @@ public class MapFragment extends Fragment implements
         googleMap = Map;
         googleMap.setMyLocationEnabled(true);
 
-        //구글 맵의 카메라의 변화가 있을시에 호출됨
-        googleMap.setOnCameraMoveCanceledListener(new GoogleMap.OnCameraMoveCanceledListener() {
-            @Override
-            public void onCameraMoveCanceled() {
-                zoomLevel = googleMap.getCameraPosition().zoom;
-                Log.d("zoomLevel", ""+zoomLevel);
-            }
-        });
-
         //구글맵 회전 OFF
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setRotateGesturesEnabled(false);
-
         //현재 좌표 얻기
         LSB lsb = new LSB(getContext());
         location = lsb.onLcation();
@@ -232,7 +234,7 @@ public class MapFragment extends Fragment implements
         SEOUL.hashCode();
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 15));
         zoomLevel = googleMap.getCameraPosition().zoom;
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
     }
 
     private void requestLocationPermission() {
@@ -262,8 +264,7 @@ public class MapFragment extends Fragment implements
     public void onMarkerDragEnd(Marker marker) {
     }
 
-
-    //어플 실행시 현재 위치의 주변 콕들을 검색하는 메서드(3km)
+    //어플 실행시 현재 위치의 주변 콕들을 검색하는 메서드(200m)
     private void beginningCok(Location location) {
         Map_Request request = new Map_Request(getContext(),
                 String.valueOf(location.getLatitude()),
@@ -285,7 +286,6 @@ public class MapFragment extends Fragment implements
 
     }
 
-
     //지정 위치와 키워드로 콕을 검색하는 메서드
     private void searchCok() {
         MapsearchRequest request = new MapsearchRequest(getContext(), "어딘가", "검색중", 0, 10);
@@ -304,7 +304,6 @@ public class MapFragment extends Fragment implements
 
             }
         });
-
     }
 
     private void addMarker(Cok cok) {
@@ -360,6 +359,7 @@ public class MapFragment extends Fragment implements
             }
         });
     }
+
     public static String getAddress(Context mContext, double lat, double lng) {
         String nowAddress = "현재 위치를 확인 할 수 없습니다.";
         Geocoder geocoder = new Geocoder(mContext, Locale.KOREA);
@@ -380,7 +380,8 @@ public class MapFragment extends Fragment implements
 
         } catch (IOException e) {
             Toast.makeText(mContext, "주소를 가져 올 수 없습니다.", Toast.LENGTH_LONG).show();
-            e.printStackTrace();}
+            e.printStackTrace();
+        }
         return nowAddress;
     }
 

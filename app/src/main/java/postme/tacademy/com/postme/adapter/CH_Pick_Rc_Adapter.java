@@ -56,9 +56,9 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private Button button2;
-        private ToggleButton pick_local_btn;
-        private ImageView pick_local_view;
+        private TextView button2;
+        private Button local_btn;
+        private ImageView local_view;
         private TextView title;
         private TextView nickname;
         private TextView  ctime;
@@ -66,20 +66,17 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
         public ViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.his_body);
-            nickname = (TextView)itemView.findViewById(R.id.nickname);
+            nickname = (TextView)itemView.findViewById(R.id.his_id);
             ctime = (TextView)itemView.findViewById(R.id.his_ctime);
-            button2 = (Button) itemView.findViewById(R.id.card_view_button2);
-            pick_local_view = (ImageView) itemView.findViewById(R.id.Pick_local_view);
+            button2 = (TextView) itemView.findViewById(R.id.card_view_button2);
+            local_view = (ImageView) itemView.findViewById(R.id.local_view);
             serverimage = (ImageView)itemView.findViewById(R.id.server_image);
-            pick_local_btn = (ToggleButton) itemView.findViewById(R.id.Pick_local_btn);
-            pick_local_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            local_btn = (Button) itemView.findViewById(R.id.local_btn);
+            local_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b) {
-                        pick_local_view.setVisibility(View.VISIBLE);
-                    } else {
-                        pick_local_view.setVisibility(View.GONE);
-                    }
+                public void onClick(View v) {
+                    local_view.setVisibility(View.VISIBLE);
+                    local_view.setVisibility(View.GONE);
                 }
             });
             button2.setOnClickListener(new View.OnClickListener() {
