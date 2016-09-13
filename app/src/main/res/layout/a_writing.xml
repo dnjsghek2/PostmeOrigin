@@ -46,6 +46,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="69dp"
                 android:background="@drawable/situation_radio_group_off"
+                android:checked="false"
                 android:textOff=""
                 android:textOn="" />
         </RelativeLayout>
@@ -101,52 +102,97 @@
             </RadioGroup>
 
 
-            <RadioGroup
-                android:id="@+id/situation_radio"
-                android:layout_width="match_parent"
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:background="#88888888"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingBottom="9dp"
-                android:paddingTop="9dp"
-                android:visibility="gone">
+                android:fadeScrollbars="false">
 
-                <RadioButton
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    android:layout_width="42dp"
-                    android:layout_height="59dp"
-                    android:layout_marginRight="48dp"
-                    android:background="@drawable/joy_noclick"
-                    android:button="@android:color/transparent"
-                    android:checked="false" />
+                    <RadioGroup
+                        android:id="@+id/situation_radio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp"
+                        android:background="#88888888"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingBottom="0dp"
+                        android:paddingTop="0dp"
+                        android:visibility="gone">
 
-                <RadioButton
 
-                    android:layout_width="42dp"
-                    android:layout_height="59dp"
-                    android:layout_marginRight="48dp"
-                    android:background="@drawable/anger_noclick"
-                    android:button="@android:color/transparent" />
+                        <RadioButton
+                            android:id="@+id/state_primavera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_primavera"
+                            android:button="@android:color/transparent"
+                            android:checked="false" />
 
-                <RadioButton
+                        <RadioButton
+                            android:id="@+id/state_verano"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_verano"
+                            android:button="@android:color/transparent" />
 
-                    android:layout_width="42dp"
-                    android:layout_height="59dp"
-                    android:layout_marginRight="48dp"
-                    android:background="@drawable/sorrow_noclick"
-                    android:button="@android:color/transparent" />
+                        <RadioButton
+                            android:id="@+id/state_otono"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_otono"
+                            android:button="@android:color/transparent" />
 
-                <RadioButton
+                        <RadioButton
+                            android:id="@+id/state_invierno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_invierno"
+                            android:button="@android:color/transparent" />
 
-                    android:layout_width="42dp"
-                    android:layout_height="59dp"
-                    android:background="@drawable/pleasure_noclick"
-                    android:button="@android:color/transparent" />
-            </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/state_bienlugar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_bienlugar"
+                            android:button="@android:color/transparent" />
 
+                        <RadioButton
+                            android:id="@+id/state_matzip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_matzip"
+                            android:button="@android:color/transparent" />
+
+                        <RadioButton
+                            android:id="@+id/state_pasajero"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_pasajero"
+                            android:button="@android:color/transparent" />
+
+                        <RadioButton
+                            android:id="@+id/state_natural"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/state_natural"
+                            android:button="@android:color/transparent" />
+                    </RadioGroup>
+                </LinearLayout>
+            </HorizontalScrollView>
         </FrameLayout>
     </LinearLayout>
 

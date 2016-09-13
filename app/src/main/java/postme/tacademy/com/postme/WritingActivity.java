@@ -74,6 +74,7 @@ public class WritingActivity extends AppCompatActivity implements
     EditText contentstext;
     Location location;
     RadioButton joy, pleasure, sorrow, anger;
+    RadioButton primavera, verano, otono, invierno, bienlugar, matzip, pasajero, natural;
     Bitmap image_bitmap;
 
     boolean feeling_btn_check = false;
@@ -139,21 +140,124 @@ public class WritingActivity extends AppCompatActivity implements
         });
 
 
+        primavera = (RadioButton) findViewById(R.id.state_primavera);
+        verano = (RadioButton) findViewById(R.id.state_verano);
+        otono = (RadioButton) findViewById(R.id.state_otono);
+        invierno = (RadioButton) findViewById(R.id.state_invierno);
+        bienlugar = (RadioButton) findViewById(R.id.state_bienlugar);
+        matzip = (RadioButton) findViewById(R.id.state_matzip);
+        pasajero = (RadioButton) findViewById(R.id.state_pasajero);
+        natural = (RadioButton) findViewById(R.id.state_natural);
+
         situation_radio_group = (RadioGroup) findViewById(R.id.situation_radio);
         situation_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.joy:
-
+                    case R.id.state_primavera:
+                        primavera.setBackgroundResource(R.drawable.state_primavera_onclick);
+                        verano.setBackgroundResource(R.drawable.state_verano);
+                        otono.setBackgroundResource(R.drawable.state_otono);
+                        invierno.setBackgroundResource(R.drawable.state_invierno);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
+                        matzip.setBackgroundResource(R.drawable.state_matzip);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
+                        natural.setBackgroundResource(R.drawable.state_natural);
+                        situation_btn.setBackgroundResource(R.drawable.state_primavera_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "1";
                         break;
-                    case R.id.anger:
-
+                    case R.id.state_verano:
+                        primavera.setBackgroundResource(R.drawable.state_primavera);
+                        verano.setBackgroundResource(R.drawable.state_verano_onclick);
+                        otono.setBackgroundResource(R.drawable.state_otono);
+                        invierno.setBackgroundResource(R.drawable.state_invierno);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
+                        matzip.setBackgroundResource(R.drawable.state_matzip);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
+                        natural.setBackgroundResource(R.drawable.state_natural);
+                        situation_btn.setBackgroundResource(R.drawable.state_verano_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "2";
                         break;
-                    case R.id.sorrow:
-
+                    case R.id.state_otono:
+                        primavera.setBackgroundResource(R.drawable.state_primavera);
+                        verano.setBackgroundResource(R.drawable.state_verano);
+                        otono.setBackgroundResource(R.drawable.state_otono_onclick);
+                        invierno.setBackgroundResource(R.drawable.state_invierno);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
+                        matzip.setBackgroundResource(R.drawable.state_matzip);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
+                        natural.setBackgroundResource(R.drawable.state_natural);
+                        situation_btn.setBackgroundResource(R.drawable.state_otono_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "3";
                         break;
-                    case R.id.pleasure:
+                    case R.id.state_invierno:
+                        primavera.setBackgroundResource(R.drawable.state_primavera);
+                        verano.setBackgroundResource(R.drawable.state_verano);
+                        otono.setBackgroundResource(R.drawable.state_otono);
+                        invierno.setBackgroundResource(R.drawable.state_invierno_onclick);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
+                        matzip.setBackgroundResource(R.drawable.state_matzip);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
+                        natural.setBackgroundResource(R.drawable.state_natural);
+                        situation_btn.setBackgroundResource(R.drawable.state_invierno_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "4";
+                        break;
+                    case R.id.state_bienlugar:
+                        primavera.setBackgroundResource(R.drawable.state_primavera);
+                        verano.setBackgroundResource(R.drawable.state_verano);
+                        otono.setBackgroundResource(R.drawable.state_otono);
+                        invierno.setBackgroundResource(R.drawable.state_invierno);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar_onclick);
+                        matzip.setBackgroundResource(R.drawable.state_matzip);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
+                        natural.setBackgroundResource(R.drawable.state_natural);
+                        situation_btn.setBackgroundResource(R.drawable.state_bienlugar_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "5";
+                        break;
+                    case R.id.state_matzip:
+                        primavera.setBackgroundResource(R.drawable.state_primavera);
+                        verano.setBackgroundResource(R.drawable.state_verano);
+                        otono.setBackgroundResource(R.drawable.state_otono);
+                        invierno.setBackgroundResource(R.drawable.state_invierno);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
+                        matzip.setBackgroundResource(R.drawable.state_matzip_onclick);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
+                        natural.setBackgroundResource(R.drawable.state_natural);
+                        situation_btn.setBackgroundResource(R.drawable.state_matzip_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "6";
+                        break;
+                    case R.id.state_pasajero:
+                        primavera.setBackgroundResource(R.drawable.state_primavera);
+                        verano.setBackgroundResource(R.drawable.state_verano);
+                        otono.setBackgroundResource(R.drawable.state_otono);
+                        invierno.setBackgroundResource(R.drawable.state_invierno);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
+                        matzip.setBackgroundResource(R.drawable.state_matzip);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero_onclick);
+                        natural.setBackgroundResource(R.drawable.state_natural);
+                        situation_btn.setBackgroundResource(R.drawable.state_pasajero_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "7";
+                        break;
+                    case R.id.state_natural:
+                        primavera.setBackgroundResource(R.drawable.state_primavera);
+                        verano.setBackgroundResource(R.drawable.state_verano);
+                        otono.setBackgroundResource(R.drawable.state_otono);
+                        invierno.setBackgroundResource(R.drawable.state_invierno);
+                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
+                        matzip.setBackgroundResource(R.drawable.state_matzip);
+                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
+                        natural.setBackgroundResource(R.drawable.state_natural_onclick);
+                        situation_btn.setBackgroundResource(R.drawable.state_natural_onclick);
+                        situation_item_Checked = true;
+                        situation_item = "8";
                         break;
                 }
             }
@@ -172,7 +276,6 @@ public class WritingActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 situation_btn_Check = !situation_btn_Check;
-
                 feeling_btn_check = false;
                 ToggleCheck();
             }

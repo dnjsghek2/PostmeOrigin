@@ -9,19 +9,30 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.adapter.Post_Rc_Adapter;
+import postme.tacademy.com.postme.data.History;
+import postme.tacademy.com.postme.data.HistoryList;
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.Post;
 import postme.tacademy.com.postme.data.PostList;
+import postme.tacademy.com.postme.data.Statistics;
+import postme.tacademy.com.postme.data.StatisticsAge;
+import postme.tacademy.com.postme.data.User;
 import postme.tacademy.com.postme.manager.NetworkManager;
+import postme.tacademy.com.postme.request.HistoryRequest;
+import postme.tacademy.com.postme.request.LoginRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
 import postme.tacademy.com.postme.request.PostlistRequest;
+import postme.tacademy.com.postme.request.StatisticsRequest;
 
 /**
  * Created by wonhochoi on 2016. 8. 30..
@@ -37,6 +48,9 @@ public class PostlistActivity extends AppCompatActivity {
     String TAG_D = "PostlistActivity";
     Post[] posts;
     RecyclerView recyclerView;
+    RelativeLayout relativeLayout;
+    ImageView imageView;
+    ImageView stastics;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +64,26 @@ public class PostlistActivity extends AppCompatActivity {
         toolbar_title.setText(Cok_name);
         PostRequest();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        imageView = (ImageView)findViewById(R.id.a_postlist_arrow);
+        stastics = (ImageView)findViewById(R.id.a_postlist_stastics);
+        relativeLayout = (RelativeLayout)findViewById(R.id.a_postlist_rl);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (stastics.getVisibility() == View.GONE) {
+                    imageView.setImageResource(R.drawable.arrowhaciabajo);
+                    stastics.setVisibility(View.VISIBLE);
+                    Statisticss();
+                } else {
+                    imageView.setImageResource(R.drawable.arrowhaciaarriba);
+                    stastics.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
+
     void PostRequest() {
         PostlistRequest request = new PostlistRequest(PostlistActivity.this, Cok_id, CURRENTPAGE, ITEMPERPAGE);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<PostList>>() {
@@ -78,5 +111,23 @@ public class PostlistActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    void Statisticss() {
+        StatisticsRequest request = new StatisticsRequest(this, Cok_id);
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Statistics>>() {
+            @Override
+            public void onSuccess(NetworkRequest<NetworkResult<Statistics>> request, NetworkResult<Statistics> result) {
+                Toast.makeText(PostlistActivity.this, "age"+result.getResult().getAge(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFail(NetworkRequest<NetworkResult<Statistics>> request, int errorCode, String errorMessage, Throwable e) {
+                Toast.makeText(PostlistActivity.this, "error : " + errorMessage, Toast.LENGTH_SHORT).show();
+                Log.e("TAG_E", errorMessage);
+            }
+        });
+    }
+
 
 }

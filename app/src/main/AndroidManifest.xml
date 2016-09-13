@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
     <application
@@ -21,7 +23,7 @@
         <!-- 구글 맵 api_key-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="XXX" />
+            android:value="AIzaSyBe7Rh3klzH79YHlQn2GPFsN3W5vAJCZgA" />
         <!--
                         &lt;!&ndash; kakao mata &ndash;&gt;
                         <meta-data

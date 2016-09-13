@@ -14,9 +14,54 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/toolbar_title"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/a_postlist_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/a_postlist_iv"
+        android:background="@color/bggrey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="누가 포스트를 썼을까요?"
+            android:id="@+id/textView3"
+            android:layout_gravity="right" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="통계보기"
+            android:id="@+id/textView2"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_marginLeft="47dp"
+            android:layout_marginStart="47dp" />
+        <ImageView
+            android:id="@+id/a_postlist_arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/arrowhaciabajo"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/a_postlist_stastics"
+        android:background="#b4b1b1"
+        android:visibility="gone"/>
+
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
