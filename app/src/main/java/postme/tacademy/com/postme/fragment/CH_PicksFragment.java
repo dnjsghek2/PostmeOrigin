@@ -64,7 +64,7 @@ public class CH_PicksFragment extends Fragment {
                         Toast.makeText(getContext(), "Clicked Button2 in " + mItems.get(position), Toast.LENGTH_SHORT).show();
                     }
                 };
-                mAdapter = new CH_Pick_Rc_Adapter(mItems, itemTouchListener);
+                mAdapter = new CH_Pick_Rc_Adapter(getContext(), mItems, itemTouchListener);
                 recyclerView.setAdapter(mAdapter);
 
 

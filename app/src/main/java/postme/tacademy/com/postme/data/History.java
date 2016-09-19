@@ -5,7 +5,7 @@ package postme.tacademy.com.postme.data;
  */
 public class History {
     private String map;
-    private String jjimcount;
+    private int jjimcount;
     private String body;
     private String feeling;
     private String state;
@@ -13,13 +13,13 @@ public class History {
     private String user_id;
     private String post_id;
     private String ctime;
-    private String jjim;
+    private int jjim;
 
-    public String getJjimcount() {
+    public int getJjimcount() {
         return jjimcount;
     }
 
-    public void setJjimcount(String jjimcount) {
+    public void setJjimcount(int jjimcount) {
         this.jjimcount = jjimcount;
     }
 
@@ -79,11 +79,11 @@ public class History {
         this.ctime = ctime;
     }
 
-    public String getJjim() {
+    public int getJjim() {
         return jjim;
     }
 
-    public void setJjim(String jjim) {
+    public void setJjim(int jjim) {
         this.jjim = jjim;
     }
 

@@ -33,10 +33,17 @@
                 android:layout_marginLeft="69dp"
                 android:background="@drawable/feeling_radio_group_off"
                 android:button="@android:color/transparent"
-                android:checked="false"
-                android:textOff=""
-                android:textOn="" />
-
+                android:checked="false" />
+            <ImageView
+                android:id="@+id/radio2"
+                android:layout_marginTop="14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="69dp"
+                android:visibility="gone" />
             <TextView
                 android:id="@+id/situation"
                 android:layout_width="42dp"
@@ -67,7 +74,7 @@
                 android:orientation="horizontal"
                 android:paddingBottom="9dp"
                 android:paddingTop="9dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <RadioButton
                     android:id="@+id/joy"
@@ -105,6 +112,7 @@
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scrollbars="none"
                 android:fadeScrollbars="false">
 
                 <LinearLayout
@@ -116,80 +124,72 @@
                         android:id="@+id/situation_radio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:layout_marginTop="12dp"
-                        android:background="#88888888"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#ffffff"
                         android:gravity="center_horizontal"
                         android:orientation="horizontal"
-                        android:paddingBottom="0dp"
-                        android:paddingTop="0dp"
+                        android:paddingBottom="9dp"
+                        android:paddingTop="9dp"
                         android:visibility="gone">
-
 
                         <RadioButton
                             android:id="@+id/state_primavera"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_primavera"
-                            android:button="@android:color/transparent"
+                            android:button="@drawable/spring_radio"
                             android:checked="false" />
 
                         <RadioButton
                             android:id="@+id/state_verano"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="59dp"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_verano"
-                            android:button="@android:color/transparent" />
+                            android:button="@drawable/summer_radio" />
 
                         <RadioButton
                             android:id="@+id/state_otono"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_otono"
-                            android:button="@android:color/transparent" />
+                            android:button="@drawable/autumn_radio" />
 
                         <RadioButton
                             android:id="@+id/state_invierno"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_invierno"
-                            android:button="@android:color/transparent" />
+                            android:button="@drawable/winter_radio" />
 
                         <RadioButton
                             android:id="@+id/state_bienlugar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_bienlugar"
-                            android:button="@android:color/transparent" />
+                            android:button="@drawable/picture_of_good_radio" />
 
                         <RadioButton
                             android:id="@+id/state_matzip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_matzip"
-                            android:button="@android:color/transparent" />
+                            android:button="@drawable/meal_good_radio" />
 
                         <RadioButton
                             android:id="@+id/state_pasajero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_pasajero"
-                            android:button="@android:color/transparent" />
+                            android:button="@drawable/night_view_radio" />
 
                         <RadioButton
                             android:id="@+id/state_natural"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="30dp"
-                            android:background="@drawable/state_natural"
-                            android:button="@android:color/transparent" />
+                            android:button="@drawable/natural_radio" />
                     </RadioGroup>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -207,24 +207,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <FrameLayout
+            <RelativeLayout
                 android:id="@+id/picture_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone">
 
-                <ImageView
-                    android:id="@+id/picture_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp" />
-
-                <Button
+                <TextView
                     android:id="@+id/picture_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left|top"
-                    android:text="삭제" />
-            </FrameLayout>
+                    android:background="#ffffff"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:text="삭제"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:id="@+id/picture_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/picture_delete" />
+            </RelativeLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"

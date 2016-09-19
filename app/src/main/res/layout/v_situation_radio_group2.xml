@@ -21,7 +21,7 @@
             android:layout_width="39dp"
             android:layout_height="39dp"
             android:layout_marginRight="48dp"
-            android:background="@drawable/radio"
+            android:background="@drawable/joy"
             android:button="@android:color/transparent" />
 
         <RadioButton
@@ -29,7 +29,7 @@
             android:layout_width="39dp"
             android:layout_height="39dp"
             android:layout_marginRight="48dp"
-            android:background="@drawable/radio1"
+            android:background="@drawable/anger"
             android:button="@android:color/transparent" />
 
         <RadioButton
@@ -37,14 +37,14 @@
             android:layout_width="39dp"
             android:layout_height="39dp"
             android:layout_marginRight="48dp"
-            android:background="@drawable/radio2"
+            android:background="@drawable/sorrow"
             android:button="@android:color/transparent" />
 
         <RadioButton
             android:id="@+id/pleasure"
             android:layout_width="39dp"
             android:layout_height="39dp"
-            android:background="@drawable/radio3"
+            android:background="@drawable/pleasure"
             android:button="@android:color/transparent" />
     </RadioGroup>
 </LinearLayout>

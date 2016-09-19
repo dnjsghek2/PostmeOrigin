@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/postlist_toolbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:height="?actionBarSize"
         android:background="?attr/colorPrimary">
+
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/toolbar_title"
             android:textSize="20dp" />
     </android.support.v7.widget.Toolbar>
 
@@ -22,45 +24,304 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/a_postlist_iv"
-        android:background="@color/bggrey"/>
+        <ImageView
+            android:id="@+id/a_postlist_iv"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/bggrey" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="누가 포스트를 썼을까요?"
             android:id="@+id/textView3"
-            android:layout_gravity="right" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="통계보기"
+            android:layout_gravity="right"
+            android:text="누가 포스트를 썼을까요?" />
+
+        <TextView
             android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3"
             android:layout_marginLeft="47dp"
-            android:layout_marginStart="47dp" />
+            android:layout_marginStart="47dp"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_toRightOf="@+id/textView3"
+            android:text="통계보기" />
+
         <ImageView
             android:id="@+id/a_postlist_arrow"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/arrowhaciabajo"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/arrowhaciabajo" />
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+    <RelativeLayout
         android:id="@+id/a_postlist_stastics"
-        android:background="#b4b1b1"
-        android:visibility="gone"/>
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+
+        <RelativeLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/man_stats_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="0%" />
+
+            <ImageView
+                android:id="@+id/man_stats"
+                android:layout_width="44dp"
+                android:layout_height="100dp"
+                android:layout_above="@+id/textView23"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/graph_man_0" />
+
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="남자" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/linearLayout3"
+            android:layout_toEndOf="@+id/linearLayout3"
+            android:layout_toRightOf="@+id/linearLayout3"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/woman_stats_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="0%" />
+
+            <ImageView
+                android:id="@+id/woman_stats"
+                android:layout_width="44dp"
+                android:layout_height="100dp"
+                android:layout_above="@+id/textView24"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/graph_woman_0" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="여자" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/linearLayout5"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/linearLayout5"
+            android:layout_toRightOf="@+id/linearLayout5"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/age10_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="0%" />
+
+
+            <ImageView
+                android:id="@+id/age10_status_img"
+                android:layout_width="20dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/age10_num"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/age_0"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/age10_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="10대" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/linearLayout4"
+            android:layout_toEndOf="@+id/linearLayout4"
+            android:layout_toRightOf="@+id/linearLayout4"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/age20_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="0%" />
+
+
+            <ImageView
+                android:id="@+id/age20_status_img"
+                android:layout_width="20dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/age20_num"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/age_0" />
+
+            <TextView
+                android:id="@+id/age20_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="20대" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/linearLayout6"
+            android:layout_toRightOf="@+id/linearLayout6"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/age30_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="0%" />
+
+            <ImageView
+                android:id="@+id/age30_status_img"
+                android:layout_width="20dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/age30_num"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/age_0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="30대" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/linearLayout7"
+            android:layout_toRightOf="@+id/linearLayout7"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/age40_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="0%" />
+
+            <ImageView
+                android:id="@+id/age40_status_img"
+                android:layout_width="20dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/age40_num"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/age_0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="40대" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/linearLayout8"
+            android:layout_toEndOf="@+id/linearLayout8"
+            android:layout_toRightOf="@+id/linearLayout8"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/age50_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="0%" />
+
+            <ImageView
+                android:id="@+id/age50_status_img"
+                android:layout_width="20dp"
+                android:layout_height="120dp"
+                android:layout_below="@+id/age50_num"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/age_0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="50대" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recycler_view"

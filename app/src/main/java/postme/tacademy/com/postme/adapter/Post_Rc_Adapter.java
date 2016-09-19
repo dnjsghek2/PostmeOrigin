@@ -56,23 +56,87 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
         viewHolder.nickname.setText(cards.get(i).getNick());
         viewHolder.ctime.setText(cards.get(i).getCtime());
 
-        if (cards.get(i).getImage() != null && !cards.get(i).getImage().equals("null")) {
-                Glide.with(context).load(cards.get(i).getImage())
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(viewHolder.serverimage);
+        switch (cards.get(i).getFeeling()) {
+            case "1":
+                viewHolder.feeling.setImageResource(R.drawable.joy);
+                break;
+            case "2":
+                viewHolder.feeling.setImageResource(R.drawable.anger);
+                break;
+            case "3":
+                viewHolder.feeling.setImageResource(R.drawable.sorrow);
+                break;
+            case "4":
+                viewHolder.feeling.setImageResource(R.drawable.pleasure);
+                break;
         }
+        switch (cards.get(i).getState()) { //상태
+            case "1":
+                viewHolder.state.setImageResource(R.drawable.spring_on);
+                break;
+            case "2":
+                viewHolder.state.setImageResource(R.drawable.summer_on);
+                break;
+            case "3":
+                viewHolder.state.setImageResource(R.drawable.autumn_on);
+                break;
+            case "4":
+                viewHolder.state.setImageResource(R.drawable.winter_on);
+                break;
+            case "5":
+                viewHolder.state.setImageResource(R.drawable.picture_of_good_on);
+                break;
+            case "6":
+                viewHolder.state.setImageResource(R.drawable.meal_good_on);
+                break;
+            case "7":
+                viewHolder.state.setImageResource(R.drawable.night_view_on);
+                break;
+            case "8":
+                viewHolder.state.setImageResource(R.drawable.natural_on);
+                break;
+        }
+        switch (cards.get(i).getState()) {
+            case "2":
+                viewHolder.state.setImageResource(R.drawable.womanon);
+        }
+
+            Glide.with(context).load(cards.get(i).getImage())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(viewHolder.serverimage);
+
         Glide.with(context).load(cards.get(i).getMap())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.localview);
         viewHolder.title.setText(cards.get(i).getBody());
-        viewHolder.ctime.setText(cards.get(i).getCtime());
 
-        viewHolder.button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PostRequest(cards.get(i).getPost_id());
-            }
-        });
+        viewHolder.ctime.setText(cards.get(i).getCtime());
+        if (cards.get(i).getJjim() == 1) {
+            viewHolder.button2.setBackgroundResource(R.drawable.jjim_click);
+            viewHolder.button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /*PostRequest(cards.get(i).getPost_id());*/
+                    /*int count = Integer.valueOf(cards.get(i).getJjimcount());
+                    count = count - 1;
+                    cards.get(i).setJjim(String.valueOf(count));*/
+                }
+            });
+        } else {
+            viewHolder.button2.setBackgroundResource(R.drawable.jjimbtn);
+            viewHolder.button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+  /*                  PostRequest(cards.get(i).getPost_id());*/
+/*
+                    int count = Integer.valueOf(cards.get(i).getJjimcount());
+                    count = count + 1;
+                    cards.get(i).setJjim(String.valueOf(count));
+*/
+                }
+            });
+        }
+        viewHolder.jjimcount.setText(""+cards.get(i).getJjimcount());
     }
 
     @Override
@@ -90,11 +154,14 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
         private ImageView serverimage;
         private ImageView localview;
         private Button locationbtn;
+        private TextView jjimcount;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            jjimcount = (TextView) itemView.findViewById(R.id.jjim_count);
             nickname = (TextView) itemView.findViewById(R.id.his_id);
             feeling = (ImageView) itemView.findViewById(R.id.his_feeling);
+            state = (ImageView) itemView.findViewById(R.id.his_state);
             title = (TextView) itemView.findViewById(R.id.his_body);
             ctime = (TextView) itemView.findViewById(R.id.his_ctime);
             button2 = (TextView) itemView.findViewById(R.id.card_view_button2);
@@ -124,7 +191,7 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
     }
 
     void PostRequest(String Post_id) {
-        JjimRequest request = new JjimRequest(context, Post_id);
+        JjimRequest request = new JjimRequest(context, Post_id, true);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<NetworkResultTemp>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<NetworkResultTemp>> request, NetworkResult<NetworkResultTemp> result) {

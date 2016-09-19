@@ -34,7 +34,7 @@ public class CH_PushFragment extends Fragment {
         View view = inflater.inflate(R.layout.f_rc_cu, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        final DBHelper dbHelper = new DBHelper(PostMeApplication.getContext(),"POSTMEPUSH.db", null, 1);
+        final DBHelper dbHelper = new DBHelper(PostMeApplication.getInstance(),"POSTMEPUSH.db", null, 1);
 
         //********************실행시마다 5개씩 생성***********************
 //        dbHelper.forinsert();

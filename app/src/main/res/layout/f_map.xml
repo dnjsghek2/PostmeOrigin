@@ -20,9 +20,9 @@
         android:layout_gravity="right|end|bottom"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
+        android:src="@drawable/write_btn"
         app:backgroundTint="#ffffffff"
         app:borderWidth="0dp"
-        android:src="@drawable/write_btn"
         app:elevation="2dp"
         app:fabSize="auto" />
 
@@ -46,71 +46,110 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="33dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="200dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="78dp"
+            android:gravity="bottom">
 
             <EditText
                 android:id="@+id/editText3"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="186dp"
+                android:layout_height="33dp"
+                android:background="#00ffffff"
+                android:textColor="#ffffffff"/>
+
+            <RelativeLayout
+                android:layout_width="186dp"
+                android:layout_height="1dp"
+                android:background="#ffffff"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="에서" />
+                android:layout_height="33dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/editText3"
+                android:layout_toRightOf="@+id/editText3"
+                android:text="에서"
+                android:gravity="center"
+                android:textColor="#ffffffff" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="33dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/linearLayout"
             android:layout_marginLeft="50dp"
             android:orientation="horizontal">
 
+            <RelativeLayout
+                android:id="@+id/relativeLayout10"
+                android:layout_width="186dp"
+                android:layout_height="1dp"
+                android:background="#ffffff"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
             <EditText
                 android:id="@+id/editText4"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="186dp"
+                android:layout_height="33dp"
+                android:background="#00ffffff"
+                android:textColor="#ffffffff"
+                />
 
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="검색" />
+                android:layout_height="33dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/relativeLayout10"
+                android:layout_toRightOf="@+id/relativeLayout10"
+                android:gravity="center"
+                android:text="검색"
+                android:textColor="#ffffffff" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/search_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-        </LinearLayout>
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/textView18"
+                android:layout_toRightOf="@+id/textView18"
+                android:background="#00ffffff"
+                android:src="@drawable/map_search_btn" />
+        </RelativeLayout>
 
         <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/button8"
-            android:layout_alignStart="@+id/button8"
-            android:layout_below="@+id/button8"
-            android:text="New Button" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/now_location_btn"
+            android:layout_width="75dp"
+            android:layout_height="27dp"
             android:layout_alignLeft="@+id/linearLayout"
             android:layout_alignStart="@+id/linearLayout"
             android:layout_below="@+id/linearLayout2"
-            android:text="New Button" />
+            android:layout_marginTop="48dp"
+            android:background="@drawable/now_location_btn" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="75dp"
+            android:layout_height="27dp"
+            android:layout_alignLeft="@+id/now_location_btn"
+            android:layout_alignStart="@+id/now_location_btn"
+            android:layout_below="@+id/now_location_btn"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/the_whole_country_btn" />
 
     </RelativeLayout>
 

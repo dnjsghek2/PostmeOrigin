@@ -57,6 +57,7 @@ public class HistoryFragment extends Fragment {
 
     History_Rc_Adapter mAdapter;
     ArrayList<History> mItems;
+    ArrayList<History> imagemItems;
     //    Toolbar toolbar;
     ImageView imageView;
     EditText edittext01;
@@ -139,7 +140,6 @@ public class HistoryFragment extends Fragment {
             }
         });
 
-
         return view; //완성된 VIEW return
     }
 
@@ -178,9 +178,11 @@ public class HistoryFragment extends Fragment {
                 if (mItems == null) {
                     mItems = new ArrayList<History>();
                 }
+
                 for (int i = 0; i < history.length; i++) {
                     mItems.add(history[i]);
                 }
+
                 mAdapter.CURRENTPAGE = CURRENTPAGE = result.getResult().getCurrentPage() + 1;
                 mAdapter.TOTALPAGE = TOTALPAGE = result.getResult().getTotalPage();
                 mAdapter.setList(mItems);
@@ -205,19 +207,25 @@ public class HistoryFragment extends Fragment {
             public void onSuccess(NetworkRequest<NetworkResult<HistoryList>> request, NetworkResult<HistoryList> result) {
                 History[] history = result.getResult().getHistory();
 
-                for (int i = 0; i < history.length; i++) {
-                    mItems.add(history[i]);
+                if (imagemItems == null){
+                    imagemItems = new ArrayList<History>();
                 }
 
-                for (int i=0; i<mItems.size(); i++) {
-                        if (mItems.get(i).getImage() == "null"){
-                            mItems.remove(i);
-                        }
+                    for (int i = 0; i < history.length; i++) {
+                        imagemItems.add(history[i]);
+                    }
+
+                for (int i = 0; i < imagemItems.size()+1; i++) {
+                    if (imagemItems.get(i).getImage() == null){
+                        imagemItems.remove(i);
+                    }else if (imagemItems.get(i).getImage().equals("null")){
+                        imagemItems.remove(i);
+                    }
                 }
 
                 mAdapter.CURRENTPAGE = CURRENTPAGE = result.getResult().getCurrentPage() + 1;
                 mAdapter.TOTALPAGE = TOTALPAGE = result.getResult().getTotalPage();
-                mAdapter.setList(mItems);
+                mAdapter.setList(imagemItems);
                 recyclerView.setAdapter(mAdapter);
                 Log.d("확인", "onRequest02");
                 recyclerView.getLayoutManager().scrollToPosition(position);

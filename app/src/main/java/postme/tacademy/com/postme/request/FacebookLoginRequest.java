@@ -21,12 +21,12 @@ import postme.tacademy.com.postme.data.NetworkResultTemp;
  */
 public class FacebookLoginRequest extends AbstractRequest<NetworkResult<Message>> {
     Request request;
-    public FacebookLoginRequest(Context context, AccessToken token){
+    public FacebookLoginRequest(Context context, String token){
         HttpUrl url = getBaseUrlBuilder()
                 .addPathSegments("auth/facebook/token")
                 .build();
         RequestBody body = new FormBody.Builder()
-                .add("access_token", token.getToken())
+                .add("access_token", token)
                 .build();
         request = new Request.Builder()
                 .url(url)

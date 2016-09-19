@@ -30,13 +30,15 @@ import postme.tacademy.com.postme.request.NetworkRequest;
 public class CokCreateDialog extends Dialog {
 
     String address, latitude, longitude;
+    MapFragment mapFragment;
 
     EditText editCok;
-    public CokCreateDialog(Context context, String address, String latitude, String longitude) {
+    public CokCreateDialog(Context context, String address, String latitude, String longitude, MapFragment mapFragment) {
         super(context);
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.mapFragment = mapFragment;
     }
 
     @Override
@@ -75,7 +77,7 @@ public class CokCreateDialog extends Dialog {
                 if (result.getResult().getMessage().equals("1")) {
                     Toast.makeText(getContext(), "콕을 생성하였습니다. 글 작성 페이지로 이동합니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), WritingActivity.class);
-                    getContext().startActivity(intent);
+                    mapFragment.startActivityForResult(intent, 0);
                     CokCreateDialog.this.dismiss();
                 }else{
                     Toast.makeText(getContext(), "다른 콕이 이미 생성 되었습니다. 글 작성 페이지로 이동됩니다.", Toast.LENGTH_SHORT).show();

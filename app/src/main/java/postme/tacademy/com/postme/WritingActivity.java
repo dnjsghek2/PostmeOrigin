@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -42,6 +43,8 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,7 +73,7 @@ public class WritingActivity extends AppCompatActivity implements
     RadioGroup feeling_radio_group;
     RadioGroup situation_radio_group;
     ImageView pictureview;
-    FrameLayout picturelayout;
+    RelativeLayout picturelayout;
     EditText contentstext;
     Location location;
     RadioButton joy, pleasure, sorrow, anger;
@@ -88,7 +91,7 @@ public class WritingActivity extends AppCompatActivity implements
     MapFragment fragment;
     LinearLayout maplayout;
     File snapshotfile;
-
+    ImageView img;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,12 +102,14 @@ public class WritingActivity extends AppCompatActivity implements
                 .findFragmentById(R.id.writing_location_map);
         fragment.getMapAsync(this);
 
-        picturelayout = (FrameLayout) findViewById(R.id.picture_layout);
+        picturelayout = (RelativeLayout) findViewById(R.id.picture_layout);
         contentstext = (EditText) findViewById(R.id.contents_text);
         joy = (RadioButton) findViewById(R.id.joy);
         pleasure = (RadioButton) findViewById(R.id.pleasure);
         sorrow = (RadioButton) findViewById(R.id.sorrow);
         anger = (RadioButton) findViewById(R.id.anger);
+
+        img = (ImageView)findViewById(R.id.radio2);
 
         feeling_radio_group = (RadioGroup) findViewById(R.id.feeling_radio);
         feeling_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -113,33 +118,31 @@ public class WritingActivity extends AppCompatActivity implements
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.joy:
-                        feeling_btn.setBackgroundResource(R.drawable.radio);
+                        feeling_btn.setBackgroundResource(R.drawable.joy);
                         feeling_item_Checked = true;
                         feeling_item = "1";
                         break;
 
                     case R.id.anger:
-                        feeling_btn.setBackgroundResource(R.drawable.radio1);
+                        feeling_btn.setBackgroundResource(R.drawable.anger);
                         feeling_item_Checked = true;
                         feeling_item = "2";
                         break;
 
                     case R.id.sorrow:
-                        feeling_btn.setBackgroundResource(R.drawable.radio2);
+                        feeling_btn.setBackgroundResource(R.drawable.sorrow);
                         feeling_item_Checked = true;
                         feeling_item = "3";
                         break;
 
                     case R.id.pleasure:
-                        feeling_btn.setBackgroundResource(R.drawable.radio3);
+                        feeling_btn.setBackgroundResource(R.drawable.pleasure);
                         feeling_item = "4";
                         feeling_item_Checked = true;
                         break;
                 }
             }
         });
-
-
         primavera = (RadioButton) findViewById(R.id.state_primavera);
         verano = (RadioButton) findViewById(R.id.state_verano);
         otono = (RadioButton) findViewById(R.id.state_otono);
@@ -156,106 +159,58 @@ public class WritingActivity extends AppCompatActivity implements
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.state_primavera:
-                        primavera.setBackgroundResource(R.drawable.state_primavera_onclick);
-                        verano.setBackgroundResource(R.drawable.state_verano);
-                        otono.setBackgroundResource(R.drawable.state_otono);
-                        invierno.setBackgroundResource(R.drawable.state_invierno);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
-                        matzip.setBackgroundResource(R.drawable.state_matzip);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
-                        natural.setBackgroundResource(R.drawable.state_natural);
-                        situation_btn.setBackgroundResource(R.drawable.state_primavera_onclick);
+                        img.setImageResource(R.drawable.spring_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "1";
                         break;
                     case R.id.state_verano:
-                        primavera.setBackgroundResource(R.drawable.state_primavera);
-                        verano.setBackgroundResource(R.drawable.state_verano_onclick);
-                        otono.setBackgroundResource(R.drawable.state_otono);
-                        invierno.setBackgroundResource(R.drawable.state_invierno);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
-                        matzip.setBackgroundResource(R.drawable.state_matzip);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
-                        natural.setBackgroundResource(R.drawable.state_natural);
-                        situation_btn.setBackgroundResource(R.drawable.state_verano_onclick);
+                        img.setImageResource(R.drawable.summer_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "2";
                         break;
                     case R.id.state_otono:
-                        primavera.setBackgroundResource(R.drawable.state_primavera);
-                        verano.setBackgroundResource(R.drawable.state_verano);
-                        otono.setBackgroundResource(R.drawable.state_otono_onclick);
-                        invierno.setBackgroundResource(R.drawable.state_invierno);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
-                        matzip.setBackgroundResource(R.drawable.state_matzip);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
-                        natural.setBackgroundResource(R.drawable.state_natural);
-                        situation_btn.setBackgroundResource(R.drawable.state_otono_onclick);
+                        img.setImageResource(R.drawable.autumn_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "3";
                         break;
                     case R.id.state_invierno:
-                        primavera.setBackgroundResource(R.drawable.state_primavera);
-                        verano.setBackgroundResource(R.drawable.state_verano);
-                        otono.setBackgroundResource(R.drawable.state_otono);
-                        invierno.setBackgroundResource(R.drawable.state_invierno_onclick);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
-                        matzip.setBackgroundResource(R.drawable.state_matzip);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
-                        natural.setBackgroundResource(R.drawable.state_natural);
-                        situation_btn.setBackgroundResource(R.drawable.state_invierno_onclick);
+                        img.setImageResource(R.drawable.winter_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "4";
                         break;
                     case R.id.state_bienlugar:
-                        primavera.setBackgroundResource(R.drawable.state_primavera);
-                        verano.setBackgroundResource(R.drawable.state_verano);
-                        otono.setBackgroundResource(R.drawable.state_otono);
-                        invierno.setBackgroundResource(R.drawable.state_invierno);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar_onclick);
-                        matzip.setBackgroundResource(R.drawable.state_matzip);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
-                        natural.setBackgroundResource(R.drawable.state_natural);
-                        situation_btn.setBackgroundResource(R.drawable.state_bienlugar_onclick);
+                        img.setImageResource(R.drawable.picture_of_good_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "5";
                         break;
                     case R.id.state_matzip:
-                        primavera.setBackgroundResource(R.drawable.state_primavera);
-                        verano.setBackgroundResource(R.drawable.state_verano);
-                        otono.setBackgroundResource(R.drawable.state_otono);
-                        invierno.setBackgroundResource(R.drawable.state_invierno);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
-                        matzip.setBackgroundResource(R.drawable.state_matzip_onclick);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
-                        natural.setBackgroundResource(R.drawable.state_natural);
-                        situation_btn.setBackgroundResource(R.drawable.state_matzip_onclick);
+                        img.setImageResource(R.drawable.meal_good_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "6";
                         break;
                     case R.id.state_pasajero:
-                        primavera.setBackgroundResource(R.drawable.state_primavera);
-                        verano.setBackgroundResource(R.drawable.state_verano);
-                        otono.setBackgroundResource(R.drawable.state_otono);
-                        invierno.setBackgroundResource(R.drawable.state_invierno);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
-                        matzip.setBackgroundResource(R.drawable.state_matzip);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero_onclick);
-                        natural.setBackgroundResource(R.drawable.state_natural);
-                        situation_btn.setBackgroundResource(R.drawable.state_pasajero_onclick);
+                        img.setImageResource(R.drawable.night_view_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "7";
                         break;
                     case R.id.state_natural:
-                        primavera.setBackgroundResource(R.drawable.state_primavera);
-                        verano.setBackgroundResource(R.drawable.state_verano);
-                        otono.setBackgroundResource(R.drawable.state_otono);
-                        invierno.setBackgroundResource(R.drawable.state_invierno);
-                        bienlugar.setBackgroundResource(R.drawable.state_bienlugar);
-                        matzip.setBackgroundResource(R.drawable.state_matzip);
-                        pasajero.setBackgroundResource(R.drawable.state_pasajero);
-                        natural.setBackgroundResource(R.drawable.state_natural_onclick);
-                        situation_btn.setBackgroundResource(R.drawable.state_natural_onclick);
+                        img.setImageResource(R.drawable.natural_on);
+                        img.setVisibility(View.VISIBLE);
+                        situation_btn.setBackgroundResource(R.drawable.radio2);
                         situation_item_Checked = true;
                         situation_item = "8";
                         break;
@@ -310,10 +265,11 @@ public class WritingActivity extends AppCompatActivity implements
             }
         });
 
-        Button picturedelete = (Button) findViewById(R.id.picture_delete);
+        TextView picturedelete = (TextView) findViewById(R.id.picture_delete);
         picturedelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                file = null;
                 pictureview.setImageBitmap(null);
                 picturelayout.setVisibility(View.GONE);
             }
@@ -367,7 +323,6 @@ public class WritingActivity extends AppCompatActivity implements
 
                     //이미지 데이터를 비트맵으로 받아온다.
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    Bitmap reimage_bitmap;
                     file = new File(getCacheDir(), "image.jpeg");
                     file.createNewFile();
                     OutputStream os = new FileOutputStream(file);
@@ -415,17 +370,7 @@ public class WritingActivity extends AppCompatActivity implements
         switch (id) {
             case R.id.writing_ok:
                 onSnapshot();
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LSB lsb = new LSB(WritingActivity.this);
-                        location = lsb.onLcation();
-                        String lat = String.valueOf(location.getLatitude());
-                        String lon = String.valueOf(location.getLongitude());
-                        onPost(contentstext.getText().toString(), file, feeling_item, "1", lat, lon);
-                    }
-                }, 1000);
+                checkfile();
                 break;
             case R.id.writing_cancel:
                 final WritingDialog writingDialog = new WritingDialog(this);
@@ -453,6 +398,7 @@ public class WritingActivity extends AppCompatActivity implements
                     file.delete();
                     snapshotfile.delete();
                 }
+                setResult(1);
                 finish();
             }
 
@@ -508,8 +454,6 @@ public class WritingActivity extends AppCompatActivity implements
                             try {
                                 out.close();
                                 snapshotcheck = true;
-                                Toast.makeText(WritingActivity.this, "saved.",
-                                        Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -519,4 +463,28 @@ public class WritingActivity extends AppCompatActivity implements
             });
         }
     }
+
+    private void checkfile() {
+        if (!snapshotcheck) {
+            nofile();
+        } else {
+            LSB lsb = new LSB(WritingActivity.this);
+            location = lsb.onLcation();
+            String lat = String.valueOf(location.getLatitude());
+            String lon = String.valueOf(location.getLongitude());
+            onPost(contentstext.getText().toString(), file, feeling_item, situation_item, lat, lon);
+        }
+    }
+
+    private void nofile() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkfile();
+            }
+        }, 1000);
+    }
+
+
 }

@@ -13,7 +13,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -75,7 +76,7 @@ public class MapFragment extends Fragment implements
     static public MenuInflater menuInflater;
     static public FloatingActionButton fab;
     static public SupportMapFragment fragment;
-    static final LatLng SEOUL = new LatLng(37.56, 126.97);
+    static LatLng MYLOCATION;
     private GoogleMap googleMap;
     View relativeLayout;
     View view;
@@ -84,6 +85,11 @@ public class MapFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestLocationPermission();
+        }
     }
 
     @Override
@@ -110,7 +116,7 @@ public class MapFragment extends Fragment implements
                 }
             });
 
-            Button searchbtn = (Button) view.findViewById(R.id.search_btn);
+            ImageButton searchbtn = (ImageButton) view.findViewById(R.id.search_btn);
 
             searchbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -203,24 +209,25 @@ public class MapFragment extends Fragment implements
     public void onMapReady(GoogleMap Map) {
         //LOCATION 퍼미션 획득 과정
 
+        googleMap = Map;
+
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission();
         }
-        googleMap = Map;
         googleMap.setMyLocationEnabled(true);
+        //현재 좌표 얻기
+        LSB lsb = new LSB(getContext());
+        location = lsb.onLcation();
+        MYLOCATION = new LatLng(location.getLatitude(), location.getLongitude());
+
 
         //구글맵 회전 OFF
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setRotateGesturesEnabled(false);
-        //현재 좌표 얻기
-        LSB lsb = new LSB(getContext());
-        location = lsb.onLcation();
-
         //어플 실행시 현재 위치의 주변 콕 검색
         beginningCok(location);
-
         //콕 타이틀바 선택시 안에 있는 포스트 불러오기
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -231,17 +238,15 @@ public class MapFragment extends Fragment implements
                 startActivity(intent);
             }
         });
-        SEOUL.hashCode();
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 15));
+        MYLOCATION.hashCode();
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MYLOCATION, 15));
         zoomLevel = googleMap.getCameraPosition().zoom;
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
     }
 
     private void requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
-
         }
-
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, RC_LOCATION_PERMISSION);
     }
 
@@ -284,6 +289,14 @@ public class MapFragment extends Fragment implements
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1){
+            beginningCok(location);
+        }
     }
 
     //지정 위치와 키워드로 콕을 검색하는 메서드
@@ -343,13 +356,13 @@ public class MapFragment extends Fragment implements
 
                     String address = getAddress(getContext(), location.getLatitude(), location.getLongitude());
 
-                    final CokCreateDialog cokCreateDialog = new CokCreateDialog(getContext(), address, lat, lon);
+                    final CokCreateDialog cokCreateDialog = new CokCreateDialog(getContext(), address, lat, lon, MapFragment.this);
                     cokCreateDialog.show();
 
                 } else if (result.getResult().getMessage().equals("2")) {
                     Toast.makeText(getContext(), "가까운 콕에 포스트가 작성 됩니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), WritingActivity.class);
-                    getContext().startActivity(intent);
+                    startActivityForResult(intent, 0);
                 }
             }
 

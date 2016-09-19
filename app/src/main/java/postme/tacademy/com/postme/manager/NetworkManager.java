@@ -54,7 +54,7 @@ public class NetworkManager {
 
     private NetworkManager() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();  //클라이언트의 빌더 객체 생성
-        Context context = PostMeApplication.getContext();               //NetworkManager를 호출한 Context의 정보를 얻기
+        Context context = PostMeApplication.getInstance();               //NetworkManager를 호출한 Context의 정보를 얻기
         disableCertificateValidation(context, builder);
         ClearableCookieJar cookieJar =                              //쿠키 관리 메소드 생성
                 new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));

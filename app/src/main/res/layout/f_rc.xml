@@ -43,6 +43,7 @@
         android:id="@+id/his_radio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:visibility="visible">
         <RadioGroup
             android:id="@+id/history_radiogroup"
@@ -71,6 +72,11 @@
             android:layout_marginEnd="41dp"
             android:paddingLeft="10dp" />
         </RadioGroup>
+        <TextView
+            android:layout_below="@id/history_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"/>
     </RelativeLayout>
 
     <!--<android.support.v7.widget.Toolbar-->

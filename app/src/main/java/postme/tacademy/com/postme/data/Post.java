@@ -21,6 +21,24 @@ Post {
     private String post_id;
 
     private String ctime;
+    private int jjim;
+    private int jjimcount;
+
+    public int getJjimcount() {
+        return jjimcount;
+    }
+
+    public void setJjimcount(int jjimcount) {
+        this.jjimcount = jjimcount;
+    }
+
+    public int getJjim() {
+        return jjim;
+    }
+
+    public void setJjim(int jjim) {
+        this.jjim = jjim;
+    }
 
     public String getBody() {
         return body;
@@ -78,9 +96,13 @@ Post {
         this.ctime = ctime;
     }
 
-    public String getMap() {return map;}
+    public String getMap() {
+        return map;
+    }
 
-    public void setMap(String map) {this.map = map;}
+    public void setMap(String map) {
+        this.map = map;
+    }
 
 
     @Override

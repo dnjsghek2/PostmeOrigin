@@ -16,24 +16,33 @@ import postme.tacademy.com.postme.data.NetworkResultTemp;
 /**
  * Created by wonhochoi on 16. 9. 11..
  */
-public class JjimRequest extends AbstractRequest<NetworkResult<NetworkResultTemp>>{
+public class JjimRequest extends AbstractRequest<NetworkResult<NetworkResultTemp>> {
     Request request;
-    public JjimRequest(Context context, String post_id){
+
+    public JjimRequest(Context context, String post_id, boolean check) {
         HttpUrl url = getBaseUrlBuilder()
                 .addEncodedPathSegment("jjims")
                 .build();
         RequestBody body = new FormBody.Builder()
                 .add("post_id", post_id)
                 .build();
-        request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
+        if (check == true) {
+            request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+        } else {
+            request = new Request.Builder()
+                    .url(url)
+                    .delete(body)
+                    .build();
+        }
     }
 
     @Override
     protected Type getType() {
-        return new TypeToken<NetworkResult<NetworkResultTemp>>(){}.getType();
+        return new TypeToken<NetworkResult<NetworkResultTemp>>() {
+        }.getType();
     }
 
     @Override

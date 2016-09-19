@@ -3,20 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <LinearLayout
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="#888888"/>
-    <ImageView
-        android:id="@+id/server_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/nickname"
-        android:layout_below="@+id/nickname"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:adjustViewBounds="true"
-        android:scaleType="center" />
+        android:layout_height="14dp"
+        android:background="#cccccc" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,25 +15,27 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/jjim_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/jjimbtn"
-            android:text="1"/>
 
         <TextView
             android:id="@+id/card_view_button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/jjimbtn"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/jjim_count"
-            android:layout_toStartOf="@+id/jjim_count" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/jjimbtn" />
 
+        <TextView
+            android:id="@+id/jjim_count"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignTop="@+id/card_view_button2"
+            android:layout_toLeftOf="@+id/card_view_button2"
+            android:layout_toStartOf="@+id/card_view_button2"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/center"
@@ -53,21 +46,19 @@
 
         <ImageView
             android:id="@+id/his_feeling"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_alignTop="@+id/his_state"
-            android:layout_toLeftOf="@+id/center"
-            android:layout_toStartOf="@+id/center"
-            android:background="@android:color/holo_green_light" />
+            android:layout_centerHorizontal="true" />
 
         <ImageView
             android:id="@+id/his_state"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/card_view_button2"
-            android:layout_toEndOf="@+id/center"
-            android:layout_toRightOf="@+id/center"
-            android:background="@android:color/holo_green_light" />
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_below="@+id/jjim_count"
+            android:layout_marginLeft="27dp"
+            android:layout_toEndOf="@+id/local_view"
+            android:layout_toRightOf="@+id/local_view" />
 
         <TextView
             android:id="@+id/his_body"
@@ -76,33 +67,19 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/his_feeling"
-            android:gravity="center"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
-            android:layout_marginTop="30dp" />
-
-        <Button
-            android:id="@+id/local_btn"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/his_id"
-            android:layout_width="104dp"
-            android:layout_height="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/location_bottom"/>
+            android:layout_marginTop="30dp"
+            android:gravity="center" />
 
         <ImageView
-            android:id="@+id/local_view"
+            android:id="@+id/server_image"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/local_btn"
-            android:background="@drawable/mapimg"
-            android:visibility="gone" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/his_body"
+            android:layout_marginTop="16dp"
+            android:scaleType="center" />
+
 
         <TextView
             android:id="@+id/his_id"
@@ -110,7 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/his_body"
+            android:layout_below="@+id/server_image"
+            android:layout_marginLeft="27dp"
             android:layout_marginTop="20dp"
             android:text="아이디" />
 
@@ -121,7 +99,32 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/his_id"
+            android:layout_marginRight="27dp"
             android:text="작성일" />
+
+        <Button
+            android:id="@+id/local_btn"
+            android:layout_width="104dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/his_id"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="21dp"
+            android:background="@drawable/location_bottom" />
+
+        <ImageView
+            android:id="@+id/local_view"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/local_btn"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/mapimg"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>
