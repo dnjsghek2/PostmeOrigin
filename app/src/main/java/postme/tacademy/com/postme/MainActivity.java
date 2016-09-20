@@ -3,9 +3,7 @@ package postme.tacademy.com.postme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethod;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -18,19 +16,7 @@ import com.facebook.login.DefaultAudience;
 import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-
-
-import com.kakao.auth.ErrorCode;
-import com.kakao.auth.ISessionCallback;
-import com.kakao.auth.Session;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.LoginButton;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.kakao.usermgmt.callback.MeResponseCallback;
-import com.kakao.usermgmt.response.model.UserProfile;
-import com.kakao.util.exception.KakaoException;
-import com.kakao.util.helper.log.Logger;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 
@@ -48,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     LoginManager mLoginManager;
     ImageButton facebookButton;
     ImageButton kakaoButton;
-//    LoginButton kakoLogin;
+    //    LoginButton kakoLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,13 +106,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loginFacebook() {
+
+        final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        postme.tacademy.com.postme.gcm.PropertyManager.getInstance().setRegistrationToken(refreshedToken);
+
         mLoginManager.setDefaultAudience(DefaultAudience.FRIENDS);
         mLoginManager.setLoginBehavior(LoginBehavior.NATIVE_WITH_FALLBACK);
         mLoginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Toast.makeText(MainActivity.this, "login manager...", Toast.LENGTH_SHORT).show();
-                puttoken(AccessToken.getCurrentAccessToken().getToken());
+                puttoken(AccessToken.getCurrentAccessToken().getToken(), refreshedToken);
                 /*Intent intent = new Intent(MainActivity.this, ATActivity.class);
                 startActivity(intent);
                 finish();*/
@@ -185,21 +175,16 @@ public class MainActivity extends AppCompatActivity {
     }
 */
 
-    public void puttoken(String token) {
+    public void puttoken(String token, String fcmtoken) {
 
-        FacebookLoginRequest request = new FacebookLoginRequest(this, token);
+        FacebookLoginRequest request = new FacebookLoginRequest(this, token, fcmtoken);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
                 Toast.makeText(MainActivity.this,"Message : "+result.getResult().getMessage(), Toast.LENGTH_SHORT);
                 String facebookId = AccessToken.getCurrentAccessToken().getUserId();
                 PropertyManager.getInstance().setFacebookId(facebookId);
-                Intent intent;
-                if (result.getResult().getMessage().equals("1")) {
-                    intent = new Intent(MainActivity.this, ATActivity.class);
-                }else{
-                    intent = new Intent(MainActivity.this, TabActivity.class);
-                }
+                Intent intent = new Intent(MainActivity.this, ATActivity.class);
                 startActivity(intent);
                 finish();
             }

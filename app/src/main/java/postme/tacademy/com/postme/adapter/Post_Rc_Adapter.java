@@ -1,7 +1,6 @@
 package postme.tacademy.com.postme.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
@@ -22,11 +20,9 @@ import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.NetworkResultTemp;
 import postme.tacademy.com.postme.data.Post;
-import postme.tacademy.com.postme.data.PostList;
 import postme.tacademy.com.postme.manager.NetworkManager;
 import postme.tacademy.com.postme.request.JjimRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
-import postme.tacademy.com.postme.request.PostlistRequest;
 
 
 /**
@@ -180,24 +176,33 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
             button2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+//                    ContextCompat.getNoBackupFilesDir(context);
+//                    FirebaseMessaging.getInstance().subscribeToTopic("news");
+//                    FirebaseMessaging.getInstance().subscribeToTopic("news");
+//                    FirebaseInstanceId.getInstance().getToken();
+//                    PushRequest(toString());
+                    System.out.println("asdfadsfsdafasf");
                 }
             });
         }
-    }
 
-    void PostRequest(String Post_id) {
-        JjimRequest request = new JjimRequest(context, Post_id, true);
-        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<NetworkResultTemp>>() {
-            @Override
-            public void onSuccess(NetworkRequest<NetworkResult<NetworkResultTemp>> request, NetworkResult<NetworkResultTemp> result) {
-                Toast.makeText(context, "찜 완료", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onFail(NetworkRequest<NetworkResult<NetworkResultTemp>> request, int errorCode, String errorMessage, Throwable e) {
-                Toast.makeText(context, "찜 실패", Toast.LENGTH_SHORT).show();
-            }
-        });
+        void PostRequest(String Post_id) {
+            JjimRequest request = new JjimRequest(context, Post_id, true);
+            NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<NetworkResultTemp>>() {
+                @Override
+                public void onSuccess(NetworkRequest<NetworkResult<NetworkResultTemp>> request, NetworkResult<NetworkResultTemp> result) {
+                    Toast.makeText(context, "찜 완료", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFail(NetworkRequest<NetworkResult<NetworkResultTemp>> request, int errorCode, String errorMessage, Throwable e) {
+                    Toast.makeText(context, "찜 실패", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
     }
 }
+

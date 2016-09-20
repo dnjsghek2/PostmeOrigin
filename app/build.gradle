@@ -35,6 +35,7 @@ dependencies {
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile project(':com.skp.Tmap_1.0.43')
+    compile 'com.google.firebase:firebase-messaging:9.4.0'
 }
 
 
@@ -48,3 +49,5 @@ dependencies {
 dependencies {
     compile 'me.relex:circleindicator:1.2.1@aar'
 }
+
+apply plugin: 'com.google.gms.google-services'

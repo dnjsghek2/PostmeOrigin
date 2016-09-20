@@ -3,23 +3,7 @@ package postme.tacademy.com.postme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-
-import postme.tacademy.com.postme.data.Message;
-import postme.tacademy.com.postme.data.NetworkResult;
-import postme.tacademy.com.postme.manager.NetworkManager;
-import postme.tacademy.com.postme.manager.PropertyManager;
-import postme.tacademy.com.postme.request.FacebookLoginRequest;
-import postme.tacademy.com.postme.request.NetworkRequest;
 
 
 /**
@@ -54,8 +38,8 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
     }
-/*
-    private void loginSharedPreference() {
+
+  /*  private void loginSharedPreference() {
         if (isFacebookLogin()) {
             processFacebookLogin();
         } else {
@@ -70,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
             String token = accessToken.getToken();
-            FacebookLoginRequest request = new FacebookLoginRequest(this, token);
+            FacebookLoginRequest request = new FacebookLoginRequest(this, token, fcmtoken);
             NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
                 @Override
                 public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {

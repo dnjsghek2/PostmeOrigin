@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -25,7 +23,6 @@ import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.NetworkResultTemp;
 import postme.tacademy.com.postme.fragment.CH_PicksFragment;
 import postme.tacademy.com.postme.manager.NetworkManager;
-import postme.tacademy.com.postme.request.ImageRequest;
 import postme.tacademy.com.postme.request.JjimRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
 
@@ -40,6 +37,7 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
     public int TOTALPAGE = 0;
     public int CURRENTPAGE = 0;
     CH_PicksFragment ch_picksFragment;
+
     public CH_Pick_Rc_Adapter(Context context, List<Jjim> cards, OnItemTouchListener onItemTouchListener) {
         this.cards = cards;
         this.onItemTouchListener = onItemTouchListener;
@@ -142,6 +140,7 @@ public class CH_Pick_Rc_Adapter extends RecyclerView.Adapter<CH_Pick_Rc_Adapter.
             });
         }
     }
+
 
     @Override
     public int getItemCount() {

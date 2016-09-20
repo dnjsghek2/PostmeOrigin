@@ -1,7 +1,6 @@
 package postme.tacademy.com.postme.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,22 +13,22 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.data.History;
+import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.data.NetworkResultTemp;
 import postme.tacademy.com.postme.fragment.HistoryFragment;
 import postme.tacademy.com.postme.manager.NetworkManager;
-import postme.tacademy.com.postme.request.ImageRequest;
 import postme.tacademy.com.postme.request.JjimRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
+import postme.tacademy.com.postme.request.PushAlarma;
 
 
 /**
@@ -151,6 +150,23 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
         }
     }
 
+    void PushRequest(String Post_id) {
+        PushAlarma request = new PushAlarma(context, Post_id);
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
+            @Override
+            public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
+                FirebaseMessaging.getInstance().subscribeToTopic("news");
+                FirebaseInstanceId.getInstance().getToken();
+            }
+
+            @Override
+            public void onFail(NetworkRequest<NetworkResult<Message>> request, int errorCode, String errorMessage, Throwable e) {
+                Toast.makeText(context, "Push Faillllll", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
     @Override
     public int getItemCount() {
         return cards == null ? 0 : cards.size();
@@ -222,6 +238,9 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
                     });
                     viewHolder.jjimcount.setText("" + cards.get(position).getJjimcount());
                 }
+                PushRequest(cards.get(position).getPost_id());
+                FirebaseMessaging.getInstance().subscribeToTopic("news");
+                FirebaseInstanceId.getInstance().getToken();
             }
 
             @Override
