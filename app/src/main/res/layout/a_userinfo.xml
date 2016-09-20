@@ -31,7 +31,8 @@
         android:layout_centerHorizontal="true"
         android:textSize="13sp"
         android:layout_marginTop="50dp"
-        android:id="@+id/nicknameedt" />
+        android:id="@+id/nicknameedt"
+        android:maxLength="10" />
 
     <RadioGroup
         android:id="@+id/radiogroup_select"
@@ -66,14 +67,6 @@
             android:button="@drawable/woman_radio_btn"/>
     </RadioGroup>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_uinfo_select"
-        android:layout_above="@+id/btn_userinfo"
-        android:layout_centerHorizontal="true"
-        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -119,5 +112,15 @@
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="중복검사"
+        android:id="@+id/checkbtn"
+        android:layout_alignBottom="@+id/nicknameedt"
+        android:layout_alignRight="@+id/text_uinfo_welcome"
+        android:layout_alignEnd="@+id/text_uinfo_welcome" />
 
 </RelativeLayout>

@@ -194,7 +194,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Message : "+result.getResult().getMessage(), Toast.LENGTH_SHORT);
                 String facebookId = AccessToken.getCurrentAccessToken().getUserId();
                 PropertyManager.getInstance().setFacebookId(facebookId);
-                Intent intent = new Intent(MainActivity.this, ATActivity.class);
+                Intent intent;
+                if (result.getResult().getMessage().equals("1")) {
+                    intent = new Intent(MainActivity.this, ATActivity.class);
+                }else{
+                    intent = new Intent(MainActivity.this, TabActivity.class);
+                }
                 startActivity(intent);
                 finish();
             }

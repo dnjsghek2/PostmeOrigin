@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ import java.util.Locale;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import postme.tacademy.com.postme.EditFilter;
 import postme.tacademy.com.postme.LSB;
 import postme.tacademy.com.postme.MainActivity;
 import postme.tacademy.com.postme.data.Cok;
@@ -82,6 +85,7 @@ public class MapFragment extends Fragment implements
         return ourInstance;
     }
 
+    EditFilter editFilter;
     public static boolean[] checkitem = {true, false, false, false};
     Location location;
     static public Menu menu;
@@ -114,6 +118,7 @@ public class MapFragment extends Fragment implements
                     (SupportMapFragment) this.getChildFragmentManager()
                             .findFragmentById(R.id.map_fragment);
             fragment.getMapAsync(this);
+
             setHasOptionsMenu(true);
             fab = (FloatingActionButton) view.findViewById(R.id.fab_click);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -128,13 +133,19 @@ public class MapFragment extends Fragment implements
                 }
             });
 
-            ImageButton searchbtn = (ImageButton) view.findViewById(R.id.search_btn);
+            final EditText area_edit = (EditText) view.findViewById(R.id.edit_area);
+            editFilter = new EditFilter();
+            area_edit.setFilters(new InputFilter[]{editFilter.filterKor});
+            final EditText keyword_edit = (EditText) view.findViewById(R.id.edit_keyword);
 
+            ImageButton searchbtn = (ImageButton) view.findViewById(R.id.search_btn);
             searchbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     checkitem = new boolean[]{true, false, false, false};
-                    searchCok();
+                    String area = area_edit.getText().toString();
+                    String keyword = keyword_edit.getText().toString();
+                    searchCok(area, keyword);
                     menu.getItem(0).setVisible(checkitem[0]);
                     menu.getItem(1).setVisible(checkitem[1]);
                     menu.getItem(2).setVisible(checkitem[2]);
@@ -337,8 +348,8 @@ public class MapFragment extends Fragment implements
     }
 
     //지정 위치와 키워드로 콕을 검색하는 메서드
-    private void searchCok() {
-        MapsearchRequest request = new MapsearchRequest(getContext(), "어딘가", "검색중", 0, 10);
+    private void searchCok(String area, String keyword) {
+        MapsearchRequest request = new MapsearchRequest(getContext(), area, keyword);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<CokList>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<CokList>> request, NetworkResult<CokList> result) {

@@ -17,12 +17,11 @@ import postme.tacademy.com.postme.data.PostList;
  */
 public class MapsearchRequest extends AbstractRequest<NetworkResult<CokList>>{
     Request request;
-    public MapsearchRequest(Context context, String area, String  keyword, int currentPage, int itemPerPage){
+    public MapsearchRequest(Context context, String area, String  keyword){
         HttpUrl url = getBaseUrlBuilder()
                 .build();
         String getUrl = "coks?"
-                +"area="+area+"&keyword="+keyword
-                +"&currentPage="+currentPage +"&itemPerPage="+itemPerPage;
+                +"area="+area+"&keyword="+keyword;
         request = new Request.Builder()
                 .url(url+getUrl)
                 .build();

@@ -23,10 +23,10 @@ public class IdcheckRequest extends AbstractRequest<NetworkResult<Message>> {
 
     public IdcheckRequest(Context context, String nick) {
         HttpUrl url = getBaseUrlBuilder()
-                .addPathSegments("auth/local")
+                .addPathSegments("users")
                 .build();
         request = new Request.Builder()
-                .url(url+"nick"+nick)
+                .url(url+"?nickname="+nick)
                 .build();
     }
     @Override
