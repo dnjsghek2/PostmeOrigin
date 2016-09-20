@@ -56,9 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_below="@+id/jjim_count"
-            android:layout_marginLeft="27dp"
-            android:layout_toEndOf="@+id/local_view"
-            android:layout_toRightOf="@+id/local_view" />
+            android:layout_alignLeft="@+id/his_id"
+            android:layout_alignStart="@+id/his_id" />
 
         <TextView
             android:id="@+id/his_body"

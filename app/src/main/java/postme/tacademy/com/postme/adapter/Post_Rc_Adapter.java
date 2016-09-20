@@ -96,14 +96,9 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
                 viewHolder.state.setImageResource(R.drawable.natural_on);
                 break;
         }
-        switch (cards.get(i).getState()) {
-            case "2":
-                viewHolder.state.setImageResource(R.drawable.womanon);
-        }
-
-            Glide.with(context).load(cards.get(i).getImage())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(viewHolder.serverimage);
+        Glide.with(context).load(cards.get(i).getImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolder.serverimage);
 
         Glide.with(context).load(cards.get(i).getMap())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -136,7 +131,7 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
                 }
             });
         }
-        viewHolder.jjimcount.setText(""+cards.get(i).getJjimcount());
+        viewHolder.jjimcount.setText("" + cards.get(i).getJjimcount());
     }
 
     @Override
@@ -167,6 +162,7 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
             button2 = (TextView) itemView.findViewById(R.id.card_view_button2);
             serverimage = (ImageView) itemView.findViewById(R.id.server_image);
             localview = (ImageView) itemView.findViewById(R.id.local_view);
+
             locationbtn = (Button) itemView.findViewById(R.id.local_btn);
             locationbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -184,7 +180,7 @@ public class Post_Rc_Adapter extends RecyclerView.Adapter<Post_Rc_Adapter.ViewHo
             button2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemTouchListener.onButton2Click(v, getLayoutPosition());
+
                 }
             });
         }
