@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TabHost;
@@ -22,6 +23,7 @@ public class TabActivity extends AppCompatActivity {
 
     FragmentTabHost tabHost;
     private static final int RC_LOCATION_PERMISSION = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,5 +53,6 @@ public class TabActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
 
 }

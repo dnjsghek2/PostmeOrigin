@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
 
-    <postme.tacademy.com.postme.UserInfoEditText
+    <EditText
         android:layout_width="165dp"
         android:layout_height="wrap_content"
         android:hint="닉네임 영문, 숫자 5~8 글자"
@@ -31,8 +31,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="13sp"
         android:layout_marginTop="50dp"
-        android:id="@+id/view" />
-
+        android:id="@+id/nicknameedt" />
 
     <RadioGroup
         android:id="@+id/radiogroup_select"
@@ -93,9 +92,9 @@
         android:text="영문, 숫자 5~8글자"
         android:id="@+id/textView"
         android:textColor="#ff0000"
-        android:layout_below="@+id/view"
-        android:layout_alignLeft="@+id/view"
-        android:layout_alignStart="@+id/view" />
+        android:layout_below="@+id/nicknameedt"
+        android:layout_alignLeft="@+id/nicknameedt"
+        android:layout_alignStart="@+id/nicknameedt" />
 
     <Spinner
         android:layout_width="287dp"
@@ -109,5 +108,16 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#ff0000"
+        android:id="@+id/check"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 
 </RelativeLayout>

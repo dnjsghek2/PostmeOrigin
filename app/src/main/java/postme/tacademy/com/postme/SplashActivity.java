@@ -36,13 +36,14 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_splash);
 
+/*
         loginManager = LoginManager.getInstance();
         callbackManager = CallbackManager.Factory.create();
 
 
         loginSharedPreference();
+*/
 
-/*
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -52,9 +53,8 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_TIME_OUT);
-*/
     }
-
+/*
     private void loginSharedPreference() {
         if (isFacebookLogin()) {
             processFacebookLogin();
@@ -155,6 +155,6 @@ public class SplashActivity extends AppCompatActivity {
         }, 1000);
     }
 
-    Handler mHandler = new Handler(Looper.getMainLooper());
+    Handler mHandler = new Handler(Looper.getMainLooper());*/
 }
 

@@ -7,12 +7,15 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,12 +35,20 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.skp.Tmap.TMapAddressInfo;
+import com.skp.Tmap.TMapData;
+import com.skp.Tmap.TMapTapi;
+
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import postme.tacademy.com.postme.LSB;
+import postme.tacademy.com.postme.MainActivity;
 import postme.tacademy.com.postme.data.Cok;
 import postme.tacademy.com.postme.data.CokList;
 import postme.tacademy.com.postme.data.Message;
@@ -47,6 +58,7 @@ import postme.tacademy.com.postme.dialog.MapDialog;
 import postme.tacademy.com.postme.PostlistActivity;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.WritingActivity;
+import postme.tacademy.com.postme.manager.Geopence;
 import postme.tacademy.com.postme.manager.NetworkManager;
 import postme.tacademy.com.postme.request.CokcheckRequest;
 import postme.tacademy.com.postme.request.Map_Request;
@@ -132,6 +144,31 @@ public class MapFragment extends Fragment implements
                 }
 
 
+            });
+
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
+            view.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        if (relativeLayout.getVisibility() == View.VISIBLE) {
+                            relativeLayout.setVisibility(View.GONE);
+                            checkitem = new boolean[]{true, false, false, false};
+                            menu.getItem(0).setVisible(checkitem[0]);
+                            menu.getItem(1).setVisible(checkitem[1]);
+                            menu.getItem(2).setVisible(checkitem[2]);
+                            menu.getItem(3).setVisible(checkitem[3]);
+                            relativeLayout.setVisibility(view.GONE);
+                            fab.show();
+                        } else {
+
+                        }
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             });
         }
         return view; //완성된 VIEW return
@@ -294,7 +331,7 @@ public class MapFragment extends Fragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 1){
+        if (resultCode == 1) {
             beginningCok(location);
         }
     }
@@ -351,14 +388,8 @@ public class MapFragment extends Fragment implements
             public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
                 if (result.getResult().getMessage().equals("1")) {
                     Toast.makeText(getContext(), "소속될 콕이 없습니다. 콕을 생성 합니다..", Toast.LENGTH_SHORT).show();
-                    String lat = String.valueOf(location.getLatitude());
-                    String lon = String.valueOf(location.getLongitude());
-
-                    String address = getAddress(getContext(), location.getLatitude(), location.getLongitude());
-
-                    final CokCreateDialog cokCreateDialog = new CokCreateDialog(getContext(), address, lat, lon, MapFragment.this);
-                    cokCreateDialog.show();
-
+                    Geopence geopence = new Geopence();
+                    geopence.execute(getContext(), location.getLatitude(), location.getLongitude(), "A10");
                 } else if (result.getResult().getMessage().equals("2")) {
                     Toast.makeText(getContext(), "가까운 콕에 포스트가 작성 됩니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), WritingActivity.class);
@@ -373,29 +404,39 @@ public class MapFragment extends Fragment implements
         });
     }
 
-    public static String getAddress(Context mContext, double lat, double lng) {
-        String nowAddress = "현재 위치를 확인 할 수 없습니다.";
-        Geocoder geocoder = new Geocoder(mContext, Locale.KOREA);
-        List<Address> address;
-        try {
-            if (geocoder != null) {
-                //세번째 파라미터는 좌표에 대해 주소를 리턴 받는 갯수로
-                //한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 최대갯수 설정
-                address = geocoder.getFromLocation(lat, lng, 1);
+    public class Geopence extends AsyncTask<Object, Void, String> {
+        TMapAddressInfo tMapAddressInfo;
+        TMapData tMapData;
+        TMapTapi tmaptapi;
 
-                if (address != null && address.size() > 0) {
-                    // 주소 받아오기
-                    String currentLocationAddress = address.get(0).getAddressLine(0).toString();
-                    nowAddress = currentLocationAddress;
-
-                }
-            }
-
-        } catch (IOException e) {
-            Toast.makeText(mContext, "주소를 가져 올 수 없습니다.", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+        public Geopence() {
+            tMapData = new TMapData();
         }
-        return nowAddress;
-    }
 
+        @Override
+        public String doInBackground(Object... params) {
+            tmaptapi = new TMapTapi((Context) params[0]);
+            tmaptapi.setSKPMapAuthentication("91f5919e-a5b3-3cf2-a3f2-481b7f0b8c9f");
+            try {
+                tMapAddressInfo = tMapData.reverseGeocoding((double) params[1], (double) params[2], (String) params[3]);
+                Log.d("주소", "주소변환 : " + tMapAddressInfo.strFullAddress);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            }
+            return tMapAddressInfo.strFullAddress;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            final CokCreateDialog cokCreateDialog = new CokCreateDialog(
+                    getContext(), s, String.valueOf(location.getLatitude()),
+                    String.valueOf(location.getLongitude()), MapFragment.this);
+            cokCreateDialog.show();
+        }
+    }
 }

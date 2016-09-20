@@ -66,7 +66,6 @@ public class HistoryFragment extends Fragment {
     RelativeLayout relativeLayout_toolbar;
     RelativeLayout relativeLayout_radio;
     RecyclerView recyclerView;
-    History_Rc_Adapter getmAdapter;
     RadioGroup his_radioGroup;
     RadioButton his_radiobutton01;
     RadioButton his_radiobutton02;
@@ -187,7 +186,6 @@ public class HistoryFragment extends Fragment {
                 mAdapter.TOTALPAGE = TOTALPAGE = result.getResult().getTotalPage();
                 mAdapter.setList(mItems);
                 recyclerView.setAdapter(mAdapter);
-                Log.d("확인", "onRequest");
                 recyclerView.getLayoutManager().scrollToPosition(position);
                 onResume();
             }
@@ -207,20 +205,20 @@ public class HistoryFragment extends Fragment {
             public void onSuccess(NetworkRequest<NetworkResult<HistoryList>> request, NetworkResult<HistoryList> result) {
                 History[] history = result.getResult().getHistory();
 
-                if (imagemItems == null){
+                if (imagemItems == null) {
                     imagemItems = new ArrayList<History>();
                 }
 
-                    for (int i = 0; i < history.length; i++) {
-                        imagemItems.add(history[i]);
+                for (int i = 0; i < history.length; i++) {
+                    imagemItems.add(history[i]);
+                }
+                int imageposition = 0;
+                for (int i = 0; i < imagemItems.size(); i++) {
+                    if (imagemItems.get(imageposition).getImage() == null) {
+                        imagemItems.remove(imageposition);
+                        imageposition-=1;
                     }
-
-                for (int i = 0; i < imagemItems.size()+1; i++) {
-                    if (imagemItems.get(i).getImage() == null){
-                        imagemItems.remove(i);
-                    }else if (imagemItems.get(i).getImage().equals("null")){
-                        imagemItems.remove(i);
-                    }
+                    imageposition+=1;
                 }
 
                 mAdapter.CURRENTPAGE = CURRENTPAGE = result.getResult().getCurrentPage() + 1;

@@ -34,6 +34,7 @@ dependencies {
     compile 'com.begentgroup.xmlparser:simple-xml-parser:0.1.2'
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile project(':com.skp.Tmap_1.0.43')
 }
 
 

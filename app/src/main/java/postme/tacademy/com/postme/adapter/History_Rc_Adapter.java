@@ -40,7 +40,6 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
     private OnItemTouchListener onItemTouchListener;
     HistoryFragment historyFragment;
     Context context;
-    HashMap<String, Bitmap> imageset = new HashMap<String, Bitmap>();
     public int TOTALPAGE = 0;
     public int CURRENTPAGE = 0;
 
@@ -63,7 +62,7 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 
         if (i == cards.size() - 1) {
             if (CURRENTPAGE < TOTALPAGE + 1) {
@@ -138,10 +137,7 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
             viewHolder.button2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PostRequest(cards.get(i).getPost_id(), false);
-                    /*int count = Integer.valueOf(cards.get(i).getJjimcount());
-                    count = count - 1;
-                    cards.get(i).setJjim(String.valueOf(count));*/
+                    PostRequest(cards.get(i).getPost_id(), false, i, viewHolder);
                 }
             });
         } else {
@@ -149,12 +145,7 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
             viewHolder.button2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PostRequest(cards.get(i).getPost_id(), true);
-/*
-                    int count = Integer.valueOf(cards.get(i).getJjimcount());
-                    count = count + 1;
-                    cards.get(i).setJjim(String.valueOf(count));
-*/
+                    PostRequest(cards.get(i).getPost_id(), true, i, viewHolder);
                 }
             });
         }
@@ -202,12 +193,35 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
         }
     }
 
-    void PostRequest(String Post_id, boolean check) {
+    void PostRequest(String Post_id, final boolean check, final int position, final ViewHolder viewHolder) {
         JjimRequest request = new JjimRequest(context, Post_id, check);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<NetworkResultTemp>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<NetworkResultTemp>> request, NetworkResult<NetworkResultTemp> result) {
-                Toast.makeText(context, "찜 완료", Toast.LENGTH_SHORT).show();
+                if (check == true) {
+                    Toast.makeText(context, "찜 완료", Toast.LENGTH_SHORT).show();
+                    cards.get(position).setJjim(1);
+                    cards.get(position).setJjimcount(cards.get(position).getJjimcount() + 1);
+                    viewHolder.button2.setBackgroundResource(R.drawable.jjim_click);
+                    viewHolder.button2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PostRequest(cards.get(position).getPost_id(), false, position, viewHolder);
+                        }
+                    });
+                    viewHolder.jjimcount.setText("" + cards.get(position).getJjimcount());
+                } else {
+                    cards.get(position).setJjim(0);
+                    cards.get(position).setJjimcount(cards.get(position).getJjimcount() - 1);
+                    viewHolder.button2.setBackgroundResource(R.drawable.jjimbtn);
+                    viewHolder.button2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PostRequest(cards.get(position).getPost_id(), true, position, viewHolder);
+                        }
+                    });
+                    viewHolder.jjimcount.setText("" + cards.get(position).getJjimcount());
+                }
             }
 
             @Override
@@ -216,5 +230,4 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
             }
         });
     }
-
 }

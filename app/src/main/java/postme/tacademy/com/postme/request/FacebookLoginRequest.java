@@ -27,6 +27,7 @@ public class FacebookLoginRequest extends AbstractRequest<NetworkResult<Message>
                 .build();
         RequestBody body = new FormBody.Builder()
                 .add("access_token", token)
+                .add("registration_token", "1")
                 .build();
         request = new Request.Builder()
                 .url(url)
