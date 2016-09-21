@@ -16,14 +16,12 @@
 
 package postme.tacademy.com.postme.gcm;
 
-import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -35,8 +33,8 @@ import postme.tacademy.com.postme.adapter.CH_Pick_Rc_Adapter;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "MyFirebaseMsgService";
-    private MyFirebaseMessagingService context;
+//    private static final String TAG = "MyFirebaseMsgService";
+    String TAG;
 
     /**
      * Called when message is received.
@@ -46,6 +44,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        //포어그라운드에서 실행 시작
+        String title = "";
+        String message = "";
+        if( remoteMessage.getNotification() == null   ){
+            title = remoteMessage.getData().get("title");
+//            message = remoteMessage.getData().get("message");
+//            message = remoteMessage.getNotification().getBody();
+//            message = remoteMessage.getMessageId();
+            message = remoteMessage.getData().get("key1");
+        }
+        else{
+            title = remoteMessage.getNotification().getTitle();
+            message = remoteMessage.getNotification().getBody();
+        }
+        //포어그라운드에서 실행 끝
+
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages are handled
         // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
@@ -56,42 +70,32 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
         // [END_EXCLUDE]
 
-        this.context = this;
-        Intent alarm = new Intent(this.context, PushReceiver.class);
-        boolean alarmRunning = (PendingIntent.getBroadcast(this.context, 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
-        if (alarmRunning == false) {
-            PendingIntent pendingIntent01 = PendingIntent.getBroadcast(this.context, 0, alarm, 0);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 1800000, pendingIntent01);
+        // TODO(developer): Handle FCM messages here.
+        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
+        Log.d(title, "From: " + remoteMessage.getFrom());
+
+        // Check if message contains a data payload.
+        if (remoteMessage.getData().size() > 0) {
+            Log.d(message, "Message data payload: " + remoteMessage.getData());
+        }
+
+        // Check if message contains a notification payload.
+        if (remoteMessage.getNotification() != null) {
+            Log.d(message, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
 
-            // TODO(developer): Handle FCM messages here.
-            // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-            Log.d(TAG, "From: " + remoteMessage.getFrom());
+        sendNotification(message);
+        // Also if you intend on generating your own notifications as a result of a received FCM
+        // message, here is where that should be initiated. See sendNotification method below.
+    }
+    // [END receive_message]
 
-            // Check if message contains a data payload.
-            if (remoteMessage.getData().size() > 0) {
-                Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            }
-
-            // Check if message contains a notification payload.
-            if (remoteMessage.getNotification() != null) {
-                Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            }
-
-
-            sendNotification(TAG);
-            // Also if you intend on generating your own notifications as a result of a received FCM
-            // message, here is where that should be initiated. See sendNotification method below.
-        }
-        // [END receive_message]
-
-        /**
-         * Create and show a simple notification containing the received FCM message.
-         *
-         * @param messageBody FCM message body received.
-         */
+    /**
+     * Create and show a simple notification containing the received FCM message.
+     *
+     * @param messageBody FCM message body received.
+     */
 
     private void sendNotification(String messageBody) {
         Intent intent = new Intent(this, CH_Pick_Rc_Adapter.class);
@@ -102,7 +106,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_stat_ic_notification)
-                .setContentTitle("FCM Message")
+                .setContentTitle("푸시푸시 베이베")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
