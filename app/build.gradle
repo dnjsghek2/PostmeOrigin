@@ -36,6 +36,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile project(':com.skp.Tmap_1.0.43')
     compile 'com.google.firebase:firebase-messaging:9.4.0'
+    compile 'com.github.brnunes:swipeablerecyclerview:1.0.2'
 }
 
 

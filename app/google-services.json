@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "158680424470",
+    "firebase_url": "https://postme-1385.firebaseio.com",
+    "project_id": "postme-1385",
+    "storage_bucket": "postme-1385.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158680424470:android:718ae8818b36826b",
+        "android_client_info": {
+          "package_name": "postme.tacademy.com.postme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158680424470-2qomlq2q6oov9ocia07adohri7ofisof.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "158680424470-2qhopa8v7d0b9v5fttt0ut5a1tphjckl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADgv_IIYThbJHV9Z4d26LwKcLcMGOcSu0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

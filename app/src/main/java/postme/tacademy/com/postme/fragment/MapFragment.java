@@ -134,8 +134,8 @@ public class MapFragment extends Fragment implements
             });
 
             final EditText area_edit = (EditText) view.findViewById(R.id.edit_area);
-            editFilter = new EditFilter();
-            area_edit.setFilters(new InputFilter[]{editFilter.filterKor});
+          //  editFilter = new EditFilter();
+          //   area_edit.setFilters(new InputFilter[]{editFilter.filterKor});
             final EditText keyword_edit = (EditText) view.findViewById(R.id.edit_keyword);
 
             ImageButton searchbtn = (ImageButton) view.findViewById(R.id.search_btn);

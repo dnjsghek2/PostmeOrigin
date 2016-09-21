@@ -23,6 +23,8 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -227,6 +229,39 @@ public class HistoryFragment extends Fragment {
                 recyclerView.setAdapter(mAdapter);
                 Log.d("확인", "onRequest02");
                 recyclerView.getLayoutManager().scrollToPosition(position);
+
+                SwipeableRecyclerViewTouchListener swipeTouchListener =
+                        new SwipeableRecyclerViewTouchListener(recyclerView,
+                                new SwipeableRecyclerViewTouchListener.SwipeListener() {
+                                    @Override
+                                    public boolean canSwipeLeft(int position) {
+                                        return true;
+                                    }
+
+                                    @Override
+                                    public boolean canSwipeRight(int position) {
+                                        return true;
+                                    }
+
+                                    @Override
+                                    public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                        for (int position : reverseSortedPositions) {
+                                            mItems.remove(position);
+                                            mAdapter.notifyItemRemoved(position);
+                                        }
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                        for (int position : reverseSortedPositions) {
+                                            mItems.remove(position);
+                                            mAdapter.notifyItemRemoved(position);
+                                        }
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                recyclerView.addOnItemTouchListener(swipeTouchListener);
                 onResume();
             }
 
