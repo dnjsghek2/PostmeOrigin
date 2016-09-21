@@ -23,7 +23,7 @@ public class BackgroundService extends Service {
     @Override
     public void onCreate() {
         this.context = this;
-        this.isRunning = false;
+        this.isRunning = true;
         this.backgroundThread = new Thread(myTask);
     }
 
@@ -36,7 +36,7 @@ public class BackgroundService extends Service {
 
     @Override
     public void onDestroy() {
-        this.isRunning = false;
+        this.isRunning = true;
     }
 
     @Override
