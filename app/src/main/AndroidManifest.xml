@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -24,21 +24,19 @@
         <meta-data
             android:name="xxx"
             android:value="xxx" />
-        <!--
-                        &lt;!&ndash; kakao mata &ndash;&gt;
-                        <meta-data
-                            android:name="com.kakao.sdk.AppKey"
-                            android:value="@string/koko_api_key" />
-        -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/koko_api_key" />
 
         <!-- facebook mata -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".TabActivity"
+        <activity
+            android:name=".TabActivity"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         //스플레쉬 액티비티 추가
         <activity
             android:name=".SplashActivity"
@@ -49,36 +47,45 @@
             </intent-filter>
         </activity>
         //인텐트 필터 옮김
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ATActivity"
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ATActivity"
             android:label="ATActivity"
-            android:theme="@style/CustomAction"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/CustomAction" />
 
-        <activity android:name=".UserInfoActivity"
-            android:theme="@style/CustomAction"/>
+        <activity
+            android:name=".UserInfoActivity"
+            android:theme="@style/CustomAction" />
 
-        <activity android:name=".WritingActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".WritingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".PostlistActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".PostlistActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".fragment.SettingFragmentUserInfo"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".fragment.SettingFragmentUserInfo"
+            android:theme="@style/AppTheme" />
 
-        <activity android:name=".fragment.SettingNickName"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".fragment.SettingNickName"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".fragment.SettingFragmentHelp"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".fragment.SettingFragmentHelp"
+            android:theme="@style/AppTheme" />
 
-        <activity android:name=".fragment.SettingFragmentInformation"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".fragment.SettingFragmentInformation"
+            android:theme="@style/AppTheme" />
 
-        <activity android:name=".LocalLoginActivity"/>
-        
+        <activity android:name=".LocalLoginActivity" />
+
         <!--
 
         <activity
@@ -92,6 +99,30 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!--gcm-->
+        <activity android:name=".gcm.FireActivity"
+            android:exported="true"/>
+
+        <!-- [START firebase_service] -->
+        <service
+            android:name=".gcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
+        <!-- [START firebase_iid_service] -->
+        <service
+            android:name=".gcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END firebase_iid_service] -->
+
+        <service android:name=".gcm.BackgroundService" />
+        <receiver android:name=".gcm.PushReceiver"></receiver>
 
     </application>
 

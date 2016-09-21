@@ -34,6 +34,7 @@ import postme.tacademy.com.postme.adapter.CH_Pick_Rc_Adapter;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+    private MyFirebaseMessagingService context;
 
     /**
      * Called when message is received.
@@ -80,6 +81,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody) {
+        this.context = this;
+        Intent pushreciever = new Intent(this.context, PushReceiver.class);
         Intent intent = new Intent(this, CH_Pick_Rc_Adapter.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
