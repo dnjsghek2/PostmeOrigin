@@ -136,11 +136,12 @@ public class PostlistActivity extends AppCompatActivity {
                 int age30 = Integer.valueOf(result.getResult().getAge().getAges_30());
                 int age40 = Integer.valueOf(result.getResult().getAge().getAges_40());
                 int age50 = Integer.valueOf(result.getResult().getAge().getAges_50());
+                int man = Integer.valueOf(result.getResult().getGender().getMale());
+                int woman = Integer.valueOf(result.getResult().getGender().getFemale());
 
 
 
-
-                stastics(age10, age20, age30, age40, age50, 1, 1);
+                stastics(age10, age20, age30, age40, age50, man, woman);
             }
 
             @Override
@@ -231,7 +232,7 @@ public class PostlistActivity extends AppCompatActivity {
             case 10: age50_img.setImageResource(R.drawable.age_50_100); break;
         }
 
-/*        switch (man / 10){
+        switch (man / 10){
             case 0: break;
             case 1: man_stats.setImageResource(R.drawable.graph_man_10);
             case 2: man_stats.setImageResource(R.drawable.graph_man_20);
@@ -257,6 +258,6 @@ public class PostlistActivity extends AppCompatActivity {
             case 8: woman_stats.setImageResource(R.drawable.graph_woman_80);
             case 9: woman_stats.setImageResource(R.drawable.graph_woman_90);
             case 10: woman_stats.setImageResource(R.drawable.graph_woman_100);
-        }*/
+        }
     }
 }
