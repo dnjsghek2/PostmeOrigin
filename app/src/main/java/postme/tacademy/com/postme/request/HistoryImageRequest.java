@@ -1,6 +1,7 @@
 package postme.tacademy.com.postme.request;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -14,13 +15,13 @@ import postme.tacademy.com.postme.data.NetworkResult;
 /**
  * Created by Monkey on 2016. 9. 4..
  */
-public class HistoryRequest extends AbstractRequest<NetworkResult<HistoryList>>{
+public class HistoryImageRequest extends AbstractRequest<NetworkResult<HistoryList>>{
     Request request;
-    public HistoryRequest(Context context, int currentPage, int itemPerPage){
+    public HistoryImageRequest(Context context, int currentPage, int itemPerPage){
         HttpUrl url = getBaseUrlBuilder()
                 .build();
-        String getUrl = "users/me/posts?"
-                +"&currentPage="+currentPage +"&itemPerPage="+itemPerPage;
+        String getUrl = "users/me/posts?action=image"+"&currentPage="+currentPage +"&itemPerPage="+itemPerPage;
+        Log.d("TAG_D", "URL : "+getUrl);
         request = new Request.Builder()
                 .url(url+getUrl)
                 .build();

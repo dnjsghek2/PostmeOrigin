@@ -35,8 +35,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterItem;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.ClusterRenderer;
 import com.skp.Tmap.TMapAddressInfo;
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapTapi;
@@ -54,8 +59,10 @@ import postme.tacademy.com.postme.LSB;
 import postme.tacademy.com.postme.MainActivity;
 import postme.tacademy.com.postme.data.Cok;
 import postme.tacademy.com.postme.data.CokList;
+import postme.tacademy.com.postme.data.CokRenderer;
 import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
+import postme.tacademy.com.postme.data.RendererItem;
 import postme.tacademy.com.postme.dialog.CokCreateDialog;
 import postme.tacademy.com.postme.dialog.MapDialog;
 import postme.tacademy.com.postme.PostlistActivity;
@@ -68,6 +75,8 @@ import postme.tacademy.com.postme.request.Map_Request;
 import postme.tacademy.com.postme.request.MapsearchRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 
 /**
  * Created by wonhochoi on 2016. 8. 4..
@@ -77,14 +86,17 @@ public class MapFragment extends Fragment implements
         GoogleMap.OnMapClickListener,         //맵 클릭시 이벤트 처리
         GoogleMap.OnMarkerClickListener,      //마커 클릭시 이벤트 처리
         GoogleMap.OnInfoWindowClickListener,  //Infowindow 클릭시 이벤트 처리
-        GoogleMap.OnMarkerDragListener {
+        GoogleMap.OnMarkerDragListener,
+        ClusterManager.OnClusterClickListener
+{
 
     private static MapFragment ourInstance = new MapFragment();
 
     public static MapFragment getInstance() {
         return ourInstance;
     }
-
+    ClusterManager<RendererItem> mClusterManager;
+    ClusterRenderer clusterRenderer;
     EditFilter editFilter;
     public static boolean[] checkitem = {true, false, false, false};
     Location location;
@@ -281,14 +293,17 @@ public class MapFragment extends Fragment implements
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Intent intent = new Intent(getContext(), PostlistActivity.class);
-                intent.putExtra("COK_INFO", (int) marker.getTag());
                 intent.putExtra("COK_NAME", marker.getTitle());
+                intent.putExtra("COK_INFO", (int) marker.getTag());
                 startActivity(intent);
             }
         });
         MYLOCATION.hashCode();
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MYLOCATION, 15));
         zoomLevel = googleMap.getCameraPosition().zoom;
+        mClusterManager = new ClusterManager<RendererItem>(getContext(), googleMap);
+        mClusterManager.setRenderer(new CokRenderer(getContext(), googleMap, mClusterManager));
+        googleMap.setOnCameraChangeListener(mClusterManager);
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
     }
 
@@ -376,11 +391,14 @@ public class MapFragment extends Fragment implements
     }
 
     public void searchMarker(Cok cok) {
+        mClusterManager.addItem(new RendererItem(cok));
+/*
         MarkerOptions options = new MarkerOptions();
         options.position(new LatLng(cok.getLatitude(), cok.getLongitude()));
         options.anchor(0.5f, 1);
         options.title(cok.getCok_name());
         googleMap.addMarker(options).setTag(cok.getCok_id());
+*/
     }
 
     @Override
@@ -413,6 +431,29 @@ public class MapFragment extends Fragment implements
 
             }
         });
+    }
+
+    @Override
+    public boolean onClusterClick(Cluster cluster) {
+        // Show a toast with some info when the cluster is clicked.
+
+        // Zoom in the cluster. Need to create LatLngBounds and including all the cluster items
+        // inside of bounds, then animate to center of the bounds.
+
+        // Create the builder to collect all essential cluster items for the bounds.
+        LatLngBounds.Builder builder = LatLngBounds.builder();
+        // Get the LatLngBounds
+        final LatLngBounds bounds = builder.build();
+        Log.d("클러스터", "실행");
+        // Animate camera to the bounds
+        try {
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+            Log.d("클러스터", "실행");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
     public class Geopence extends AsyncTask<Object, Void, String> {

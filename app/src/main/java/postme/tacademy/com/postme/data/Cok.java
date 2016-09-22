@@ -1,9 +1,11 @@
 package postme.tacademy.com.postme.data;
 
+import com.google.maps.android.clustering.ClusterItem;
+
 /**
  * Created by wonhochoi on 16. 8. 31..
  */
-public class Cok {
+public class Cok{
     private int cok_id;
     private String cok_name;
     private String address;

@@ -26,26 +26,20 @@ import android.widget.Toast;
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Predicate;
-
 
 import postme.tacademy.com.postme.Interface.OnItemTouchListener;
 import postme.tacademy.com.postme.R;
 import postme.tacademy.com.postme.adapter.History_Rc_Adapter;
 import postme.tacademy.com.postme.data.History;
 import postme.tacademy.com.postme.data.HistoryList;
+import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
 import postme.tacademy.com.postme.manager.NetworkManager;
 import postme.tacademy.com.postme.request.AbstractRequest;
+import postme.tacademy.com.postme.request.HistoryImageRequest;
 import postme.tacademy.com.postme.request.HistoryRequest;
 import postme.tacademy.com.postme.request.NetworkRequest;
+import postme.tacademy.com.postme.request.PostdeleteRequest;
 
 
 /**
@@ -56,21 +50,26 @@ public class HistoryFragment extends Fragment {
     private int ITEMPERPAGE = 10;
     private int CURRENTPAGE = 0;
     private int TOTALPAGE = 0;
+    private int CURRENTPAGEIMG = 0;
 
     History_Rc_Adapter mAdapter;
     ArrayList<History> mItems;
     ArrayList<History> imagemItems;
+    ArrayList<History> items;
+
     //    Toolbar toolbar;
     ImageView imageView;
     EditText edittext01;
     EditText edittext02;
     public int position = 0;
+    public boolean IMAGECHECK = false;
     RelativeLayout relativeLayout_toolbar;
     RelativeLayout relativeLayout_radio;
     RecyclerView recyclerView;
     RadioGroup his_radioGroup;
     RadioButton his_radiobutton01;
     RadioButton his_radiobutton02;
+    SwipeableRecyclerViewTouchListener swipeTouchListener;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -87,17 +86,7 @@ public class HistoryFragment extends Fragment {
         };
         Log.d("확인", "onCreate");
         mAdapter = new History_Rc_Adapter(itemTouchListener, HistoryFragment.this, getContext());
-//        onRequest();
-
     }
-
-    //    @Override
-//    public void onClick(View v) {
-//        if (v.getId() == R.id.history_toolbar) {
-//            v.setVisibility(View.VISIBLE);
-//        }
-//    }
-
 
     @Override
     public void onResume() {
@@ -126,21 +115,16 @@ public class HistoryFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         his_radioGroup = (RadioGroup) view.findViewById(R.id.history_radiogroup);
-        his_radiobutton01 = (RadioButton) view.findViewById(R.id.history_radio01);
-        his_radiobutton01.setOnClickListener(new View.OnClickListener() {
+        his_radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                onRequest();
-            }
-        });
-        his_radiobutton02 = (RadioButton) view.findViewById(R.id.history_radio02);
-        his_radiobutton02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRequest02();
-            }
-        });
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.history_radio01 : onRequest(); break;
+                    case R.id.history_radio02 : onRequest02(); break;
+                }
 
+            }
+        });
         return view; //완성된 VIEW return
     }
 
@@ -175,21 +159,12 @@ public class HistoryFragment extends Fragment {
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<HistoryList>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<HistoryList>> request, NetworkResult<HistoryList> result) {
+                IMAGECHECK = false;
                 History[] history = result.getResult().getHistory();
-                if (mItems == null) {
-                    mItems = new ArrayList<History>();
-                }
 
-                for (int i = 0; i < history.length; i++) {
-                    mItems.add(history[i]);
-                }
-
-                mAdapter.CURRENTPAGE = CURRENTPAGE = result.getResult().getCurrentPage() + 1;
+                mAdapter.CURRENTPAGE = CURRENTPAGE = +1;
                 mAdapter.TOTALPAGE = TOTALPAGE = result.getResult().getTotalPage();
-                mAdapter.setList(mItems);
-                recyclerView.setAdapter(mAdapter);
-                recyclerView.getLayoutManager().scrollToPosition(position);
-                onResume();
+                postdelete(history, true);
             }
 
             @Override
@@ -197,78 +172,109 @@ public class HistoryFragment extends Fragment {
 
             }
         });
+        recyclerView.getLayoutManager().scrollToPosition(position);
     }
 
     public void onRequest02() {
-
-        HistoryRequest request = new HistoryRequest(getContext(), CURRENTPAGE, ITEMPERPAGE);
+        HistoryImageRequest request = new HistoryImageRequest(getContext(), CURRENTPAGEIMG, ITEMPERPAGE);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<HistoryList>>() {
             @Override
             public void onSuccess(NetworkRequest<NetworkResult<HistoryList>> request, NetworkResult<HistoryList> result) {
+                IMAGECHECK = true;
                 History[] history = result.getResult().getHistory();
 
-                if (imagemItems == null) {
-                    imagemItems = new ArrayList<History>();
-                }
-
-                for (int i = 0; i < history.length; i++) {
-                    imagemItems.add(history[i]);
-                }
-                int imageposition = 0;
-                for (int i = 0; i < imagemItems.size(); i++) {
-                    if (imagemItems.get(imageposition).getImage() == null) {
-                        imagemItems.remove(imageposition);
-                        imageposition-=1;
-                    }
-                    imageposition+=1;
-                }
-
-                mAdapter.CURRENTPAGE = CURRENTPAGE = result.getResult().getCurrentPage() + 1;
+                mAdapter.CURRENTPAGE = CURRENTPAGEIMG = +1;
                 mAdapter.TOTALPAGE = TOTALPAGE = result.getResult().getTotalPage();
-                mAdapter.setList(imagemItems);
-                recyclerView.setAdapter(mAdapter);
+                postdelete(history, false);
                 Log.d("확인", "onRequest02");
-                recyclerView.getLayoutManager().scrollToPosition(position);
-
-                SwipeableRecyclerViewTouchListener swipeTouchListener =
-                        new SwipeableRecyclerViewTouchListener(recyclerView,
-                                new SwipeableRecyclerViewTouchListener.SwipeListener() {
-                                    @Override
-                                    public boolean canSwipeLeft(int position) {
-                                        return true;
-                                    }
-
-                                    @Override
-                                    public boolean canSwipeRight(int position) {
-                                        return true;
-                                    }
-
-                                    @Override
-                                    public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
-                                        for (int position : reverseSortedPositions) {
-                                            mItems.remove(position);
-                                            mAdapter.notifyItemRemoved(position);
-                                        }
-                                        mAdapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
-                                        for (int position : reverseSortedPositions) {
-                                            mItems.remove(position);
-                                            mAdapter.notifyItemRemoved(position);
-                                        }
-                                        mAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                recyclerView.addOnItemTouchListener(swipeTouchListener);
-                onResume();
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFail(NetworkRequest<NetworkResult<HistoryList>> request, int errorCode, String errorMessage, Throwable e) {
 
             }
+
+        });
+        recyclerView.getLayoutManager().scrollToPosition(position);
+    }
+
+    public void postdelete(History[] mItems, boolean check) {
+        items = addList(mItems, check);
+        mAdapter.setList(items);
+        recyclerView.setAdapter(mAdapter);
+        swipeTouchListener = null;
+        swipeTouchListener =
+                new SwipeableRecyclerViewTouchListener(recyclerView,
+                        new SwipeableRecyclerViewTouchListener.SwipeListener() {
+                            @Override
+                            public boolean canSwipeLeft(int position) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean canSwipeRight(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                            }
+
+                            @Override
+                            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    postdeleteRequset(items.get(position).getPost_id(), reverseSortedPositions);
+                                    Log.d("스와이프", "실행");
+                                }
+                            }
+                        });
+        recyclerView.addOnItemTouchListener(swipeTouchListener);
+    }
+
+    ArrayList<History> addList(History[] history, boolean check) {
+        ArrayList<History> items;
+        if (check) {
+            if (mItems == null) {
+                mItems = new ArrayList<History>();
+            }
+
+            for (int i = 0; i < history.length; i++) {
+                mItems.add(history[i]);
+            }
+            items = mItems;
+        } else {
+            if (imagemItems == null) {
+                imagemItems = new ArrayList<History>();
+            }
+            for (int i = 0; i < history.length; i++) {
+                imagemItems.add(history[i]);
+            }
+            items = imagemItems;
+        }
+        return items;
+    }
+
+    void postdeleteRequset(String postid, final int[] reverseSortedPositions) {
+        Log.d("postdeleteRequset", "살행");
+        PostdeleteRequest request = new PostdeleteRequest(getContext(), postid);
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<NetworkResult<Message>>() {
+            @Override
+            public void onSuccess(NetworkRequest<NetworkResult<Message>> request, NetworkResult<Message> result) {
+                for (int position : reverseSortedPositions) {
+                    items.remove(position);
+                    mAdapter.notifyItemRemoved(position);
+                    mAdapter.setList(items);
+                    recyclerView.setAdapter(mAdapter);
+                }
+
+            }
+
+            @Override
+            public void onFail(NetworkRequest<NetworkResult<Message>> request, int errorCode, String errorMessage, Throwable e) {
+
+            }
+
         });
     }
 }

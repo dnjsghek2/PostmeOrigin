@@ -20,7 +20,7 @@ public class StatisticsRequest extends AbstractRequest<NetworkResult<Statistics>
     public StatisticsRequest(Context context, int cokid){
         HttpUrl url = getBaseUrlBuilder()
                 .build();
-        String getUrl = "coks/" + cokid + "/statistics?";
+        String getUrl = "coks/" + cokid + "/statistics";
         request = new Request.Builder()
                 .url(url+getUrl)
                 .build();

@@ -64,10 +64,16 @@ public class History_Rc_Adapter extends RecyclerView.Adapter<History_Rc_Adapter.
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 
         if (i == cards.size() - 1) {
-            if (CURRENTPAGE < TOTALPAGE + 1) {
-                Log.d("page", "TOTAL : " + TOTALPAGE + " CURRUNT :  " + CURRENTPAGE);
-                historyFragment.position = cards.size() - 1;
-                historyFragment.onRequest();
+            if (historyFragment.IMAGECHECK == false) {
+                if (CURRENTPAGE < TOTALPAGE) {
+                    historyFragment.position = cards.size() - 1;
+                    historyFragment.onRequest();
+                }
+            } else if (historyFragment.IMAGECHECK == true) {
+                if (CURRENTPAGE < TOTALPAGE) {
+                    historyFragment.position = cards.size() - 1;
+                    historyFragment.onRequest02();
+                }
             }
         }
 

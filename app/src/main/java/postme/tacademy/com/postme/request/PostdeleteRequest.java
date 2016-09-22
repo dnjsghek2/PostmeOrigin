@@ -8,26 +8,32 @@ import java.lang.reflect.Type;
 
 import okhttp3.HttpUrl;
 import okhttp3.Request;
-import postme.tacademy.com.postme.data.HistoryList;
+import postme.tacademy.com.postme.data.JjimList;
+import postme.tacademy.com.postme.data.Message;
 import postme.tacademy.com.postme.data.NetworkResult;
 
 /**
- * Created by Monkey on 2016. 9. 4..
+ * Created by wonhochoi on 2016. 9. 21..
  */
-public class HistoryRequest extends AbstractRequest<NetworkResult<HistoryList>>{
+
+public class PostdeleteRequest extends AbstractRequest<NetworkResult<Message>> {
+
     Request request;
-    public HistoryRequest(Context context, int currentPage, int itemPerPage){
+
+    public PostdeleteRequest(Context context, String postid) {
         HttpUrl url = getBaseUrlBuilder()
                 .build();
-        String getUrl = "users/me/posts?"
-                +"&currentPage="+currentPage +"&itemPerPage="+itemPerPage;
+        String getUrl = "users/me/posts";
         request = new Request.Builder()
-                .url(url+getUrl)
+                .url(url + getUrl+"/" + postid)
+                .delete()
                 .build();
     }
+
     @Override
     protected Type getType() {
-        return new TypeToken<NetworkResult<HistoryList>>(){}.getType();
+        return new TypeToken<NetworkResult<Message>>() {
+        }.getType();
     }
 
     @Override

@@ -37,6 +37,7 @@ dependencies {
     compile project(':com.skp.Tmap_1.0.43')
     compile 'com.google.firebase:firebase-messaging:9.4.0'
     compile 'com.github.brnunes:swipeablerecyclerview:1.0.2'
+    compile 'com.google.maps.android:android-maps-utils:0.4'
 }
 
 
