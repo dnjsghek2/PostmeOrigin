@@ -113,11 +113,6 @@ public class MapFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestLocationPermission();
-        }
     }
 
     @Override
@@ -383,11 +378,7 @@ public class MapFragment extends Fragment implements
     }
 
     private void addMarker(Cok cok) {
-        MarkerOptions options = new MarkerOptions();
-        options.position(new LatLng(cok.getLatitude(), cok.getLongitude()));
-        options.anchor(0.5f, 1);
-        options.title(cok.getCok_name());
-        googleMap.addMarker(options).setTag(cok.getCok_id());
+        mClusterManager.addItem(new RendererItem(cok));
     }
 
     public void searchMarker(Cok cok) {

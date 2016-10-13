@@ -28,7 +28,7 @@
             android:id="@+id/a_postlist_iv"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@color/bggrey" />
+            android:background="#ffffffff" />
 
         <TextView
             android:id="@+id/textView3"
@@ -64,7 +64,9 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:paddingBottom="15dp"
-        android:paddingTop="15dp">
+        android:paddingTop="15dp"
+        android:visibility="gone"
+        >
 
         <RelativeLayout
             android:id="@+id/linearLayout3"
